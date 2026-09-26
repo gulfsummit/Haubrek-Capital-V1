@@ -22,7 +22,8 @@ class UpdateNavigation extends Command
         $links = $ws->navigation_links ?? [];
 
         foreach ($links as $i => $item) {
-            if (($item['route'] ?? '') === 'resources-center') {
+            if (($item['route'] ?? '') === 'resource-center') {
+                $links[$i]['has_dropdown']   = true;
                 $links[$i]['dropdown_items'] = [
                     ['route' => 'blog',          'title_en' => 'Blog / News',   'title_ar' => 'المدونة / الأخبار'],
                     ['route' => 'white-papers',  'title_en' => 'White Papers',  'title_ar' => 'الأوراق البيضاء'],
@@ -30,7 +31,7 @@ class UpdateNavigation extends Command
                     ['route' => 'monday-window', 'title_en' => 'Monday Window', 'title_ar' => 'نافذة الاثنين'],
                     ['route' => 'research',      'title_en' => 'Research',      'title_ar' => 'الأبحاث'],
                 ];
-                $this->info('Found resources-center entry, updating ' . count($links[$i]['dropdown_items']) . ' items...');
+                $this->info('Found resource-center entry, updating ' . count($links[$i]['dropdown_items']) . ' items...');
                 break;
             }
         }
