@@ -196,7 +196,7 @@
                                             @endif
                                         </a>
                                         @if(isset($navItem['has_dropdown']) && $navItem['has_dropdown'] && !empty($navItem['dropdown_items']))
-                                            <div class="absolute hidden group-hover:block bg-[#1a1f2e] min-w-[200px] py-2">
+                                            <div class="absolute top-full left-0 hidden group-hover:block bg-[#1a1f2e] min-w-[200px] py-2 z-50 shadow-lg">
                                                 @foreach($navItem['dropdown_items'] as $dropdownItem)
                                                     <a href="{{ route($dropdownItem['route']) }}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">
                                                         {{ app()->getLocale() == 'ar' ? ($dropdownItem['title_ar'] ?? $dropdownItem['title_en']) : $dropdownItem['title_en'] }}
@@ -218,7 +218,7 @@
                                         About us
                                         <i class="fas fa-caret-down text-[0.9375rem] transition-transform duration-200 group-hover:rotate-180 flex items-center nav-header-flex"></i>
                                     </a>
-                                    <div class="absolute hidden group-hover:block bg-[#1a1f2e] min-w-[200px] py-2">
+                                    <div class="absolute top-full left-0 hidden group-hover:block bg-[#1a1f2e] min-w-[200px] py-2 z-50 shadow-lg">
                                         <a href="{{route('teams')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">Board of Directors</a>
                                         <a href="{{route('app')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">App</a>
                                     </div>
@@ -228,7 +228,7 @@
                                         Services
                                         <i class="fas fa-caret-down text-[0.9375rem] transition-transform duration-200 group-hover:rotate-180 flex items-center nav-header-flex"></i>
                                     </a>
-                                    <div class="absolute hidden group-hover:block bg-[#1a1f2e] min-w-[200px] py-2">
+                                    <div class="absolute top-full left-0 hidden group-hover:block bg-[#1a1f2e] min-w-[200px] py-2 z-50 shadow-lg">
                                         <a href="{{route('governance-services')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">
                                             Governance Services
                                         </a>
@@ -246,7 +246,7 @@
                                         Resources Center
                                         <i class="fas fa-caret-down text-[0.9375rem] transition-transform duration-200 group-hover:rotate-180 flex items-center nav-header-flex"></i>
                                     </a>
-                                    <div class="absolute hidden group-hover:block bg-[#1a1f2e] min-w-[200px] py-2">
+                                    <div class="absolute top-full left-0 hidden group-hover:block bg-[#1a1f2e] min-w-[200px] py-2 z-50 shadow-lg">
                                         <a href="{{route('blog')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">{{ app()->getLocale() == 'ar' ? 'المدونة' : 'Blog / News' }}</a>
                                         <a href="{{route('white-papers')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">{{ app()->getLocale() == 'ar' ? 'الأوراق البيضاء' : 'White Papers' }}</a>
                                         <a href="{{route('cio-flash')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">CIO Flash</a>

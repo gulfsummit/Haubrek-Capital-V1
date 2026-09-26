@@ -150,80 +150,56 @@
                     $researchCardAlt = $localize($resourceCenter?->research_card_image_alt_en, $resourceCenter?->research_card_image_alt_ar) ?: ($localize($resourceCenter?->research_card_title_en, $resourceCenter?->research_card_title_ar) ?: 'Research');
                 @endphp
                 <div class="resource-tab-content" id="tab-blog">
-                    {{-- Row 1: Blog/News only --}}
+                    {{-- Row 1: Blog / News --}}
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-4 md:mb-6 justify-center">
-                        <div class="bg-[#F6F6F6] rounded-xl overflow-hidden flex flex-col items-center h-[180px] sm:h-[200px] md:h-[220px]">
-                            @if($blogEnabled && $blogLink)
-                                <a href="{{ $blogLink }}" class="relative w-full h-full group">
-                                    <img src="{{ $resourceCenter && $resourceCenter->blog_card_image ? asset('storage/' . $resourceCenter->blog_card_image) : asset('design/images/articles.png') }}" alt="{{ $blogCardAlt }}" class="w-full h-full object-cover rounded-lg transition group-hover:scale-105 duration-300">
-                                    <span class="absolute inset-0 flex items-center justify-center text-xl sm:text-2xl font-neue-extrabold text-[#041B44] drop-shadow-lg">{{ $resourceCenter ? (app()->getLocale() === 'ar' ? $resourceCenter->blog_card_title_ar : $resourceCenter->blog_card_title_en) : 'Blogs / News' }}</span>
-                                </a>
-                            @else
-                                <div class="relative w-full h-full pointer-events-none opacity-60">
-                                    <img src="{{ $resourceCenter && $resourceCenter->blog_card_image ? asset('storage/' . $resourceCenter->blog_card_image) : asset('design/images/articles.png') }}" alt="{{ $blogCardAlt }}" class="w-full h-full object-cover rounded-lg">
-                                    <span class="absolute inset-0 flex items-center justify-center text-xl sm:text-2xl font-neue-extrabold text-[#041B44] drop-shadow-lg">{{ $resourceCenter ? (app()->getLocale() === 'ar' ? $resourceCenter->blog_card_title_ar : $resourceCenter->blog_card_title_en) : 'Blogs / News' }}</span>
-                                </div>
-                            @endif
-                        </div>
+                        @include('resources.partials.resource-card', [
+                            'enabled'  => $blogEnabled,
+                            'link'     => $blogLink,
+                            'image'    => $resourceCenter?->blog_card_image,
+                            'fallback' => 'design/images/articles.png',
+                            'alt'      => $blogCardAlt,
+                            'label'    => $localize($resourceCenter?->blog_card_title_en, $resourceCenter?->blog_card_title_ar) ?: 'Blogs / News',
+                            'textSize' => 'text-xl sm:text-2xl',
+                        ])
                     </div>
-                    {{-- Row 2: New 4 cards --}}
+
+                    {{-- Row 2: White Papers · CIO Flash · Monday Window · Research --}}
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8 justify-center">
-                        {{-- White Papers --}}
-                        <div class="bg-[#F6F6F6] rounded-xl overflow-hidden flex flex-col items-center h-[180px] sm:h-[200px] md:h-[220px]">
-                            @if($whitePapersEnabled && $whitePapersLink)
-                                <a href="{{ $whitePapersLink }}" class="relative w-full h-full group">
-                                    <img src="{{ $resourceCenter && $resourceCenter->white_papers_card_image ? asset('storage/' . $resourceCenter->white_papers_card_image) : asset('design/images/articles.png') }}" alt="{{ $whitePapersCardAlt }}" class="w-full h-full object-cover rounded-lg transition group-hover:scale-105 duration-300">
-                                    <span class="absolute inset-0 flex items-center justify-center text-lg sm:text-xl font-neue-extrabold text-[#041B44] drop-shadow-lg text-center px-2">{{ $localize($resourceCenter?->white_papers_card_title_en, $resourceCenter?->white_papers_card_title_ar) ?: 'White Papers' }}</span>
-                                </a>
-                            @else
-                                <div class="relative w-full h-full pointer-events-none opacity-60">
-                                    <img src="{{ $resourceCenter && $resourceCenter->white_papers_card_image ? asset('storage/' . $resourceCenter->white_papers_card_image) : asset('design/images/articles.png') }}" alt="{{ $whitePapersCardAlt }}" class="w-full h-full object-cover rounded-lg">
-                                    <span class="absolute inset-0 flex items-center justify-center text-lg sm:text-xl font-neue-extrabold text-[#041B44] drop-shadow-lg text-center px-2">{{ $localize($resourceCenter?->white_papers_card_title_en, $resourceCenter?->white_papers_card_title_ar) ?: 'White Papers' }}</span>
-                                </div>
-                            @endif
-                        </div>
-                        {{-- CIO Flash --}}
-                        <div class="bg-[#F6F6F6] rounded-xl overflow-hidden flex flex-col items-center h-[180px] sm:h-[200px] md:h-[220px]">
-                            @if($cioFlashEnabled && $cioFlashLink)
-                                <a href="{{ $cioFlashLink }}" class="relative w-full h-full group">
-                                    <img src="{{ $resourceCenter && $resourceCenter->cio_flash_card_image ? asset('storage/' . $resourceCenter->cio_flash_card_image) : asset('design/images/e-book.png') }}" alt="{{ $cioFlashCardAlt }}" class="w-full h-full object-cover rounded-lg transition group-hover:scale-105 duration-300">
-                                    <span class="absolute inset-0 flex items-center justify-center text-lg sm:text-xl font-neue-extrabold text-[#041B44] drop-shadow-lg text-center px-2">{{ $localize($resourceCenter?->cio_flash_card_title_en, $resourceCenter?->cio_flash_card_title_ar) ?: 'CIO Flash' }}</span>
-                                </a>
-                            @else
-                                <div class="relative w-full h-full pointer-events-none opacity-60">
-                                    <img src="{{ $resourceCenter && $resourceCenter->cio_flash_card_image ? asset('storage/' . $resourceCenter->cio_flash_card_image) : asset('design/images/e-book.png') }}" alt="{{ $cioFlashCardAlt }}" class="w-full h-full object-cover rounded-lg">
-                                    <span class="absolute inset-0 flex items-center justify-center text-lg sm:text-xl font-neue-extrabold text-[#041B44] drop-shadow-lg text-center px-2">{{ $localize($resourceCenter?->cio_flash_card_title_en, $resourceCenter?->cio_flash_card_title_ar) ?: 'CIO Flash' }}</span>
-                                </div>
-                            @endif
-                        </div>
-                        {{-- Monday Window --}}
-                        <div class="bg-[#F6F6F6] rounded-xl overflow-hidden flex flex-col items-center h-[180px] sm:h-[200px] md:h-[220px]">
-                            @if($mondayWindowEnabled && $mondayWindowLink)
-                                <a href="{{ $mondayWindowLink }}" class="relative w-full h-full group">
-                                    <img src="{{ $resourceCenter && $resourceCenter->monday_window_card_image ? asset('storage/' . $resourceCenter->monday_window_card_image) : asset('design/images/glossary.png') }}" alt="{{ $mondayWindowCardAlt }}" class="w-full h-full object-cover rounded-lg transition group-hover:scale-105 duration-300">
-                                    <span class="absolute inset-0 flex items-center justify-center text-lg sm:text-xl font-neue-extrabold text-[#041B44] drop-shadow-lg text-center px-2">{{ $localize($resourceCenter?->monday_window_card_title_en, $resourceCenter?->monday_window_card_title_ar) ?: 'Monday Window' }}</span>
-                                </a>
-                            @else
-                                <div class="relative w-full h-full pointer-events-none opacity-60">
-                                    <img src="{{ $resourceCenter && $resourceCenter->monday_window_card_image ? asset('storage/' . $resourceCenter->monday_window_card_image) : asset('design/images/glossary.png') }}" alt="{{ $mondayWindowCardAlt }}" class="w-full h-full object-cover rounded-lg">
-                                    <span class="absolute inset-0 flex items-center justify-center text-lg sm:text-xl font-neue-extrabold text-[#041B44] drop-shadow-lg text-center px-2">{{ $localize($resourceCenter?->monday_window_card_title_en, $resourceCenter?->monday_window_card_title_ar) ?: 'Monday Window' }}</span>
-                                </div>
-                            @endif
-                        </div>
-                        {{-- Research --}}
-                        <div class="bg-[#F6F6F6] rounded-xl overflow-hidden flex flex-col items-center h-[180px] sm:h-[200px] md:h-[220px]">
-                            @if($researchEnabled && $researchLink)
-                                <a href="{{ $researchLink }}" class="relative w-full h-full group">
-                                    <img src="{{ $resourceCenter && $resourceCenter->research_card_image ? asset('storage/' . $resourceCenter->research_card_image) : asset('design/images/articles.png') }}" alt="{{ $researchCardAlt }}" class="w-full h-full object-cover rounded-lg transition group-hover:scale-105 duration-300">
-                                    <span class="absolute inset-0 flex items-center justify-center text-lg sm:text-xl font-neue-extrabold text-[#041B44] drop-shadow-lg text-center px-2">{{ $localize($resourceCenter?->research_card_title_en, $resourceCenter?->research_card_title_ar) ?: 'Research' }}</span>
-                                </a>
-                            @else
-                                <div class="relative w-full h-full pointer-events-none opacity-60">
-                                    <img src="{{ $resourceCenter && $resourceCenter->research_card_image ? asset('storage/' . $resourceCenter->research_card_image) : asset('design/images/articles.png') }}" alt="{{ $researchCardAlt }}" class="w-full h-full object-cover rounded-lg">
-                                    <span class="absolute inset-0 flex items-center justify-center text-lg sm:text-xl font-neue-extrabold text-[#041B44] drop-shadow-lg text-center px-2">{{ $localize($resourceCenter?->research_card_title_en, $resourceCenter?->research_card_title_ar) ?: 'Research' }}</span>
-                                </div>
-                            @endif
-                        </div>
+                        @include('resources.partials.resource-card', [
+                            'enabled'  => $whitePapersEnabled,
+                            'link'     => $whitePapersLink,
+                            'image'    => $resourceCenter?->white_papers_card_image,
+                            'fallback' => 'design/images/articles.png',
+                            'alt'      => $whitePapersCardAlt,
+                            'label'    => $localize($resourceCenter?->white_papers_card_title_en, $resourceCenter?->white_papers_card_title_ar) ?: 'White Papers',
+                        ])
+
+                        @include('resources.partials.resource-card', [
+                            'enabled'  => $cioFlashEnabled,
+                            'link'     => $cioFlashLink,
+                            'image'    => $resourceCenter?->cio_flash_card_image,
+                            'fallback' => 'design/images/e-book.png',
+                            'alt'      => $cioFlashCardAlt,
+                            'label'    => $localize($resourceCenter?->cio_flash_card_title_en, $resourceCenter?->cio_flash_card_title_ar) ?: 'CIO Flash',
+                        ])
+
+                        @include('resources.partials.resource-card', [
+                            'enabled'  => $mondayWindowEnabled,
+                            'link'     => $mondayWindowLink,
+                            'image'    => $resourceCenter?->monday_window_card_image,
+                            'fallback' => 'design/images/glossary.png',
+                            'alt'      => $mondayWindowCardAlt,
+                            'label'    => $localize($resourceCenter?->monday_window_card_title_en, $resourceCenter?->monday_window_card_title_ar) ?: 'Monday Window',
+                        ])
+
+                        @include('resources.partials.resource-card', [
+                            'enabled'  => $researchEnabled,
+                            'link'     => $researchLink,
+                            'image'    => $resourceCenter?->research_card_image,
+                            'fallback' => 'design/images/articles.png',
+                            'alt'      => $researchCardAlt,
+                            'label'    => $localize($resourceCenter?->research_card_title_en, $resourceCenter?->research_card_title_ar) ?: 'Research',
+                        ])
                     </div>
                 </div>
                 <!-- MANUALS TAB -->

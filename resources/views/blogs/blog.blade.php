@@ -81,6 +81,33 @@
 @endif
 
     @if(($pageContent?->isSectionVisible('tabs') ?? true) || ($pageContent?->isSectionVisible('listing') ?? true))
+
+    {{-- Search --}}
+    <section class="bg-[#041B44] py-10" dir="{{ $pageDirection }}">
+        <div class="container mx-auto px-4 flex flex-col items-center gap-3">
+            <p class="text-white/60 text-sm font-semibold uppercase tracking-widest">
+                {{ $isArabic ? 'ابحث في المقالات' : 'Search Articles' }}
+            </p>
+            <form method="GET" action="{{ route('blog') }}" class="flex w-full max-w-2xl gap-0 rounded-xl overflow-hidden shadow-lg ring-1 ring-white/10">
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ $searchTerm ?? '' }}"
+                    placeholder="{{ $isArabic ? 'ابحث في المدونة...' : 'Search the blog...' }}"
+                    class="flex-1 bg-white/10 text-white placeholder-white/40 px-5 py-3 text-sm focus:outline-none focus:bg-white/15 transition"
+                />
+                <button type="submit" class="bg-[#D4AF37] text-white px-6 py-3 text-sm font-semibold hover:bg-[#b8962e] transition whitespace-nowrap">
+                    {{ $isArabic ? 'بحث' : 'Search' }}
+                </button>
+                @if(!empty($searchTerm))
+                    <a href="{{ route('blog') }}" class="bg-white/10 text-white/70 px-5 py-3 text-sm hover:bg-white/20 transition whitespace-nowrap">
+                        {{ $isArabic ? 'مسح' : 'Clear' }}
+                    </a>
+                @endif
+            </form>
+        </div>
+    </section>
+
     <section class="pt-32 pb-16 sm:pt-36 sm:pb-20 md:pt-40 md:pb-24 lg:pt-[5em] lg:pb-32 bg-white bg-cover bg-center bg-no-repeat" style="background-image: url('{{ $bodyBackground }}');">
         <div dir="{{ $pageDirection }}" class="{{ $isArabic ? 'rtl' : 'ltr' }}">
         <div class="container mx-auto px-4">

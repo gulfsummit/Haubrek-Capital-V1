@@ -49,24 +49,33 @@
 </section>
 
 {{-- Search --}}
-<section class="bg-white py-8" dir="{{ $pageDirection }}">
-    <div class="container mx-auto px-4">
-        <form method="GET" action="{{ route('cio-flash') }}" class="flex gap-2 max-w-xl">
-            <input type="text" name="search" value="{{ $searchTerm }}"
+<section class="bg-[#041B44] py-10" dir="{{ $pageDirection }}">
+    <div class="container mx-auto px-4 flex flex-col items-center gap-3">
+        <p class="text-white/60 text-sm font-semibold uppercase tracking-widest">
+            {{ $isArabic ? 'ابحث في الحلقات' : 'Search Episodes' }}
+        </p>
+        <form method="GET" action="{{ route('cio-flash') }}" class="flex w-full max-w-2xl gap-0 rounded-xl overflow-hidden shadow-lg ring-1 ring-white/10">
+            <input
+                type="text"
+                name="search"
+                value="{{ $searchTerm }}"
                 placeholder="{{ $isArabic ? 'بحث في الحلقات...' : 'Search episodes...' }}"
-                class="flex-1 border border-gray-300 rounded px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"/>
-            <button type="submit" class="bg-[#D4AF37] text-white px-5 py-2 rounded text-sm font-semibold hover:bg-[#b8962e] transition">
+                class="flex-1 bg-white/10 text-white placeholder-white/40 px-5 py-3 text-sm focus:outline-none focus:bg-white/15 transition"
+            />
+            <button type="submit" class="bg-[#D4AF37] text-white px-6 py-3 text-sm font-semibold hover:bg-[#b8962e] transition whitespace-nowrap">
                 {{ $isArabic ? 'بحث' : 'Search' }}
             </button>
             @if($searchTerm)
-                <a href="{{ route('cio-flash') }}" class="border border-gray-300 text-gray-600 px-4 py-2 rounded text-sm hover:bg-gray-50 transition">{{ $isArabic ? 'مسح' : 'Clear' }}</a>
+                <a href="{{ route('cio-flash') }}" class="bg-white/10 text-white/70 px-5 py-3 text-sm hover:bg-white/20 transition whitespace-nowrap">
+                    {{ $isArabic ? 'مسح' : 'Clear' }}
+                </a>
             @endif
         </form>
     </div>
 </section>
 
 {{-- Episodes Grid --}}
-<section class="py-12 bg-gray-50" dir="{{ $pageDirection }}">
+<section class="py-12 bg-gray-50 bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('design/images/blog-bg.png') }}');" dir="{{ $pageDirection }}">
     <div class="container mx-auto px-4">
         @if($episodes->isEmpty())
             <div class="text-center py-20">
