@@ -66,7 +66,7 @@
 </section>
 
 {{-- Editions --}}
-<section class="py-12 bg-gray-50" dir="{{ $pageDirection }}">
+<section class="py-12 bg-gray-50 bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('design/images/blog-bg.png') }}');" dir="{{ $pageDirection }}">
     <div class="container mx-auto px-4">
         @if($editions->isEmpty())
             <div class="text-center py-20">
