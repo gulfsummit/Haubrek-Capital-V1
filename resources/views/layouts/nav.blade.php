@@ -1,0 +1,398 @@
+<style>
+    @media (max-width: 1023px) {
+        .site-nav {
+            padding: 0.75rem 1rem !important;
+        }
+
+        .site-header-bar {
+            justify-content: space-between !important;
+            gap: 1rem !important;
+        }
+
+        .site-logo {
+            height: 2.25rem !important;
+            max-width: 11rem;
+            object-fit: contain;
+        }
+
+        #burger-menu {
+            width: 2.75rem;
+            height: 2.75rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+        }
+
+        #burger-menu i {
+            font-size: 1.375rem !important;
+        }
+
+        #mobile-menu {
+            margin-top: 0.75rem !important;
+            padding: 0.875rem 1rem !important;
+            max-height: calc(100vh - 5rem);
+            overflow-y: auto;
+        }
+
+        #mobile-menu ul > :not([hidden]) ~ :not([hidden]) {
+            margin-top: 0.75rem !important;
+        }
+
+        #mobile-menu a,
+        #mobile-menu .site-mobile-lang {
+            font-size: 0.9375rem !important;
+            line-height: 1.4 !important;
+        }
+
+        #mobile-menu .site-mobile-dropdown a {
+            font-size: 0.875rem !important;
+            line-height: 1.35 !important;
+            padding-top: 0.375rem !important;
+            padding-bottom: 0.375rem !important;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+        .site-nav {
+            padding: 1rem 2rem !important;
+        }
+
+        .site-logo {
+            height: 2.75rem !important;
+            max-width: 13rem;
+        }
+
+        #mobile-menu {
+            padding: 1rem 1.25rem !important;
+            max-width: 28rem;
+            margin-left: auto;
+        }
+
+        #mobile-menu a,
+        #mobile-menu .site-mobile-lang {
+            font-size: 1rem !important;
+        }
+    }
+
+    @media (min-width: 1024px) and (max-width: 1279px) {
+        .site-nav {
+            padding-inline: 1.25rem !important;
+        }
+
+        .site-header-bar {
+            gap: 2rem !important;
+        }
+
+        .site-desktop-menu > ul {
+            gap: 1rem !important;
+        }
+
+        .site-desktop-menu a {
+            font-size: 0.75rem !important;
+        }
+
+        .site-logo {
+            max-width: 10rem;
+            object-fit: contain;
+        }
+    }
+
+    @media (min-width: 1280px) {
+        .site-nav {
+            padding-inline: clamp(2rem, 4vw, 4rem) !important;
+        }
+
+        .site-header-bar {
+            gap: clamp(2.5rem, 6vw, 7.5rem) !important;
+            max-width: 1440px;
+        }
+
+        .site-desktop-menu > ul {
+            gap: clamp(1rem, 1.6vw, 1.5rem) !important;
+        }
+
+        .site-desktop-menu a {
+            font-size: clamp(0.82rem, 0.8vw, 0.973rem) !important;
+            line-height: 1.35 !important;
+        }
+
+        .site-desktop-menu .group > a {
+            white-space: nowrap;
+        }
+
+        .site-logo {
+            max-width: clamp(10rem, 13vw, 14rem);
+            object-fit: contain;
+        }
+    }
+</style>
+
+<header class="site-header fixed w-full z-50 ">
+        <nav class="site-nav
+        @if(
+            Request::routeIs('books') ||
+            Request::routeIs('articles') ||
+            Request::routeIs('glossaries') ||
+            Request::routeIs('blog.show') ||
+            Request::routeIs('case-studies.show') ||
+            Request::routeIs('article.show') ||
+            Request::routeIs('book.show') ||
+            Request::routeIs('glossary.show')
+        )
+            bg-[#041B44]
+        @else
+            @if(isset($websiteSettings))
+                @php
+                    $currentPage = 'homepage'; // Default
+                    if (Request::routeIs('home')) $currentPage = 'homepage';
+                    elseif (Request::routeIs('about-us')) $currentPage = 'about_us';
+                    elseif (Request::routeIs('services')) $currentPage = 'services';
+                    elseif (Request::routeIs('app')) $currentPage = 'app';
+                    elseif (Request::routeIs('teams.*')) $currentPage = 'teams';
+                    elseif (Request::routeIs('articles.*')) $currentPage = 'articles';
+                    elseif (Request::routeIs('books.*')) $currentPage = 'books';
+                    elseif (Request::routeIs('glossaries.*')) $currentPage = 'glossaries';
+                    elseif (Request::routeIs('tools.*')) $currentPage = 'tools';
+                    elseif (Request::routeIs('faq')) $currentPage = 'faq';
+                    elseif (Request::routeIs('contact-us')) $currentPage = 'contact_us';
+                    elseif (Request::routeIs('resource-center')) $currentPage = 'resource_center';
+                @endphp
+                {{ $websiteSettings->getPageHeaderBackgroundClasses($currentPage) }}
+            @else
+                bg-black/20
+            @endif
+        @endif
+        @if(isset($websiteSettings) && $websiteSettings->header_backdrop_blur)
+            backdrop-blur-sm
+        @endif
+        text-white py-4 px-6">
+            <p class="w-full mx-auto">
+                <!-- Desktop and Mobile header -->
+                <div class="site-header-bar flex justify-center gap-[10em] items-center w-full mx-auto nav-header-reverse">
+                    <div>
+                        <a href="/">
+                            @if(isset($websiteSettings) && $websiteSettings->header_logo)
+                                <img src="{{ asset('storage/' . $websiteSettings->header_logo) }}" alt="{{ app()->getLocale() == 'ar' ? $websiteSettings->website_title_ar : $websiteSettings->website_title_en }}" class="site-logo h-8 sm:h-10 md:h-12 lg:h-full">
+                            @else
+                                <img src="{{asset('design')}}/images/logo.svg" alt="{{ app()->getLocale() == 'ar' ? $websiteSettings->website_title_ar : $websiteSettings->website_title_en }}" class="site-logo h-8 sm:h-10 md:h-12 lg:h-full">
+                            @endif
+                        </a>
+                    </div>
+                    <!-- Burger Menu Button -->
+                    <button id="burger-menu" class="lg:hidden text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                    <!-- Desktop Menu -->
+                    <div class="site-desktop-menu hidden lg:flex items-center space-x-6 nav-header-flex">
+                        <ul class="flex items-center gap-[1.5rem] nav-header-reverse">
+                            @if(isset($websiteSettings) && $websiteSettings->navigation_links)
+                                @foreach($websiteSettings->navigation_links as $navItem)
+                                    <li class="group relative nav-header-flex desktop-text-ltr">
+                                        <a href="{{ route($navItem['route']) }}" class="text-[0.8rem] xl:text-[0.973rem] hover:text-gray-300 flex items-center gap-3 font-['Poppins'] nav-header-flex desktop-text-ltr">
+                                            {{ app()->getLocale() == 'ar' ? ($navItem['title_ar'] ?? $navItem['title_en']) : $navItem['title_en'] }}
+                                            @if(isset($navItem['has_dropdown']) && $navItem['has_dropdown'] && !empty($navItem['dropdown_items']))
+                                                <i class="fas fa-caret-down text-[0.9375rem] transition-transform duration-200 group-hover:rotate-180 flex items-center nav-header-flex"></i>
+                                            @endif
+                                        </a>
+                                        @if(isset($navItem['has_dropdown']) && $navItem['has_dropdown'] && !empty($navItem['dropdown_items']))
+                                            <div class="absolute hidden group-hover:block bg-[#1a1f2e] min-w-[200px] py-2">
+                                                @foreach($navItem['dropdown_items'] as $dropdownItem)
+                                                    <a href="{{ route($dropdownItem['route']) }}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">
+                                                        {{ app()->getLocale() == 'ar' ? ($dropdownItem['title_ar'] ?? $dropdownItem['title_en']) : $dropdownItem['title_en'] }}
+                                                    </a>
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                    </li>
+                                @endforeach
+                            @else
+                                <!-- Fallback navigation if no settings -->
+                                <li class="group relative nav-header-flex desktop-text-ltr">
+                                    <a href="{{route('home')}}" class="text-[0.8rem] xl:text-[0.973rem] hover:text-gray-300 flex items-center gap-3 font-['Poppins'] nav-header-flex desktop-text-ltr">
+                                        Home
+                                    </a>
+                                </li>
+                                <li class="group relative desktop-reverse-flex desktop-text-ltr">
+                                    <a href="{{route('about-us')}}" class="text-[0.8rem] xl:text-[0.973rem] hover:text-gray-300 flex items-center gap-3 font-['Poppins'] nav-header-flex desktop-text-ltr">
+                                        About us
+                                        <i class="fas fa-caret-down text-[0.9375rem] transition-transform duration-200 group-hover:rotate-180 flex items-center nav-header-flex"></i>
+                                    </a>
+                                    <div class="absolute hidden group-hover:block bg-[#1a1f2e] min-w-[200px] py-2">
+                                        <a href="{{route('teams')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">Board of Directors</a>
+                                        <a href="{{route('app')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">App</a>
+                                    </div>
+                                </li>
+                                <li class="group relative nav-header-flex desktop-text-ltr">
+                                    <a href="{{route('services')}}" class="text-[0.8rem] xl:text-[0.973rem] hover:text-gray-300 flex items-center gap-3 font-['Poppins'] nav-header-flex desktop-text-ltr">
+                                        Services
+                                        <i class="fas fa-caret-down text-[0.9375rem] transition-transform duration-200 group-hover:rotate-180 flex items-center nav-header-flex"></i>
+                                    </a>
+                                    <div class="absolute hidden group-hover:block bg-[#1a1f2e] min-w-[200px] py-2">
+                                        <a href="{{route('governance-services')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">
+                                            Governance Services
+                                        </a>
+                                        @isset($services)
+                                            @foreach($services as $service)
+                                                <a href="{{route('services')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">
+                                                    {!! $service['title_en'] !!}
+                                                </a>
+                                            @endforeach
+                                        @endisset
+                                    </p>
+                                </li>
+                                <li class="group relative nav-header-flex desktop-text-ltr">
+                                    <a href="{{route('resource-center')}}" class="text-[0.8rem] xl:text-[0.973rem] hover:text-gray-300 flex items-center gap-3 font-['Poppins'] nav-header-flex desktop-text-ltr">
+                                        Resources Center
+                                        <i class="fas fa-caret-down text-[0.9375rem] transition-transform duration-200 group-hover:rotate-180 flex items-center nav-header-flex"></i>
+                                    </a>
+                                    <div class="absolute hidden group-hover:block bg-[#1a1f2e] min-w-[200px] py-2">
+                                        <a href="{{route('articles')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">Articles</a>
+                                        <a href="{{route('books')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">E-Books</a>
+                                        <a href="{{route('glossaries')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">Glossary</a>
+                                        <a href="{{route('tools')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">Tools</a>
+                                        <a href="{{route('faq')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">FAQ's</a>
+                                    </div>
+                                </li>
+                                <li class="group relative nav-header-flex desktop-text-ltr">
+                                    <a href="{{route('contact-us')}}" class="text-[0.8rem] xl:text-[0.973rem] hover:text-gray-300 flex items-center gap-3 font-['Poppins'] nav-header-flex desktop-text-ltr">
+                                        Contact Us
+                                    </a>
+                                </li>
+                            @endif
+
+                            @if(isset($websiteSettings) && $websiteSettings->show_language_switcher)
+                            <div class="flex items-center space-x-2 ml-6 pl-6 text-[0.75rem] sm:text-[0.875rem] font-['Poppins']">
+                                <a href="{{ route('lang.switch', 'en') }}" class="{{ app()->getLocale() === 'en' ? 'text-white' : 'text-[#BF9874]' }} hover:text-white">EN</a>
+                                <span class="text-[#BF9874]">|</span>
+                                <a href="{{ route('lang.switch', 'ar') }}" class="{{ app()->getLocale() === 'ar' ? 'text-white' : 'text-[#BF9874]' }} hover:text-white">AR</a>
+                            </div>
+                            @endif
+
+                            @if(isset($websiteSettings) && $websiteSettings->header_cta_text && $websiteSettings->header_cta_url)
+                            <li class="nav-header-flex desktop-text-ltr">
+                                <a href="{{ $websiteSettings->header_cta_url }}" target="_blank" rel="noopener noreferrer"
+                                   class="px-4 py-2 text-[0.8rem] sm:text-[0.875rem] xl:text-[0.973rem] hidden lg:block rounded-[10px] font-neue-extrabold inline-block nav-header-flex desktop-text-ltr"
+                                   style="background-color: {{ $websiteSettings->header_cta_background_color }}; color: {{ $websiteSettings->header_cta_text_color }};">
+                                    {{ app()->getLocale() == 'ar' ? ($websiteSettings->header_cta_text_ar ?? $websiteSettings->header_cta_text) : $websiteSettings->header_cta_text }}
+                                </a>
+                            </li>
+                            @else
+                            <li class="nav-header-flex desktop-text-ltr"><a href="https://hauberkcapital.moxo.com/web/910" target="_blank" rel="noopener noreferrer" class="bg-[#D4AF37] text-white px-4 py-2 text-[0.8rem] sm:text-[0.875rem] xl:text-[0.973rem] hidden lg:block rounded-[10px] font-neue-extrabold inline-block nav-header-flex desktop-text-ltr">{{ app()->getLocale() == 'ar' ? 'مركز العملاء' : 'CLIENT\'S HUB' }}</a></li>
+                            @endif
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div id="mobile-menu" class="lg:hidden hidden mt-4 p-4 rounded" style="background-color: {{ (isset($websiteSettings) && $websiteSettings->mobile_menu_background_color) ? $websiteSettings->mobile_menu_background_color : '#1a1f2e' }};">
+                    <ul class="flex flex-col space-y-4 desktop-reverse-flex">
+                        @if(isset($websiteSettings) && $websiteSettings->navigation_links)
+                            @foreach($websiteSettings->navigation_links as $navItem)
+                                <li class="group">
+                                    @if(isset($navItem['has_dropdown']) && $navItem['has_dropdown'] && !empty($navItem['dropdown_items']))
+                                        <div class="flex items-center justify-between desktop-reverse-flex">
+                                            <a href="{{ route($navItem['route']) }}" class="text-base hover:text-gray-300 font-['Poppins'] desktop-text-ltr">
+                                                {{ app()->getLocale() == 'ar' ? ($navItem['title_ar'] ?? $navItem['title_en']) : $navItem['title_en'] }}
+                                            </a>
+                                            <i class="fas fa-caret-down text-[0.9375rem] transition-transform duration-200 cursor-pointer desktop-reverse-flex" onclick="toggleDropdown(this)"></i>
+                                        </div>
+                                        <div class="site-mobile-dropdown hidden pl-4 mt-2">
+                                            @foreach($navItem['dropdown_items'] as $dropdownItem)
+                                                <a href="{{ route($dropdownItem['route']) }}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">
+                                                    {{ app()->getLocale() == 'ar' ? ($dropdownItem['title_ar'] ?? $dropdownItem['title_en']) : $dropdownItem['title_en'] }}
+                                                </a>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        <a href="{{ route($navItem['route']) }}" class="text-base hover:text-gray-300 flex items-center justify-between font-['Poppins'] desktop-reverse-flex desktop-text-ltr">
+                                            {{ app()->getLocale() == 'ar' ? ($navItem['title_ar'] ?? $navItem['title_en']) : $navItem['title_en'] }}
+                                        </a>
+                                    @endif
+                                </li>
+                            @endforeach
+                        @else
+                            <!-- Fallback mobile navigation -->
+                            <li class="group">
+                                <a href="{{route('home')}}" class="text-base hover:text-gray-300 flex items-center justify-between font-['Poppins'] desktop-reverse-flex desktop-text-ltr">
+                                    Home
+                                </a>
+                            </li>
+                            <li class="group">
+                                <div class="flex items-center justify-between desktop-reverse-flex">
+                                    <a href="{{route('about-us')}}" class="text-base hover:text-gray-300 font-['Poppins'] desktop-text-ltr">About us</a>
+                                    <i class="fas fa-caret-down text-[0.9375rem] transition-transform duration-200 cursor-pointer desktop-reverse-flex" onclick="toggleDropdown(this)"></i>
+                                </div>
+                                <div class="site-mobile-dropdown hidden pl-4 mt-2">
+                                    <a href="{{route('teams')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">Board of Directors</a>
+                                    <a href="{{route('app')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">App</a>
+                                </div>
+                            </li>
+                            <li class="group">
+                                <div class="flex items-center justify-between desktop-reverse-flex">
+                                    <a href="{{route('services')}}" class="text-base hover:text-gray-300 font-['Poppins'] desktop-text-ltr">Services</a>
+                                    <i class="fas fa-caret-down text-[0.9375rem] transition-transform duration-200 cursor-pointer desktop-reverse-flex" onclick="toggleDropdown(this)"></i>
+                                </div>
+                                <div class="site-mobile-dropdown hidden pl-4 mt-2">
+                                    <a href="{{route('governance-services')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">Governance Services</a>
+                                    @isset($services)
+                                        @foreach($services as $service)
+                                            <a href="{{route('services')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">{{$service['title_en']}}</a>
+                                        @endforeach
+                                    @endisset
+                                </div>
+                            </li>
+                            <li class="group">
+                                <div class="flex items-center justify-between desktop-reverse-flex">
+                                    <a href="{{route('resource-center')}}" class="text-base hover:text-gray-300 font-['Poppins'] desktop-text-ltr">Resources Center</a>
+                                    <i class="fas fa-caret-down text-[0.9375rem] transition-transform duration-200 cursor-pointer desktop-reverse-flex" onclick="toggleDropdown(this)"></i>
+                                </div>
+                                <div class="site-mobile-dropdown hidden pl-4 mt-2">
+                                    <a href="{{route('articles')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">Articles</a>
+                                    <a href="{{route('books')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">E-Books</a>
+                                    <a href="{{route('glossaries')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">Glossary</a>
+                                    <a href="{{route('tools')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">Tools</a>
+                                    <a href="{{route('faq')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">FAQ's</a>
+                                </div>
+                            </li>
+                            <li class="group">
+                                <a href="{{route('contact-us')}}" class="text-base hover:text-gray-300 flex items-center justify-between font-['Poppins'] desktop-reverse-flex desktop-text-ltr">
+                                    Contact Us
+                                </a>
+                            </li>
+                        @endif
+
+                        @if(isset($websiteSettings) && $websiteSettings->show_language_switcher)
+                        <div class="site-mobile-lang flex items-center space-x-2 py-2 text-base font-['Poppins'] desktop-reverse-flex">
+                            <a href="{{ route('lang.switch', 'en') }}" class="{{ app()->getLocale() === 'en' ? 'text-white' : 'text-[#BF9874]' }} hover:text-[#FFFFFF] desktop-text-ltr">EN</a>
+                            <span class="text-[#BF9874]">|</span>
+                            <a href="{{ route('lang.switch', 'ar') }}" class="{{ app()->getLocale() === 'ar' ? 'text-white' : 'text-[#BF9874]' }} hover:text-[#FFFFFF] desktop-text-ltr">AR</a>
+                        </div>
+                        @endif
+
+                        @if(isset($websiteSettings) && $websiteSettings->header_cta_text && $websiteSettings->header_cta_url)
+                        <li>
+                            <a href="{{ $websiteSettings->header_cta_url }}" target="_blank" rel="noopener noreferrer"
+                               class="px-4 py-2 rounded-[10px] w-full font-neue-extrabold text-center block"
+                               style="background-color: {{ $websiteSettings->header_cta_background_color }}; color: {{ $websiteSettings->header_cta_text_color }};">
+                                {{ app()->getLocale() == 'ar' ? ($websiteSettings->header_cta_text_ar ?? $websiteSettings->header_cta_text) : $websiteSettings->header_cta_text }}
+                            </a>
+                        </li>
+                        @else
+                        <li><a href="https://hauberkcapital.moxo.com/web/910" target="_blank" rel="noopener" class="bg-[#D4AF37] text-white px-4 py-2 rounded-[10px] w-full font-neue-extrabold text-center block">{{ app()->getLocale() == 'ar' ? 'مركز العملاء' : 'CLIENT\'S HUB' }}</a></li>
+                        @endif
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <script>
+    // Mobile menu functionality is handled by the main index.js file
+    // Optional: handle dropdowns inside mobile menu
+    function toggleDropdown(icon) {
+        const dropdown = icon.parentElement.nextElementSibling;
+        dropdown.classList.toggle('hidden');
+        icon.classList.toggle('rotate-180');
+    }
+</script>

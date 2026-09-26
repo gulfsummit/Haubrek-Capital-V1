@@ -1,0 +1,108 @@
+/* Custom styles for Rich Editor with font size control */
+
+.font-size-control {
+    margin-bottom: 0.5rem;
+}
+
+.font-size-selector {
+    min-width: 80px;
+}
+
+/* Ensure inline font sizes are preserved */
+.ProseMirror span[style*="font-size"] {
+    display: inline;
+}
+
+/* Rich editor container adjustments */
+[data-field-wrapper-type="rich-editor"] {
+    position: relative;
+}
+
+/* Ensure the editor container adjusts height */
+[data-field-wrapper-type="rich-editor"] .fi-fo-rich-editor {
+    height: auto !important;
+}
+
+[data-field-wrapper-type="rich-editor"] .fi-fo-rich-editor .ProseMirror {
+    height: auto !important;
+    max-height: none !important;
+}
+
+.tiptap.ProseMirror {
+    min-height: 150px;
+    max-height: none !important;
+    height: auto !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Make sure styled content is visible */
+.ProseMirror * {
+    font-size: inherit;
+}
+
+.ProseMirror span[style] {
+    all: unset;
+    font-size: attr(style);
+}
+
+/* Additional text wrapping and height adjustments */
+.ProseMirror {
+    word-break: break-word;
+    hyphens: auto;
+    line-height: 1.5;
+}
+
+/* Ensure no horizontal scrollbars */
+.ProseMirror * {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Fix for any remaining overflow issues */
+.fi-fo-rich-editor .ProseMirror {
+    resize: none;
+    overflow-x: hidden !important;
+}
+
+/* More aggressive text wrapping rules */
+.ProseMirror {
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    hyphens: auto !important;
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Target all possible editor containers */
+[data-field-wrapper-type="rich-editor"] .ProseMirror,
+.fi-fo-rich-editor .ProseMirror,
+.tiptap.ProseMirror,
+.ProseMirror {
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Ensure all child elements respect wrapping */
+.ProseMirror * {
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+

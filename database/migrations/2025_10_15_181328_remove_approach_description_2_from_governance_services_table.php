@@ -1,0 +1,29 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('governance_services', function (Blueprint $table) {
+            $table->dropColumn(['approach_description_2_en', 'approach_description_2_ar']);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('governance_services', function (Blueprint $table) {
+            $table->text('approach_description_2_en')->nullable();
+            $table->text('approach_description_2_ar')->nullable();
+        });
+    }
+};

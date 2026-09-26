@@ -1,0 +1,14 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /login/
+Disallow: /register/
+Disallow: /account/
+Disallow: /api/
+Disallow: /private/
+
+Disallow: /*?q=
+Disallow: /*?search=
+Disallow: /*?filter=
+Disallow: /*?sort=
+Disallow: /*?utm_

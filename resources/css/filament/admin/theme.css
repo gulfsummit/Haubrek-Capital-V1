@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Override primary color */
+:root {
+    --primary-50: #eff6ff;
+    --primary-100: #dbeafe;
+    --primary-200: #bfdbfe;
+    --primary-300: #93c5fd;
+    --primary-400: #60a5fa;
+    --primary-500: #3b82f6; /* 👈 Main button/sidebar color */
+    --primary-600: #2563eb;
+    --primary-700: #1d4ed8;
+    --primary-800: #1e40af;
+    --primary-900: #1e3a8a;
+}
+
+/* Override secondary color */
+:root {
+    --secondary-50: #f9fafb;
+    --secondary-100: #f3f4f6;
+    --secondary-200: #e5e7eb;
+    --secondary-300: #d1d5db;
+    --secondary-400: #9ca3af;
+    --secondary-500: #6b7280; /* 👈 Secondary color */
+    --secondary-600: #4b5563;
+    --secondary-700: #374151;
+    --secondary-800: #1f2937;
+    --secondary-900: #111827;
+}
