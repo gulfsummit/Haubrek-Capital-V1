@@ -55,9 +55,10 @@
     </div>
 </section>
 
-{{-- Search --}}
-<section class="bg-white py-8" dir="{{ $pageDirection }}">
-    <div class="container mx-auto px-4">
+{{-- Search + Research Grid --}}
+<section class="py-12 bg-white bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('design/images/blog-bg.png') }}');" dir="{{ $pageDirection }}">
+    {{-- Search bar --}}
+    <div class="container mx-auto px-4 mb-10">
         <form method="GET" action="{{ route('research') }}" class="flex gap-2 max-w-xl">
             <input type="text" name="search" value="{{ $searchTerm }}"
                 placeholder="{{ $isArabic ? 'بحث في الأبحاث...' : 'Search research...' }}"
@@ -70,15 +71,13 @@
             @endif
         </form>
     </div>
-</section>
 
-{{-- Research Grid --}}
-<section class="py-12 bg-gray-50" dir="{{ $pageDirection }}">
+    {{-- Research Grid --}}
     <div class="container mx-auto px-4">
         @if($researchItems->isEmpty())
             <div class="text-center py-20">
-                <p class="text-2xl font-semibold text-gray-700 mb-2">{{ $noItemsLabel }}</p>
-                <p class="text-gray-500">{{ $checkBackLabel }}</p>
+                <p class="text-2xl font-semibold text-white mb-2">{{ $noItemsLabel }}</p>
+                <p class="text-white/70">{{ $checkBackLabel }}</p>
             </div>
         @else
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -97,7 +96,7 @@
                             <img src="{{ $rImage }}" alt="{{ $rAlt }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
                             @if($item->form_required)
                                 <div class="absolute top-3 {{ $isArabic ? 'left-3' : 'right-3' }} bg-navy-900/80 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
-                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 00-8 0v4h8z"/></svg>
                                     {{ $isArabic ? 'يتطلب تسجيل' : 'Registration Required' }}
                                 </div>
                             @endif

@@ -150,7 +150,7 @@
                     $researchCardAlt = $localize($resourceCenter?->research_card_image_alt_en, $resourceCenter?->research_card_image_alt_ar) ?: ($localize($resourceCenter?->research_card_title_en, $resourceCenter?->research_card_title_ar) ?: 'Research');
                 @endphp
                 <div class="resource-tab-content" id="tab-blog">
-                    {{-- Row 1: Original 3 cards --}}
+                    {{-- Row 1: Blog/News only --}}
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-4 md:mb-6 justify-center">
                         <div class="bg-[#F6F6F6] rounded-xl overflow-hidden flex flex-col items-center h-[180px] sm:h-[200px] md:h-[220px]">
                             @if($blogEnabled && $blogLink)
@@ -162,32 +162,6 @@
                                 <div class="relative w-full h-full pointer-events-none opacity-60">
                                     <img src="{{ $resourceCenter && $resourceCenter->blog_card_image ? asset('storage/' . $resourceCenter->blog_card_image) : asset('design/images/articles.png') }}" alt="{{ $blogCardAlt }}" class="w-full h-full object-cover rounded-lg">
                                     <span class="absolute inset-0 flex items-center justify-center text-xl sm:text-2xl font-neue-extrabold text-[#041B44] drop-shadow-lg">{{ $resourceCenter ? (app()->getLocale() === 'ar' ? $resourceCenter->blog_card_title_ar : $resourceCenter->blog_card_title_en) : 'Blogs / News' }}</span>
-                                </div>
-                            @endif
-                        </div>
-                        <div class="bg-[#F6F6F6] rounded-xl overflow-hidden flex flex-col items-center h-[180px] sm:h-[200px] md:h-[220px]">
-                            @if($caseEnabled && $caseStudyLink)
-                                <a href="{{ $caseStudyLink }}" class="relative w-full h-full group">
-                                    <img src="{{ $resourceCenter && $resourceCenter->case_studies_card_image ? asset('storage/' . $resourceCenter->case_studies_card_image) : asset('design/images/e-book.png') }}" alt="{{ $caseStudiesCardAlt }}" class="w-full h-full object-cover rounded-lg transition group-hover:scale-105 duration-300">
-                                    <span class="absolute inset-0 flex items-center justify-center text-xl sm:text-2xl font-neue-extrabold text-[#041B44] drop-shadow-lg">{{ $resourceCenter ? (app()->getLocale() === 'ar' ? $resourceCenter->case_studies_card_title_ar : $resourceCenter->case_studies_card_title_en) : 'Case Studies' }}</span>
-                                </a>
-                            @else
-                                <div class="relative w-full h-full pointer-events-none opacity-60">
-                                    <img src="{{ $resourceCenter && $resourceCenter->case_studies_card_image ? asset('storage/' . $resourceCenter->case_studies_card_image) : asset('design/images/e-book.png') }}" alt="{{ $caseStudiesCardAlt }}" class="w-full h-full object-cover rounded-lg">
-                                    <span class="absolute inset-0 flex items-center justify-center text-xl sm:text-2xl font-neue-extrabold text-[#041B44] drop-shadow-lg">{{ $resourceCenter ? (app()->getLocale() === 'ar' ? $resourceCenter->case_studies_card_title_ar : $resourceCenter->case_studies_card_title_en) : 'Case Studies' }}</span>
-                                </div>
-                            @endif
-                        </div>
-                        <div class="bg-[#F6F6F6] rounded-xl overflow-hidden flex flex-col items-center h-[180px] sm:h-[200px] md:h-[220px] sm:col-span-2 md:col-span-1">
-                            @if($toolsEnabled && $toolsLink)
-                                <a href="{{ $toolsLink }}" class="relative w-full h-full group">
-                                    <img src="{{ $resourceCenter && $resourceCenter->tools_card_image ? asset('storage/' . $resourceCenter->tools_card_image) : asset('design/images/glossary.png') }}" alt="{{ $toolsCardAlt }}" class="w-full h-full object-cover rounded-lg transition group-hover:scale-105 duration-300">
-                                    <span class="absolute inset-0 flex items-center justify-center text-xl sm:text-2xl font-neue-extrabold text-[#041B44] drop-shadow-lg">{{ $resourceCenter ? (app()->getLocale() === 'ar' ? $resourceCenter->tools_card_title_ar : $resourceCenter->tools_card_title_en) : 'Tools' }}</span>
-                                </a>
-                            @else
-                                <div class="relative w-full h-full pointer-events-none opacity-60">
-                                    <img src="{{ $resourceCenter && $resourceCenter->tools_card_image ? asset('storage/' . $resourceCenter->tools_card_image) : asset('design/images/glossary.png') }}" alt="{{ $toolsCardAlt }}" class="w-full h-full object-cover rounded-lg">
-                                    <span class="absolute inset-0 flex items-center justify-center text-xl sm:text-2xl font-neue-extrabold text-[#041B44] drop-shadow-lg">{{ $resourceCenter ? (app()->getLocale() === 'ar' ? $resourceCenter->tools_card_title_ar : $resourceCenter->tools_card_title_en) : 'Tools' }}</span>
                                 </div>
                             @endif
                         </div>

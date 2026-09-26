@@ -29,9 +29,6 @@ class UpdateNavigation extends Command
                     ['route' => 'cio-flash',     'title_en' => 'CIO Flash',     'title_ar' => 'CIO Flash'],
                     ['route' => 'monday-window', 'title_en' => 'Monday Window', 'title_ar' => 'نافذة الاثنين'],
                     ['route' => 'research',      'title_en' => 'Research',      'title_ar' => 'الأبحاث'],
-                    ['route' => 'case-studies',  'title_en' => 'Case Studies',  'title_ar' => 'دراسات الحالة'],
-                    ['route' => 'tools',         'title_en' => 'Tools',         'title_ar' => 'الأدوات'],
-                    ['route' => 'glossaries',    'title_en' => 'Glossary',      'title_ar' => 'المصطلحات'],
                 ];
                 $this->info('Found resources-center entry, updating ' . count($links[$i]['dropdown_items']) . ' items...');
                 break;
