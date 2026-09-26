@@ -188,16 +188,22 @@
                         <ul class="flex items-center gap-[1.5rem] nav-header-reverse">
                             @if(isset($websiteSettings) && $websiteSettings->navigation_links)
                                 @foreach($websiteSettings->navigation_links as $navItem)
+                                    @php
+                                        $dropdownItems = collect($navItem['dropdown_items'] ?? [])
+                                            ->filter(fn($d) => !empty($d['route']))
+                                            ->values();
+                                        $hasDropdown = ($navItem['has_dropdown'] ?? false) && $dropdownItems->isNotEmpty();
+                                    @endphp
                                     <li class="group relative nav-header-flex desktop-text-ltr">
                                         <a href="{{ route($navItem['route']) }}" class="text-[0.8rem] xl:text-[0.973rem] hover:text-gray-300 flex items-center gap-3 font-['Poppins'] nav-header-flex desktop-text-ltr">
                                             {{ app()->getLocale() == 'ar' ? ($navItem['title_ar'] ?? $navItem['title_en']) : $navItem['title_en'] }}
-                                            @if(isset($navItem['has_dropdown']) && $navItem['has_dropdown'] && !empty($navItem['dropdown_items']))
+                                            @if($hasDropdown)
                                                 <i class="fas fa-caret-down text-[0.9375rem] transition-transform duration-200 group-hover:rotate-180 flex items-center nav-header-flex"></i>
                                             @endif
                                         </a>
-                                        @if(isset($navItem['has_dropdown']) && $navItem['has_dropdown'] && !empty($navItem['dropdown_items']))
+                                        @if($hasDropdown)
                                             <div class="absolute top-full left-0 hidden group-hover:block bg-[#1a1f2e] min-w-[200px] py-2 z-50 shadow-lg">
-                                                @foreach($navItem['dropdown_items'] as $dropdownItem)
+                                                @foreach($dropdownItems as $dropdownItem)
                                                     <a href="{{ route($dropdownItem['route']) }}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">
                                                         {{ app()->getLocale() == 'ar' ? ($dropdownItem['title_ar'] ?? $dropdownItem['title_en']) : $dropdownItem['title_en'] }}
                                                     </a>
@@ -289,8 +295,14 @@
                     <ul class="flex flex-col space-y-4 desktop-reverse-flex">
                         @if(isset($websiteSettings) && $websiteSettings->navigation_links)
                             @foreach($websiteSettings->navigation_links as $navItem)
+                                @php
+                                    $mobileDropdownItems = collect($navItem['dropdown_items'] ?? [])
+                                        ->filter(fn($d) => !empty($d['route']))
+                                        ->values();
+                                    $mobileHasDropdown = ($navItem['has_dropdown'] ?? false) && $mobileDropdownItems->isNotEmpty();
+                                @endphp
                                 <li class="group">
-                                    @if(isset($navItem['has_dropdown']) && $navItem['has_dropdown'] && !empty($navItem['dropdown_items']))
+                                    @if($mobileHasDropdown)
                                         <div class="flex items-center justify-between desktop-reverse-flex">
                                             <a href="{{ route($navItem['route']) }}" class="text-base hover:text-gray-300 font-['Poppins'] desktop-text-ltr">
                                                 {{ app()->getLocale() == 'ar' ? ($navItem['title_ar'] ?? $navItem['title_en']) : $navItem['title_en'] }}
@@ -298,7 +310,7 @@
                                             <i class="fas fa-caret-down text-[0.9375rem] transition-transform duration-200 cursor-pointer desktop-reverse-flex" onclick="toggleDropdown(this)"></i>
                                         </div>
                                         <div class="site-mobile-dropdown hidden pl-4 mt-2">
-                                            @foreach($navItem['dropdown_items'] as $dropdownItem)
+                                            @foreach($mobileDropdownItems as $dropdownItem)
                                                 <a href="{{ route($dropdownItem['route']) }}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">
                                                     {{ app()->getLocale() == 'ar' ? ($dropdownItem['title_ar'] ?? $dropdownItem['title_en']) : $dropdownItem['title_en'] }}
                                                 </a>
