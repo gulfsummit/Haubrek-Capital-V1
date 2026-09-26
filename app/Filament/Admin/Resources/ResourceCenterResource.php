@@ -250,6 +250,78 @@ class ResourceCenterResource extends Resource
                                     ])
                                     ->columns(1)
                                     ->collapsible(),
+
+                                Forms\Components\Section::make('White Papers Card')
+                                    ->schema([
+                                        Forms\Components\FileUpload::make('white_papers_card_image')
+                                            ->label('Card Image')->image()->imageEditor()
+                                            ->directory('resource-center/cards')->helperText('Recommended: 400x300px'),
+                                        Forms\Components\TextInput::make('white_papers_card_title_en')
+                                            ->label('Card Title (English)')->maxLength(255)->default('White Papers'),
+                                        Forms\Components\TextInput::make('white_papers_card_title_ar')
+                                            ->label('Card Title (Arabic)')->maxLength(255)->default('الأوراق البيضاء'),
+                                        Forms\Components\TextInput::make('white_papers_card_link')
+                                            ->label('Card Link URL')->default('/resources-center/white-papers')
+                                            ->helperText('e.g., /resources-center/white-papers'),
+                                        Forms\Components\Toggle::make('white_papers_card_enabled')
+                                            ->label('Enable Link')->default(true),
+                                    ])
+                                    ->columns(1)
+                                    ->collapsible(),
+
+                                Forms\Components\Section::make('CIO Flash Card')
+                                    ->schema([
+                                        Forms\Components\FileUpload::make('cio_flash_card_image')
+                                            ->label('Card Image')->image()->imageEditor()
+                                            ->directory('resource-center/cards')->helperText('Recommended: 400x300px'),
+                                        Forms\Components\TextInput::make('cio_flash_card_title_en')
+                                            ->label('Card Title (English)')->maxLength(255)->default('CIO Flash'),
+                                        Forms\Components\TextInput::make('cio_flash_card_title_ar')
+                                            ->label('Card Title (Arabic)')->maxLength(255)->default('CIO Flash'),
+                                        Forms\Components\TextInput::make('cio_flash_card_link')
+                                            ->label('Card Link URL')->default('/resources-center/cio-flash')
+                                            ->helperText('e.g., /resources-center/cio-flash'),
+                                        Forms\Components\Toggle::make('cio_flash_card_enabled')
+                                            ->label('Enable Link')->default(true),
+                                    ])
+                                    ->columns(1)
+                                    ->collapsible(),
+
+                                Forms\Components\Section::make('Monday Window Card')
+                                    ->schema([
+                                        Forms\Components\FileUpload::make('monday_window_card_image')
+                                            ->label('Card Image')->image()->imageEditor()
+                                            ->directory('resource-center/cards')->helperText('Recommended: 400x300px'),
+                                        Forms\Components\TextInput::make('monday_window_card_title_en')
+                                            ->label('Card Title (English)')->maxLength(255)->default('Monday Window'),
+                                        Forms\Components\TextInput::make('monday_window_card_title_ar')
+                                            ->label('Card Title (Arabic)')->maxLength(255)->default('نافذة الاثنين'),
+                                        Forms\Components\TextInput::make('monday_window_card_link')
+                                            ->label('Card Link URL')->default('/resources-center/monday-window')
+                                            ->helperText('e.g., /resources-center/monday-window'),
+                                        Forms\Components\Toggle::make('monday_window_card_enabled')
+                                            ->label('Enable Link')->default(true),
+                                    ])
+                                    ->columns(1)
+                                    ->collapsible(),
+
+                                Forms\Components\Section::make('Research Card')
+                                    ->schema([
+                                        Forms\Components\FileUpload::make('research_card_image')
+                                            ->label('Card Image')->image()->imageEditor()
+                                            ->directory('resource-center/cards')->helperText('Recommended: 400x300px'),
+                                        Forms\Components\TextInput::make('research_card_title_en')
+                                            ->label('Card Title (English)')->maxLength(255)->default('Research'),
+                                        Forms\Components\TextInput::make('research_card_title_ar')
+                                            ->label('Card Title (Arabic)')->maxLength(255)->default('الأبحاث'),
+                                        Forms\Components\TextInput::make('research_card_link')
+                                            ->label('Card Link URL')->default('/resources-center/research')
+                                            ->helperText('e.g., /resources-center/research'),
+                                        Forms\Components\Toggle::make('research_card_enabled')
+                                            ->label('Enable Link')->default(true),
+                                    ])
+                                    ->columns(1)
+                                    ->collapsible(),
                             ]),
 
                         Forms\Components\Tabs\Tab::make('CTA Section')

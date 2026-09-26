@@ -247,11 +247,11 @@
                                         <i class="fas fa-caret-down text-[0.9375rem] transition-transform duration-200 group-hover:rotate-180 flex items-center nav-header-flex"></i>
                                     </a>
                                     <div class="absolute hidden group-hover:block bg-[#1a1f2e] min-w-[200px] py-2">
-                                        <a href="{{route('articles')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">Articles</a>
-                                        <a href="{{route('books')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">E-Books</a>
-                                        <a href="{{route('glossaries')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">Glossary</a>
-                                        <a href="{{route('tools')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">Tools</a>
-                                        <a href="{{route('faq')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">FAQ's</a>
+                                        <a href="{{route('blog')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">{{ app()->getLocale() == 'ar' ? 'المدونة' : 'Blog / News' }}</a>
+                                        <a href="{{route('white-papers')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">{{ app()->getLocale() == 'ar' ? 'الأوراق البيضاء' : 'White Papers' }}</a>
+                                        <a href="{{route('cio-flash')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">CIO Flash</a>
+                                        <a href="{{route('monday-window')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">{{ app()->getLocale() == 'ar' ? 'نافذة الاثنين' : 'Monday Window' }}</a>
+                                        <a href="{{route('research')}}" class="block px-4 py-2 text-[0.8rem] hover:bg-[#D4AF37] hover:text-white font-['Poppins']">{{ app()->getLocale() == 'ar' ? 'الأبحاث' : 'Research' }}</a>
                                     </div>
                                 </li>
                                 <li class="group relative nav-header-flex desktop-text-ltr">
@@ -348,11 +348,11 @@
                                     <i class="fas fa-caret-down text-[0.9375rem] transition-transform duration-200 cursor-pointer desktop-reverse-flex" onclick="toggleDropdown(this)"></i>
                                 </div>
                                 <div class="site-mobile-dropdown hidden pl-4 mt-2">
-                                    <a href="{{route('articles')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">Articles</a>
-                                    <a href="{{route('books')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">E-Books</a>
-                                    <a href="{{route('glossaries')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">Glossary</a>
-                                    <a href="{{route('tools')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">Tools</a>
-                                    <a href="{{route('faq')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">FAQ's</a>
+                                    <a href="{{route('blog')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">{{ app()->getLocale() == 'ar' ? 'المدونة' : 'Blog / News' }}</a>
+                                    <a href="{{route('white-papers')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">{{ app()->getLocale() == 'ar' ? 'الأوراق البيضاء' : 'White Papers' }}</a>
+                                    <a href="{{route('cio-flash')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">CIO Flash</a>
+                                    <a href="{{route('monday-window')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">{{ app()->getLocale() == 'ar' ? 'نافذة الاثنين' : 'Monday Window' }}</a>
+                                    <a href="{{route('research')}}" class="block py-2 text-[0.8rem] hover:text-[#D4AF37] font-['Poppins']">{{ app()->getLocale() == 'ar' ? 'الأبحاث' : 'Research' }}</a>
                                 </div>
                             </li>
                             <li class="group">

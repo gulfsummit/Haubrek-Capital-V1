@@ -19,6 +19,11 @@ use App\Models\SubCategory;
 use App\Models\Appointment;
 use App\Models\AppointmentPage;
 use App\Models\WebsiteSettings;
+use App\Models\WhitePaper;
+use App\Models\CioFlash;
+use App\Models\MondayWindow;
+use App\Models\Research;
+use App\Models\ResearchDownload;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
@@ -1018,6 +1023,7 @@ class FrontendController extends Controller
                     'lastmod' => optional($glossary->updated_at ?? $glossary->created_at)?->toAtomString(),
                 ])
             )
+            ->merge($this->dynamicSitemapEntries())
             ->unique('loc')
             ->values();
 
@@ -1086,7 +1092,43 @@ class FrontendController extends Controller
             ['loc' => route('privacy-policy'), 'lastmod' => optional(\App\Models\PrivacyPolicy::where('is_active', true)->first()?->updated_at)->toAtomString()],
             ['loc' => route('terms-conditions'), 'lastmod' => optional(\App\Models\TermsConditions::where('is_active', true)->first()?->updated_at)->toAtomString()],
             ['loc' => route('cookie-policy'), 'lastmod' => optional(\App\Models\CookiePolicy::where('is_active', true)->first()?->updated_at)->toAtomString()],
+            // New Resources Center sub-sections
+            ['loc' => route('white-papers'), 'lastmod' => optional(WhitePaper::published()->latest()->first()?->updated_at)->toAtomString()],
+            ['loc' => route('cio-flash'), 'lastmod' => optional(CioFlash::published()->latest()->first()?->updated_at)->toAtomString()],
+            ['loc' => route('monday-window'), 'lastmod' => optional(MondayWindow::published()->latest()->first()?->updated_at)->toAtomString()],
+            ['loc' => route('research'), 'lastmod' => optional(Research::published()->latest()->first()?->updated_at)->toAtomString()],
         ];
+    }
+
+    /**
+     * Dynamic sitemap entries for individual content items.
+     * Called by the sitemap() method to include per-item URLs.
+     */
+    protected function dynamicSitemapEntries(): array
+    {
+        $entries = [];
+
+        // White Papers
+        foreach (WhitePaper::published()->get(['slug', 'updated_at']) as $item) {
+            $entries[] = ['loc' => route('white-papers.show', $item->slug), 'lastmod' => optional($item->updated_at)->toAtomString()];
+        }
+
+        // CIO Flash
+        foreach (CioFlash::published()->get(['slug', 'updated_at']) as $item) {
+            $entries[] = ['loc' => route('cio-flash.show', $item->slug), 'lastmod' => optional($item->updated_at)->toAtomString()];
+        }
+
+        // Monday Window
+        foreach (MondayWindow::published()->get(['slug', 'updated_at']) as $item) {
+            $entries[] = ['loc' => route('monday-window.show', $item->slug), 'lastmod' => optional($item->updated_at)->toAtomString()];
+        }
+
+        // Research
+        foreach (Research::published()->get(['slug', 'updated_at']) as $item) {
+            $entries[] = ['loc' => route('research.show', $item->slug), 'lastmod' => optional($item->updated_at)->toAtomString()];
+        }
+
+        return $entries;
     }
 
     protected function legacyRedirectFor(Request $request): ?string
@@ -1163,10 +1205,13 @@ class FrontendController extends Controller
             ],
         ];
 
+        $excludedSlugs = ['the-monday-window', 'monday-window'];
+
         return Blog::published()
             ->whereNotNull('category')
             ->get(['category', 'category_ar'])
             ->filter(fn (Blog $blog) => filled($blog->category))
+            ->filter(fn (Blog $blog) => !in_array(Str::slug($blog->category), $excludedSlugs))
             ->unique('category')
             ->map(function (Blog $blog) use ($categoryTranslations) {
                 $category = $blog->category;
@@ -1356,5 +1401,271 @@ class FrontendController extends Controller
             ->replaceMatches('/\s+/u', ' ')
             ->trim()
             ->toString();
+    }
+
+    // =========================================================================
+    // WHITE PAPERS
+    // =========================================================================
+
+    public function whitePapers(Request $request)
+    {
+        $services  = SubCategory::get();
+        $settings  = SettingResource::collection(Setting::first()->get())->resolve();
+        $query     = WhitePaper::published()->ordered();
+
+        if ($request->filled('search')) {
+            $searchTerm = $request->search;
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('title_en', 'like', "%{$searchTerm}%")
+                  ->orWhere('title_ar', 'like', "%{$searchTerm}%")
+                  ->orWhere('short_description_en', 'like', "%{$searchTerm}%")
+                  ->orWhere('short_description_ar', 'like', "%{$searchTerm}%");
+            });
+        }
+
+        $whitePapers = $query->get();
+        $pageContent = $this->getPageContent('white-papers-list');
+
+        return view('resources.white-papers.index', [
+            'whitePapers' => $whitePapers,
+            'services'    => $services,
+            'settings'    => $settings,
+            'searchTerm'  => $request->get('search', ''),
+            'seoMeta'     => $pageContent?->seoMeta ?? WebsiteSettings::getSettings()->seoMeta,
+            'pageContent' => $pageContent,
+        ]);
+    }
+
+    public function whitePaperShow(WhitePaper $whitePaper)
+    {
+        $services     = SubCategory::get();
+        $settings     = SettingResource::collection(Setting::first()->get())->resolve();
+        $latestItems  = WhitePaper::published()
+            ->where('id', '!=', $whitePaper->id)
+            ->ordered()
+            ->limit(3)
+            ->get();
+
+        return view('resources.white-papers.show', [
+            'whitePaper'  => $whitePaper,
+            'latestItems' => $latestItems,
+            'services'    => $services,
+            'settings'    => $settings,
+            'seoMeta'     => $whitePaper->seoMeta,
+            'pageContent' => $this->getPageContent('white-papers-detail'),
+        ]);
+    }
+
+    // =========================================================================
+    // CIO FLASH
+    // =========================================================================
+
+    public function cioFlash(Request $request)
+    {
+        $services  = SubCategory::get();
+        $settings  = SettingResource::collection(Setting::first()->get())->resolve();
+        $query     = CioFlash::published()->ordered();
+
+        if ($request->filled('search')) {
+            $searchTerm = $request->search;
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('episode_title_en', 'like', "%{$searchTerm}%")
+                  ->orWhere('episode_title_ar', 'like', "%{$searchTerm}%")
+                  ->orWhere('description_en', 'like', "%{$searchTerm}%")
+                  ->orWhere('description_ar', 'like', "%{$searchTerm}%")
+                  ->orWhere('speaker_en', 'like', "%{$searchTerm}%");
+            });
+        }
+
+        $episodes    = $query->get();
+        $pageContent = $this->getPageContent('cio-flash-list');
+
+        return view('resources.cio-flash.index', [
+            'episodes'    => $episodes,
+            'services'    => $services,
+            'settings'    => $settings,
+            'searchTerm'  => $request->get('search', ''),
+            'seoMeta'     => $pageContent?->seoMeta ?? WebsiteSettings::getSettings()->seoMeta,
+            'pageContent' => $pageContent,
+        ]);
+    }
+
+    public function cioFlashShow(CioFlash $cioFlash)
+    {
+        $services    = SubCategory::get();
+        $settings    = SettingResource::collection(Setting::first()->get())->resolve();
+        $latestItems = CioFlash::published()
+            ->where('id', '!=', $cioFlash->id)
+            ->ordered()
+            ->limit(3)
+            ->get();
+
+        return view('resources.cio-flash.show', [
+            'episode'     => $cioFlash,
+            'latestItems' => $latestItems,
+            'services'    => $services,
+            'settings'    => $settings,
+            'seoMeta'     => $cioFlash->seoMeta,
+            'pageContent' => $this->getPageContent('cio-flash-detail'),
+        ]);
+    }
+
+    // =========================================================================
+    // MONDAY WINDOW
+    // =========================================================================
+
+    public function mondayWindow(Request $request)
+    {
+        $services  = SubCategory::get();
+        $settings  = SettingResource::collection(Setting::first()->get())->resolve();
+        $query     = MondayWindow::published()->ordered();
+
+        if ($request->filled('search')) {
+            $searchTerm = $request->search;
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('title_en', 'like', "%{$searchTerm}%")
+                  ->orWhere('title_ar', 'like', "%{$searchTerm}%")
+                  ->orWhere('short_summary_en', 'like', "%{$searchTerm}%")
+                  ->orWhere('short_summary_ar', 'like', "%{$searchTerm}%");
+            });
+        }
+
+        $editions    = $query->get();
+        $pageContent = $this->getPageContent('monday-window-list');
+
+        return view('resources.monday-window.index', [
+            'editions'    => $editions,
+            'services'    => $services,
+            'settings'    => $settings,
+            'searchTerm'  => $request->get('search', ''),
+            'seoMeta'     => $pageContent?->seoMeta ?? WebsiteSettings::getSettings()->seoMeta,
+            'pageContent' => $pageContent,
+        ]);
+    }
+
+    public function mondayWindowShow(MondayWindow $mondayWindow)
+    {
+        $services    = SubCategory::get();
+        $settings    = SettingResource::collection(Setting::first()->get())->resolve();
+        $latestItems = MondayWindow::published()
+            ->where('id', '!=', $mondayWindow->id)
+            ->ordered()
+            ->limit(3)
+            ->get();
+
+        return view('resources.monday-window.show', [
+            'edition'     => $mondayWindow,
+            'latestItems' => $latestItems,
+            'services'    => $services,
+            'settings'    => $settings,
+            'seoMeta'     => $mondayWindow->seoMeta,
+            'pageContent' => $this->getPageContent('monday-window-detail'),
+        ]);
+    }
+
+    // =========================================================================
+    // RESEARCH
+    // =========================================================================
+
+    public function research(Request $request)
+    {
+        $services  = SubCategory::get();
+        $settings  = SettingResource::collection(Setting::first()->get())->resolve();
+        $query     = Research::published()->ordered();
+
+        if ($request->filled('search')) {
+            $searchTerm = $request->search;
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('title_en', 'like', "%{$searchTerm}%")
+                  ->orWhere('title_ar', 'like', "%{$searchTerm}%")
+                  ->orWhere('short_description_en', 'like', "%{$searchTerm}%")
+                  ->orWhere('short_description_ar', 'like', "%{$searchTerm}%");
+            });
+        }
+
+        $researchItems = $query->get();
+        $pageContent   = $this->getPageContent('research-list');
+
+        return view('resources.research.index', [
+            'researchItems' => $researchItems,
+            'services'      => $services,
+            'settings'      => $settings,
+            'searchTerm'    => $request->get('search', ''),
+            'seoMeta'       => $pageContent?->seoMeta ?? WebsiteSettings::getSettings()->seoMeta,
+            'pageContent'   => $pageContent,
+        ]);
+    }
+
+    public function researchShow(Research $research)
+    {
+        $services    = SubCategory::get();
+        $settings    = SettingResource::collection(Setting::first()->get())->resolve();
+        $latestItems = Research::published()
+            ->where('id', '!=', $research->id)
+            ->ordered()
+            ->limit(3)
+            ->get();
+
+        return view('resources.research.show', [
+            'research'    => $research,
+            'latestItems' => $latestItems,
+            'services'    => $services,
+            'settings'    => $settings,
+            'seoMeta'     => $research->seoMeta,
+            'pageContent' => $this->getPageContent('research-detail'),
+        ]);
+    }
+
+    /**
+     * Handle the research download form submission.
+     * If form_required = true, store the lead data then redirect to thank-you page.
+     * The actual PDF download link is shown on the thank-you page.
+     */
+    public function researchDownload(Request $request, Research $research)
+    {
+        // If no form required, redirect to show page (PDF is freely accessible)
+        if (! $research->form_required) {
+            return redirect()->route('research.show', $research->slug);
+        }
+
+        $validated = $request->validate([
+            'first_name'     => 'required|string|max:255',
+            'last_name'      => 'required|string|max:255',
+            'business_email' => 'required|email|max:255',
+            'company'        => 'required|string|max:255',
+            'job_title'      => 'required|string|max:255',
+            'country'        => 'required|string|max:255',
+            'phone_number'   => 'nullable|string|max:30',
+        ]);
+
+        ResearchDownload::create([
+            'research_id'    => $research->id,
+            'first_name'     => $validated['first_name'],
+            'last_name'      => $validated['last_name'],
+            'business_email' => $validated['business_email'],
+            'company'        => $validated['company'],
+            'job_title'      => $validated['job_title'],
+            'country'        => $validated['country'],
+            'phone_number'   => $validated['phone_number'] ?? null,
+            'downloaded_at'  => now(),
+        ]);
+
+        return redirect()->route('research.thank-you', $research->slug);
+    }
+
+    /**
+     * Thank-you page shown after successful research download form.
+     */
+    public function researchThankYou(Research $research)
+    {
+        $services = SubCategory::get();
+        $settings = SettingResource::collection(Setting::first()->get())->resolve();
+
+        return view('resources.research.thank-you', [
+            'research' => $research,
+            'services' => $services,
+            'settings' => $settings,
+            'seoMeta'  => WebsiteSettings::getSettings()->seoMeta,
+        ]);
     }
 }

@@ -71,6 +71,21 @@ Route::post('/appointment/submit',[FrontendController::class,'storeAppointment']
 Route::get('/faq',[FrontendController::class,'question'])->name('faq');
 Route::get('/resources-center',[FrontendController::class,'resourcesCenter'])->name('resources-center');
 
+// ── Resources Center sub-sections ──────────────────────────────────────────
+Route::get('/resources-center/white-papers', [FrontendController::class, 'whitePapers'])->name('white-papers');
+Route::get('/resources-center/white-papers/{whitePaper}', [FrontendController::class, 'whitePaperShow'])->name('white-papers.show');
+
+Route::get('/resources-center/cio-flash', [FrontendController::class, 'cioFlash'])->name('cio-flash');
+Route::get('/resources-center/cio-flash/{cioFlash}', [FrontendController::class, 'cioFlashShow'])->name('cio-flash.show');
+
+Route::get('/resources-center/monday-window', [FrontendController::class, 'mondayWindow'])->name('monday-window');
+Route::get('/resources-center/monday-window/{mondayWindow}', [FrontendController::class, 'mondayWindowShow'])->name('monday-window.show');
+
+Route::get('/resources-center/research', [FrontendController::class, 'research'])->name('research');
+Route::get('/resources-center/research/{research}', [FrontendController::class, 'researchShow'])->name('research.show');
+Route::post('/resources-center/research/{research}/download', [FrontendController::class, 'researchDownload'])->name('research.download');
+Route::get('/resources-center/research/{research}/thank-you', [FrontendController::class, 'researchThankYou'])->name('research.thank-you');
+
 // Newsletter subscription
 Route::post('/newsletter/subscribe', 'App\Http\Controllers\NewsletterController@subscribe')->name('newsletter.subscribe');
 

@@ -5,6 +5,9 @@ namespace App\Filament\Admin\Resources;
 use App\Filament\Admin\Resources\BlogResource\Pages;
 use App\Filament\Admin\Resources\BlogResource\RelationManagers;
 use App\Models\Blog;
+use App\Models\WhitePaper;
+use App\Models\CioFlash;
+use App\Models\MondayWindow;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -83,8 +86,73 @@ class BlogResource extends Resource
                                         Forms\Components\Toggle::make('is_published')
                                             ->label('Published')
                                             ->default(true),
+                                        Forms\Components\Toggle::make('is_featured')
+                                            ->label('Featured')
+                                            ->default(false)
+                                            ->helperText('Show in featured sections'),
                                     ])
                                     ->columns(2),
+                                Forms\Components\Section::make('Author & Publication')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('author_en')
+                                            ->label('Author (English)')
+                                            ->maxLength(255),
+                                        Forms\Components\TextInput::make('author_ar')
+                                            ->label('Author (Arabic)')
+                                            ->maxLength(255),
+                                        Forms\Components\DatePicker::make('publication_date')
+                                            ->label('Publication Date'),
+                                        Forms\Components\TextInput::make('reading_time')
+                                            ->label('Reading Time (minutes)')
+                                            ->numeric()
+                                            ->minValue(1)
+                                            ->helperText('Estimated reading time in minutes'),
+                                    ])
+                                    ->columns(2),
+                                Forms\Components\Section::make('Related Content')
+                                    ->schema([
+                                        Forms\Components\Select::make('related_white_paper_id')
+                                            ->label('Related White Paper')
+                                            ->options(fn () => WhitePaper::published()->ordered()->pluck('title_en', 'id'))
+                                            ->searchable()
+                                            ->nullable()
+                                            ->placeholder('Select a White Paper'),
+                                        Forms\Components\Select::make('related_cio_flash_id')
+                                            ->label('Related CIO Flash Episode')
+                                            ->options(fn () => CioFlash::published()->ordered()->pluck('episode_title_en', 'id'))
+                                            ->searchable()
+                                            ->nullable()
+                                            ->placeholder('Select a CIO Flash Episode'),
+                                        Forms\Components\Select::make('related_monday_window_id')
+                                            ->label('Related Monday Window')
+                                            ->options(fn () => MondayWindow::published()->ordered()->pluck('title_en', 'id'))
+                                            ->searchable()
+                                            ->nullable()
+                                            ->placeholder('Select a Monday Window'),
+                                    ])
+                                    ->columns(2)
+                                    ->collapsible(),
+                                Forms\Components\Section::make('External Sources')
+                                    ->schema([
+                                        Forms\Components\Repeater::make('external_sources')
+                                            ->label('External Sources')
+                                            ->schema([
+                                                Forms\Components\TextInput::make('label_en')
+                                                    ->label('Label (English)')
+                                                    ->maxLength(255),
+                                                Forms\Components\TextInput::make('label_ar')
+                                                    ->label('Label (Arabic)')
+                                                    ->maxLength(255),
+                                                Forms\Components\TextInput::make('url')
+                                                    ->label('URL')
+                                                    ->url()
+                                                    ->maxLength(500),
+                                            ])
+                                            ->columns(3)
+                                            ->addActionLabel('Add Source')
+                                            ->collapsible(),
+                                    ])
+                                    ->collapsible(),
                             ]),
                         Forms\Components\Tabs\Tab::make('Content')
                             ->schema([
@@ -172,6 +240,14 @@ class BlogResource extends Resource
                     ->badge()
                     ->color(fn (bool $state): string => $state ? 'success' : 'danger')
                     ->formatStateUsing(fn (bool $state): string => $state ? 'Published' : 'Draft'),
+                Tables\Columns\IconColumn::make('is_featured')
+                    ->label('Featured')
+                    ->boolean(),
+                Tables\Columns\TextColumn::make('publication_date')
+                    ->label('Date')
+                    ->date()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('sort_order')
                     ->label('Order')
                     ->sortable(),
@@ -185,6 +261,8 @@ class BlogResource extends Resource
                     ->options(self::getCategoryFilterOptions()),
                 Tables\Filters\TernaryFilter::make('is_published')
                     ->label('Published Status'),
+                Tables\Filters\TernaryFilter::make('is_featured')
+                    ->label('Featured'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

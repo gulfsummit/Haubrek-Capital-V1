@@ -32,10 +32,23 @@ class Blog extends Model
         'slug',
         'is_published',
         'sort_order',
+        // New fields
+        'author_en',
+        'author_ar',
+        'publication_date',
+        'reading_time',
+        'external_sources',
+        'related_white_paper_id',
+        'related_cio_flash_id',
+        'related_monday_window_id',
+        'is_featured',
     ];
 
     protected $casts = [
-        'is_published' => 'boolean',
+        'is_published'     => 'boolean',
+        'is_featured'      => 'boolean',
+        'external_sources' => 'array',
+        'publication_date' => 'date',
     ];
 
     protected static function boot()
@@ -75,9 +88,39 @@ class Blog extends Model
         return app()->getLocale() == 'ar' ? ($this->content_ar ?: $this->content_en) : $this->content_en;
     }
 
+    // Locale-aware author accessor
+    public function getAuthorAttribute(): ?string
+    {
+        return app()->getLocale() === 'ar'
+            ? ($this->author_ar ?: $this->author_en)
+            : $this->author_en;
+    }
+
+    // Relationships
+    public function relatedWhitePaper()
+    {
+        return $this->belongsTo(WhitePaper::class, 'related_white_paper_id');
+    }
+
+    public function relatedCioFlash()
+    {
+        return $this->belongsTo(CioFlash::class, 'related_cio_flash_id');
+    }
+
+    public function relatedMondayWindow()
+    {
+        return $this->belongsTo(MondayWindow::class, 'related_monday_window_id');
+    }
+
+    // Scopes
     public function scopePublished($query)
     {
         return $query->where('is_published', true);
+    }
+
+    public function scopeFeatured($query)
+    {
+        return $query->where('is_featured', true);
     }
 
     public function scopeByCategory($query, $category)
