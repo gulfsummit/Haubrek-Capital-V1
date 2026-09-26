@@ -40,7 +40,8 @@
     </div>
 </section>
 
-<section class="py-8 bg-white" dir="{{ $pageDirection }}">
+
+<section class="py-8 bg-white bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('design/images/blog-bg.png') }}');" dir="{{ $pageDirection }}">
     <div class="container mx-auto px-4">
         {{-- Cover Image --}}
         <div class="rounded-lg overflow-hidden mb-8 max-h-[450px]">
