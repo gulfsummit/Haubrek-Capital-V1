@@ -198,8 +198,9 @@ class BlogResource extends Resource
                                             ->helperText('Main image for the blog post. Also used as the OG image if none is set in SEO.')
                                             ->live()
                                             ->afterStateUpdated(function ($state, Forms\Set $set, Forms\Get $get) {
-                                                if (blank($state)) return;
-                                                // Only auto-fill OG image if it hasn't been set yet
+                                                // $state can be a TemporaryUploadedFile during upload or a
+                                                // filename string after save — only sync once it's a stored path.
+                                                if (blank($state) || ! is_string($state)) return;
                                                 if (blank($get('seoMeta.og_image'))) {
                                                     $set('seoMeta.og_image', $state);
                                                 }
