@@ -150,20 +150,17 @@
                     $researchCardAlt = $localize($resourceCenter?->research_card_image_alt_en, $resourceCenter?->research_card_image_alt_ar) ?: ($localize($resourceCenter?->research_card_title_en, $resourceCenter?->research_card_title_ar) ?: 'Research');
                 @endphp
                 <div class="resource-tab-content" id="tab-blog">
-                    {{-- Featured: Blog / News full-width card --}}
-                    @include('resources.partials.resource-card', [
-                        'enabled'     => $blogEnabled,
-                        'link'        => $blogLink,
-                        'image'       => $resourceCenter?->blog_card_image,
-                        'fallback'    => 'design/images/articles.png',
-                        'alt'         => $blogCardAlt,
-                        'label'       => $localize($resourceCenter?->blog_card_title_en, $resourceCenter?->blog_card_title_ar) ?: 'Blogs / News',
-                        'textSize'    => 'text-2xl sm:text-3xl',
-                        'heightClass' => 'h-[220px] sm:h-[260px] md:h-[300px]',
-                    ])
+                    {{-- 2 rows × 3 cols: Blog/News · White Papers · CIO Flash | Monday Window · Research --}}
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
+                        @include('resources.partials.resource-card', [
+                            'enabled'     => $blogEnabled,
+                            'link'        => $blogLink,
+                            'image'       => $resourceCenter?->blog_card_image,
+                            'fallback'    => 'design/images/articles.png',
+                            'alt'         => $blogCardAlt,
+                            'label'       => $localize($resourceCenter?->blog_card_title_en, $resourceCenter?->blog_card_title_ar) ?: 'Blogs / News',
+                        ])
 
-                    {{-- Row: White Papers · CIO Flash · Monday Window · Research --}}
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-4 md:mt-6 mb-6 md:mb-8">
                         @include('resources.partials.resource-card', [
                             'enabled'  => $whitePapersEnabled,
                             'link'     => $whitePapersLink,
