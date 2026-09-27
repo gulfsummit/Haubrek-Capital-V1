@@ -28,7 +28,7 @@
 @endphp
 
 {{-- Breadcrumb --}}
-<section class="bg-[#041B44] pt-32 pb-4">
+<section class="pt-32 pb-4">
     <div class="container mx-auto px-4" dir="{{ $pageDirection }}">
         <nav class="flex items-center gap-2 text-sm">
             <a href="{{ route('home') }}" class="text-white/60 hover:text-[#D4AF37] transition-colors">{{ $homeLabel }}</a>
