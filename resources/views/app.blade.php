@@ -654,6 +654,10 @@
         'article.show',
         'book.show',
         'glossary.show',
+        'white-papers.show',
+        'cio-flash.show',
+        'monday-window.show',
+        'research.show',
     ]);
 @endphp
 <body class="{{ $hasWhitePageBackground ? 'bg-white' : 'bg-[#041B44]' }}">
