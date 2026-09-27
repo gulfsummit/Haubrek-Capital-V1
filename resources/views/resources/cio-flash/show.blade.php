@@ -40,7 +40,7 @@
 </section>
 
 {{-- Main --}}
-<section class="py-8 bg-gray-50 bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('design/images/blog-bg.png') }}');" dir="{{ $pageDirection }}">
+<section class="py-8 bg-white" dir="{{ $pageDirection }}">
     <div class="container mx-auto px-4">
         <div class="flex flex-col lg:flex-row gap-10 {{ $isArabic ? 'lg:flex-row-reverse' : '' }}">
             <main class="flex-1 min-w-0">

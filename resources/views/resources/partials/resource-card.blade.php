@@ -23,7 +23,9 @@
                 alt="{{ $alt }}"
                 class="w-full h-full object-cover rounded-lg transition group-hover:scale-105 duration-300"
             >
-            <span class="absolute inset-0 flex items-center justify-center {{ $textSize }} font-neue-extrabold text-[#041B44] drop-shadow-lg text-center px-2">
+            {{-- dark overlay so the label is always readable --}}
+            <span class="absolute inset-0 bg-[#041B44]/50 rounded-lg transition group-hover:bg-[#041B44]/60 duration-300"></span>
+            <span class="absolute inset-0 flex items-center justify-center {{ $textSize }} font-neue-extrabold text-white drop-shadow-lg text-center px-2">
                 {{ $label }}
             </span>
         </a>
@@ -34,7 +36,8 @@
                 alt="{{ $alt }}"
                 class="w-full h-full object-cover rounded-lg"
             >
-            <span class="absolute inset-0 flex items-center justify-center {{ $textSize }} font-neue-extrabold text-[#041B44] drop-shadow-lg text-center px-2">
+            <span class="absolute inset-0 bg-[#041B44]/50 rounded-lg"></span>
+            <span class="absolute inset-0 flex items-center justify-center {{ $textSize }} font-neue-extrabold text-white drop-shadow-lg text-center px-2">
                 {{ $label }}
             </span>
         </div>
