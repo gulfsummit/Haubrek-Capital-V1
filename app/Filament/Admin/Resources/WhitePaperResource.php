@@ -52,7 +52,15 @@ class WhitePaperResource extends Resource
                                             ->required()
                                             ->unique(WhitePaper::class, 'slug', ignoreRecord: true)
                                             ->maxLength(255)
-                                            ->helperText('Used in the URL: /resources-center/white-papers/your-slug'),
+                                            ->helperText('Used in the URL: /resources-center/white-papers/your-slug')
+                                            ->live(onBlur: true)
+                                            ->afterStateUpdated(function ($state, Forms\Set $set, Forms\Get $get) {
+                                                if (blank($state)) return;
+                                                $canonical = rtrim(config('app.url'), '/') . '/resources-center/white-papers/' . $state;
+                                                if (blank($get('seoMeta.canonical_url'))) {
+                                                    $set('seoMeta.canonical_url', $canonical);
+                                                }
+                                            }),
                                         Forms\Components\TextInput::make('author_en')
                                             ->label('Author (English)')
                                             ->maxLength(255),
@@ -134,7 +142,14 @@ class WhitePaperResource extends Resource
                                             ->image()
                                             ->directory('white-papers/featured')
                                             ->imageEditor()
-                                            ->helperText('Main image for listing pages'),
+                                            ->helperText('Main image for listing pages. Also used as the OG image if none is set in SEO.')
+                                            ->live()
+                                            ->afterStateUpdated(function ($state, Forms\Set $set, Forms\Get $get) {
+                                                if (blank($state)) return;
+                                                if (blank($get('seoMeta.og_image'))) {
+                                                    $set('seoMeta.og_image', $state);
+                                                }
+                                            }),
                                         Forms\Components\TextInput::make('featured_image_alt_en')
                                             ->label('Featured Image Alt (English)')
                                             ->maxLength(255),
@@ -158,7 +173,7 @@ class WhitePaperResource extends Resource
                             ]),
 
                         // ── Tab 4: SEO ────────────────────────────────────────
-                        SeoTab::make(),
+                        SeoTab::make('seoMeta', '/resources-center/white-papers'),
                     ])
                     ->columnSpanFull(),
             ]);

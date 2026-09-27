@@ -52,14 +52,27 @@ class MondayWindowResource extends Resource
                                             ->required()
                                             ->unique(MondayWindow::class, 'slug', ignoreRecord: true)
                                             ->maxLength(255)
-                                            ->helperText('Used in URL: /resources-center/monday-window/your-slug'),
+                                            ->helperText('Used in URL: /resources-center/monday-window/your-slug')
+                                            ->live(onBlur: true)
+                                            ->afterStateUpdated(function ($state, Forms\Set $set, Forms\Get $get) {
+                                                if (blank($state)) return;
+                                                $canonical = rtrim(config('app.url'), '/') . '/resources-center/monday-window/' . $state;
+                                                if (blank($get('seoMeta.canonical_url'))) {
+                                                    $set('seoMeta.canonical_url', $canonical);
+                                                }
+                                            }),
                                         Forms\Components\DatePicker::make('week_date')
                                             ->label('Week Date')
                                             ->helperText('The Monday date this edition covers')
                                             ->live(onBlur: true)
-                                            ->afterStateUpdated(function (string $operation, $state, Forms\Set $set) {
+                                            ->afterStateUpdated(function (string $operation, $state, Forms\Set $set, Forms\Get $get) {
                                                 if ($operation !== 'create' || empty($state)) return;
-                                                $set('slug', \Carbon\Carbon::parse($state)->format('Y-m-d'));
+                                                $slug = \Carbon\Carbon::parse($state)->format('Y-m-d');
+                                                $set('slug', $slug);
+                                                $canonical = rtrim(config('app.url'), '/') . '/resources-center/monday-window/' . $slug;
+                                                if (blank($get('seoMeta.canonical_url'))) {
+                                                    $set('seoMeta.canonical_url', $canonical);
+                                                }
                                             }),
                                         Forms\Components\TextInput::make('sort_order')
                                             ->label('Sort Order')
@@ -152,7 +165,15 @@ class MondayWindowResource extends Resource
                                             ->label('Featured Image')
                                             ->image()
                                             ->directory('monday-window/images')
-                                            ->imageEditor(),
+                                            ->imageEditor()
+                                            ->helperText('Main image. Also used as the OG image if none is set in SEO.')
+                                            ->live()
+                                            ->afterStateUpdated(function ($state, Forms\Set $set, Forms\Get $get) {
+                                                if (blank($state)) return;
+                                                if (blank($get('seoMeta.og_image'))) {
+                                                    $set('seoMeta.og_image', $state);
+                                                }
+                                            }),
                                         Forms\Components\TextInput::make('featured_image_alt_en')
                                             ->label('Image Alt (English)')
                                             ->maxLength(255),
@@ -164,7 +185,7 @@ class MondayWindowResource extends Resource
                             ]),
 
                         // ── Tab 4: SEO ────────────────────────────────────────
-                        SeoTab::make(),
+                        SeoTab::make('seoMeta', '/resources-center/monday-window'),
                     ])
                     ->columnSpanFull(),
             ]);

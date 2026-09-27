@@ -59,7 +59,16 @@ class BlogResource extends Resource
                                             ->required()
                                             ->unique(Blog::class, 'slug', ignoreRecord: true)
                                             ->maxLength(255)
-                                            ->helperText('This will be used in the URL (e.g., /blog/your-slug)'),
+                                            ->helperText('This will be used in the URL (e.g., /blog/your-slug)')
+                                            ->live(onBlur: true)
+                                            ->afterStateUpdated(function ($state, Forms\Set $set, Forms\Get $get) {
+                                                if (blank($state)) return;
+                                                $canonical = rtrim(config('app.url'), '/') . '/blog/' . $state;
+                                                // Only auto-fill if the canonical is currently empty
+                                                if (blank($get('seoMeta.canonical_url'))) {
+                                                    $set('seoMeta.canonical_url', $canonical);
+                                                }
+                                            }),
                                         Forms\Components\TextInput::make('category')
                                             ->label('Category (English)')
                                             ->datalist(self::getCategoryDatalist())
@@ -186,7 +195,15 @@ class BlogResource extends Resource
                                             ->image()
                                             ->directory('blogs/featured')
                                             ->imageEditor()
-                                            ->helperText('Main image for the blog post'),
+                                            ->helperText('Main image for the blog post. Also used as the OG image if none is set in SEO.')
+                                            ->live()
+                                            ->afterStateUpdated(function ($state, Forms\Set $set, Forms\Get $get) {
+                                                if (blank($state)) return;
+                                                // Only auto-fill OG image if it hasn't been set yet
+                                                if (blank($get('seoMeta.og_image'))) {
+                                                    $set('seoMeta.og_image', $state);
+                                                }
+                                            }),
                                         Forms\Components\TextInput::make('featured_image_alt_en')
                                             ->label('Featured Image Alt (English)')
                                             ->maxLength(255)
@@ -212,7 +229,7 @@ class BlogResource extends Resource
                                     ])
                                     ->columns(1),
                             ]),
-                        SeoTab::make(),
+                        SeoTab::make('seoMeta', '/blog'),
                     ])
                     ->columnSpanFull(),
             ]);

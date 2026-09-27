@@ -51,7 +51,15 @@ class ResearchResource extends Resource
                                             ->required()
                                             ->unique(Research::class, 'slug', ignoreRecord: true)
                                             ->maxLength(255)
-                                            ->helperText('Used in URL: /resources-center/research/your-slug'),
+                                            ->helperText('Used in URL: /resources-center/research/your-slug')
+                                            ->live(onBlur: true)
+                                            ->afterStateUpdated(function ($state, Forms\Set $set, Forms\Get $get) {
+                                                if (blank($state)) return;
+                                                $canonical = rtrim(config('app.url'), '/') . '/resources-center/research/' . $state;
+                                                if (blank($get('seoMeta.canonical_url'))) {
+                                                    $set('seoMeta.canonical_url', $canonical);
+                                                }
+                                            }),
                                         Forms\Components\TextInput::make('author_en')
                                             ->label('Author (English)')
                                             ->maxLength(255),
@@ -125,7 +133,15 @@ class ResearchResource extends Resource
                                             ->label('Cover Image')
                                             ->image()
                                             ->directory('research/covers')
-                                            ->imageEditor(),
+                                            ->imageEditor()
+                                            ->helperText('Main cover image. Also used as the OG image if none is set in SEO.')
+                                            ->live()
+                                            ->afterStateUpdated(function ($state, Forms\Set $set, Forms\Get $get) {
+                                                if (blank($state)) return;
+                                                if (blank($get('seoMeta.og_image'))) {
+                                                    $set('seoMeta.og_image', $state);
+                                                }
+                                            }),
                                         Forms\Components\TextInput::make('cover_image_alt_en')
                                             ->label('Cover Image Alt (English)')
                                             ->maxLength(255),
@@ -137,7 +153,7 @@ class ResearchResource extends Resource
                             ]),
 
                         // ── Tab 4: SEO ────────────────────────────────────────
-                        SeoTab::make(),
+                        SeoTab::make('seoMeta', '/resources-center/research'),
                     ])
                     ->columnSpanFull(),
             ]);

@@ -6,8 +6,19 @@ use Filament\Forms;
 
 class SeoTab
 {
-    public static function make(string $relationship = 'seoMeta'): Forms\Components\Tabs\Tab
+    /**
+     * @param  string       $relationship  The Eloquent relationship name (default: 'seoMeta')
+     * @param  string|null  $urlPrefix     The base URL path prefix used to auto-generate the
+     *                                     canonical URL (e.g. '/blog/', '/resources-center/white-papers/').
+     *                                     When provided, the canonical field is pre-filled with
+     *                                     APP_URL + urlPrefix + slug on create, and shown as a
+     *                                     read-only hint when the field is empty on edit.
+     */
+    public static function make(string $relationship = 'seoMeta', ?string $urlPrefix = null): Forms\Components\Tabs\Tab
     {
+        $baseUrl = rtrim(config('app.url'), '/');
+        $prefix  = $urlPrefix ? '/' . trim($urlPrefix, '/') . '/' : null;
+
         return Forms\Components\Tabs\Tab::make('SEO')
             ->schema([
                 Forms\Components\Section::make('SEO Metadata')
@@ -47,7 +58,12 @@ class SeoTab
                         Forms\Components\TextInput::make('canonical_url')
                             ->label('Canonical URL')
                             ->url()
-                            ->helperText('Leave empty to use the default page URL.'),
+                            ->helperText(
+                                $prefix
+                                    ? 'Auto-generated from the slug (' . $baseUrl . $prefix . '{slug}). Override only if needed.'
+                                    : 'Leave empty to use the default page URL.'
+                            )
+                            ->placeholder($prefix ? $baseUrl . $prefix . 'your-slug' : null),
                         Forms\Components\TextInput::make('og_title_en')
                             ->label('OG Title (English)')
                             ->maxLength(255),
@@ -65,7 +81,7 @@ class SeoTab
                             ->image()
                             ->directory('seo/og')
                             ->imageEditor()
-                            ->helperText('Recommended 1200x630px for social sharing.'),
+                            ->helperText('Recommended 1200x630px for social sharing. Auto-filled from the main image if left empty.'),
                         Forms\Components\TextInput::make('og_image_alt_en')
                             ->label('OG Image Alt Text (English)')
                             ->maxLength(255)
@@ -79,4 +95,3 @@ class SeoTab
             ]);
     }
 }
-
