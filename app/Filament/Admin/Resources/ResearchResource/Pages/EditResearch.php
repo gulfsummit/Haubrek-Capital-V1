@@ -16,4 +16,23 @@ class EditResearch extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    // Research uses cover_image as its primary image
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        if (empty($data['seoMeta']['og_image']) && ! empty($data['cover_image'])) {
+            $data['seoMeta']['og_image'] = $data['cover_image'];
+        }
+
+        return $data;
+    }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        if (empty($data['seoMeta']['og_image']) && ! empty($data['cover_image'])) {
+            $data['seoMeta']['og_image'] = $data['cover_image'];
+        }
+
+        return $data;
+    }
 }

@@ -134,16 +134,7 @@ class ResearchResource extends Resource
                                             ->image()
                                             ->directory('research/covers')
                                             ->imageEditor()
-                                            ->helperText('Main cover image. Also used as the OG image if none is set in SEO.')
-                                            ->live()
-                                            ->afterStateUpdated(function ($state, Forms\Set $set, Forms\Get $get) {
-                                                // $state can be a TemporaryUploadedFile during upload or a
-                                                // filename string after save — only sync once it's a stored path.
-                                                if (blank($state) || ! is_string($state)) return;
-                                                if (blank($get('seoMeta.og_image'))) {
-                                                    $set('seoMeta.og_image', $state);
-                                                }
-                                            }),
+                                            ->helperText('Main cover image. Also used as OG image if none is set in SEO.'),
                                         Forms\Components\TextInput::make('cover_image_alt_en')
                                             ->label('Cover Image Alt (English)')
                                             ->maxLength(255),

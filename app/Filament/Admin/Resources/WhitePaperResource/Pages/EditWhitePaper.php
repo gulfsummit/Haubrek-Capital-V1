@@ -16,4 +16,22 @@ class EditWhitePaper extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        if (empty($data['seoMeta']['og_image']) && ! empty($data['featured_image'])) {
+            $data['seoMeta']['og_image'] = $data['featured_image'];
+        }
+
+        return $data;
+    }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        if (empty($data['seoMeta']['og_image']) && ! empty($data['featured_image'])) {
+            $data['seoMeta']['og_image'] = $data['featured_image'];
+        }
+
+        return $data;
+    }
 }
