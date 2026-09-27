@@ -133,9 +133,9 @@
                         </div>
                         <div class="mt-4">
                             <a href="{{ route('cio-flash.show', $episode->slug) }}"
-                               class="inline-flex items-center text-sm font-semibold text-[#D4AF37] hover:text-[#b8962e] transition-colors">
+                               class="inline-flex items-center gap-1 mt-2 px-4 py-2 text-sm font-semibold bg-[#D4AF37] hover:bg-[#b8962e] text-white rounded transition-colors">
                                 {{ $learnMoreLabel }}
-                                <svg class="w-4 h-4 {{ $isArabic ? 'mr-1 rotate-180' : 'ml-1' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 {{ $isArabic ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                 </svg>
                             </a>

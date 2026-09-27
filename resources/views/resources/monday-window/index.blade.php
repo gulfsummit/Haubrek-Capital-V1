@@ -92,42 +92,44 @@
                     $edAlt     = $localize($edition->featured_image_alt_en, $edition->featured_image_alt_ar) ?: $edTitle;
                 @endphp
                 {{-- Date shown outside/above the card --}}
-                @if($edition->week_date)
-                    <div class="mb-1 text-sm font-semibold text-white/80 {{ $alignmentClass }}">
-                        {{ $edition->week_date->locale($locale)->isoFormat('dddd') }}
-                        {{ $edition->week_date->format('Y/n/j') }}
-                    </div>
-                @endif
-                <article class="rounded-lg overflow-hidden hover:opacity-90 transition-opacity group">
-                    <a href="{{ route('monday-window.show', $edition->slug) }}" class="block">
-                        <div class="h-48 overflow-hidden">
-                            <img src="{{ $edImage }}" alt="{{ $edAlt }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                <div>
+                    @if($edition->week_date)
+                        <div class="mb-2 text-sm font-semibold text-white/80 {{ $alignmentClass }}">
+                            {{ $edition->week_date->locale($locale)->isoFormat('dddd') }}
+                            {{ $edition->week_date->format('Y/n/j') }}
                         </div>
-                    </a>
-                    <div class="p-5" dir="{{ $pageDirection }}">
-                        {{-- Market Topics --}}
-                        @if(!empty($edition->market_topics))
-                            <div class="flex flex-wrap gap-1 mb-2">
-                                @foreach(array_slice($edition->market_topics, 0, 2) as $topic)
-                                    <span class="text-xs bg-[#D4AF37]/10 text-[#b8962e] px-2 py-0.5 rounded">{{ $topic }}</span>
-                                @endforeach
+                    @endif
+                    <article class="rounded-lg overflow-hidden hover:opacity-90 transition-opacity group">
+                        <a href="{{ route('monday-window.show', $edition->slug) }}" class="block">
+                            <div class="h-48 overflow-hidden">
+                                <img src="{{ $edImage }}" alt="{{ $edAlt }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
                             </div>
-                        @endif
-                        <h2 class="text-base font-bold text-white mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
-                            <a href="{{ route('monday-window.show', $edition->slug) }}" class="hover:text-[#D4AF37] transition-colors">{{ $edTitle }}</a>
-                        </h2>
-                        @if($edSummary)
-                            <p class="text-white/70 text-sm mb-3 line-clamp-3 {{ $alignmentClass }}">{!! strip_tags($edSummary) !!}</p>
-                        @endif
-                        <a href="{{ route('monday-window.show', $edition->slug) }}"
-                           class="inline-flex items-center text-sm font-semibold text-[#D4AF37] hover:text-[#b8962e] transition-colors">
-                            {{ $learnMoreLabel }}
-                            <svg class="w-4 h-4 {{ $isArabic ? 'mr-1 rotate-180' : 'ml-1' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
                         </a>
-                    </div>
-                </article>
+                        <div class="p-5" dir="{{ $pageDirection }}">
+                            {{-- Market Topics --}}
+                            @if(!empty($edition->market_topics))
+                                <div class="flex flex-wrap gap-1 mb-2">
+                                    @foreach(array_slice($edition->market_topics, 0, 2) as $topic)
+                                        <span class="text-xs bg-[#D4AF37]/10 text-[#b8962e] px-2 py-0.5 rounded">{{ $topic }}</span>
+                                    @endforeach
+                                </div>
+                            @endif
+                            <h2 class="text-base font-bold text-white mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
+                                <a href="{{ route('monday-window.show', $edition->slug) }}" class="hover:text-[#D4AF37] transition-colors">{{ $edTitle }}</a>
+                            </h2>
+                            @if($edSummary)
+                                <p class="text-white/70 text-sm mb-3 line-clamp-3 {{ $alignmentClass }}">{!! strip_tags($edSummary) !!}</p>
+                            @endif
+                            <a href="{{ route('monday-window.show', $edition->slug) }}"
+                               class="inline-flex items-center gap-1 mt-2 px-4 py-2 text-sm font-semibold bg-[#D4AF37] hover:bg-[#b8962e] text-white rounded transition-colors">
+                                {{ $learnMoreLabel }}
+                                <svg class="w-4 h-4 {{ $isArabic ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+                </div>
                 @endforeach
             </div>
         @endif

@@ -178,7 +178,7 @@
                                 <p class="text-[14px] sm:text-[15px] font-['Poppins'] text-[#fff] mb-3 sm:mb-4 {{ $alignmentClass }}">
                                     {!! $trimmedDescription !!}
                                 </p>
-                                <a href="{{ route('blog.show', $blog->slug) }}" class="text-[#D4AF37] text-[14px] sm:text-[15.07px] font-['Poppins'] font-regular hover:underline mt-10 inline-block {{ $alignmentClass }}">{{ $postButtonLabel }}</a>
+                                <a href="{{ route('blog.show', $blog->slug) }}" class="inline-flex items-center gap-1 mt-4 px-4 py-2 text-sm font-semibold bg-[#D4AF37] hover:bg-[#b8962e] text-white rounded transition-colors {{ $alignmentClass }}">{{ $postButtonLabel }}</a>
                             </div>
                         </div>
                     </div>
