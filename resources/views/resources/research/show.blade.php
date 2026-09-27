@@ -28,14 +28,14 @@
 @endphp
 
 {{-- Breadcrumb --}}
-<section class="bg-white pt-32 pb-4">
+<section class="bg-[#041B44] pt-32 pb-4">
     <div class="container mx-auto px-4" dir="{{ $pageDirection }}">
         <nav class="flex items-center gap-2 text-sm">
-            <a href="{{ route('home') }}" class="text-gray-500 hover:text-[#D4AF37] transition-colors">{{ $homeLabel }}</a>
+            <a href="{{ route('home') }}" class="text-white/60 hover:text-[#D4AF37] transition-colors">{{ $homeLabel }}</a>
             {!! $breadcrumbSep !!}
-            <a href="{{ route('research') }}" class="text-gray-500 hover:text-[#D4AF37] transition-colors">{{ $listLabel }}</a>
+            <a href="{{ route('research') }}" class="text-white/60 hover:text-[#D4AF37] transition-colors">{{ $listLabel }}</a>
             {!! $breadcrumbSep !!}
-            <span class="text-[#20B2AA] font-medium">{{ Str::limit($title, 40) }}</span>
+            <span class="text-[#D4AF37] font-medium">{{ Str::limit($title, 40) }}</span>
         </nav>
     </div>
 </section>

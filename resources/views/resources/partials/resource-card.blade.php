@@ -11,11 +11,11 @@
       $heightClass – (optional) Tailwind height classes, defaults to 'h-[180px] sm:h-[200px] md:h-[220px]'
 --}}
 @php
-    $textSize    = $textSize    ?? 'text-lg sm:text-xl';
+    $textSize    = $textSize    ?? 'text-sm sm:text-base';
     $heightClass = $heightClass ?? 'h-[180px] sm:h-[200px] md:h-[220px]';
 @endphp
 
-<div class="bg-[#F6F6F6] rounded-xl overflow-hidden flex flex-col items-center {{ $heightClass }}">
+<div class="bg-transparent rounded-xl overflow-hidden flex flex-col items-center {{ $heightClass }}">
     @if($enabled && $link)
         <a href="{{ $link }}" class="relative w-full h-full group">
             <img
@@ -25,7 +25,7 @@
             >
             {{-- dark overlay so the label is always readable --}}
             <span class="absolute inset-0 bg-[#041B44]/50 rounded-lg transition group-hover:bg-[#041B44]/60 duration-300"></span>
-            <span class="absolute inset-0 flex items-center justify-center {{ $textSize }} font-neue-extrabold text-white drop-shadow-lg text-center px-2">
+            <span class="absolute inset-0 flex items-center justify-center {{ $textSize }} font-neue-extrabold text-white drop-shadow-lg text-center leading-tight px-2">
                 {{ $label }}
             </span>
         </a>
@@ -37,7 +37,7 @@
                 class="w-full h-full object-cover rounded-lg"
             >
             <span class="absolute inset-0 bg-[#041B44]/50 rounded-lg"></span>
-            <span class="absolute inset-0 flex items-center justify-center {{ $textSize }} font-neue-extrabold text-white drop-shadow-lg text-center px-2">
+            <span class="absolute inset-0 flex items-center justify-center {{ $textSize }} font-neue-extrabold text-white drop-shadow-lg text-center leading-tight px-2">
                 {{ $label }}
             </span>
         </div>
