@@ -106,7 +106,7 @@
                             <img src="{{ $image }}" alt="{{ $imageAlt }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
                         </div>
                     </a>
-                    <div class="p-6" dir="{{ $pageDirection }}">
+                    <div class="pt-6" dir="{{ $pageDirection }}">
                         {{-- Topics --}}
                         @if(!empty($paper->topics))
                             <div class="flex flex-wrap gap-2 mb-3">

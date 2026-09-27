@@ -95,8 +95,13 @@
                 <div>
                     @if($edition->week_date)
                         <div class="mb-2 text-sm font-semibold text-white/80 {{ $alignmentClass }}">
-                            {{ $edition->week_date->locale($locale)->isoFormat('dddd') }}
-                            {{ $edition->week_date->format('Y/n/j') }}
+                            @php
+                                $weekDate = $edition->week_date;
+                                $dayName  = $isArabic
+                                    ? $weekDate->locale('ar')->translatedFormat('l')
+                                    : $weekDate->translatedFormat('l');
+                            @endphp
+                            {{ $dayName }} {{ $weekDate->format('Y/n/j') }}
                         </div>
                     @endif
                     <article class="rounded-lg overflow-hidden hover:opacity-90 transition-opacity group">
@@ -105,7 +110,7 @@
                                 <img src="{{ $edImage }}" alt="{{ $edAlt }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
                             </div>
                         </a>
-                        <div class="p-5" dir="{{ $pageDirection }}">
+                        <div class="pt-5" dir="{{ $pageDirection }}">
                             {{-- Market Topics --}}
                             @if(!empty($edition->market_topics))
                                 <div class="flex flex-wrap gap-1 mb-2">

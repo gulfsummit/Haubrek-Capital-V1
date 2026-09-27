@@ -113,7 +113,7 @@
                             @endif
                         </div>
                     </a>
-                    <div class="p-6 flex flex-col flex-1" dir="{{ $pageDirection }}">
+                    <div class="pt-6 flex flex-col flex-1" dir="{{ $pageDirection }}">
                         @if($rType)
                             <span class="inline-block text-xs font-semibold text-[#b8962e] bg-[#D4AF37]/10 px-2 py-1 rounded mb-2">{{ $rType }}</span>
                         @endif
