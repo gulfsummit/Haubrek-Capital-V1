@@ -10,15 +10,22 @@ class CreateBlog extends CreateRecord
     protected static string $resource = BlogResource::class;
 
     /**
-     * Before saving a new record, copy featured_image → seoMeta.og_image
-     * if the OG image was left empty.
+     * After the record and its relationships are saved, sync featured_image
+     * into seoMeta.og_image if the og_image was left empty.
      */
-    protected function mutateFormDataBeforeCreate(array $data): array
+    protected function afterCreate(): void
     {
-        if (empty($data['seoMeta']['og_image']) && ! empty($data['featured_image'])) {
-            $data['seoMeta']['og_image'] = $data['featured_image'];
+        $record = $this->record;
+
+        if (blank($record->featured_image)) {
+            return;
         }
 
-        return $data;
+        $seo = $record->seoMeta()->firstOrCreate([]);
+
+        if (blank($seo->og_image)) {
+            $seo->og_image = $record->featured_image;
+            $seo->save();
+        }
     }
 }

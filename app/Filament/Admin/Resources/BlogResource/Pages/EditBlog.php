@@ -18,27 +18,21 @@ class EditBlog extends EditRecord
     }
 
     /**
-     * When loading an existing record, pre-fill seoMeta.og_image
-     * from featured_image if the OG image is not yet set.
+     * After save, sync featured_image into seoMeta.og_image if og_image is empty.
      */
-    protected function mutateFormDataBeforeFill(array $data): array
+    protected function afterSave(): void
     {
-        if (empty($data['seoMeta']['og_image']) && ! empty($data['featured_image'])) {
-            $data['seoMeta']['og_image'] = $data['featured_image'];
+        $record = $this->record;
+
+        if (blank($record->featured_image)) {
+            return;
         }
 
-        return $data;
-    }
+        $seo = $record->seoMeta()->firstOrCreate([]);
 
-    /**
-     * Also sync on save in case the image was changed during edit.
-     */
-    protected function mutateFormDataBeforeSave(array $data): array
-    {
-        if (empty($data['seoMeta']['og_image']) && ! empty($data['featured_image'])) {
-            $data['seoMeta']['og_image'] = $data['featured_image'];
+        if (blank($seo->og_image)) {
+            $seo->og_image = $record->featured_image;
+            $seo->save();
         }
-
-        return $data;
     }
 }

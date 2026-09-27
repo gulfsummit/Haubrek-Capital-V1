@@ -18,21 +18,19 @@ class EditResearch extends EditRecord
     }
 
     // Research uses cover_image as its primary image
-    protected function mutateFormDataBeforeFill(array $data): array
+    protected function afterSave(): void
     {
-        if (empty($data['seoMeta']['og_image']) && ! empty($data['cover_image'])) {
-            $data['seoMeta']['og_image'] = $data['cover_image'];
+        $record = $this->record;
+
+        if (blank($record->cover_image)) {
+            return;
         }
 
-        return $data;
-    }
+        $seo = $record->seoMeta()->firstOrCreate([]);
 
-    protected function mutateFormDataBeforeSave(array $data): array
-    {
-        if (empty($data['seoMeta']['og_image']) && ! empty($data['cover_image'])) {
-            $data['seoMeta']['og_image'] = $data['cover_image'];
+        if (blank($seo->og_image)) {
+            $seo->og_image = $record->cover_image;
+            $seo->save();
         }
-
-        return $data;
     }
 }

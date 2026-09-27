@@ -9,12 +9,19 @@ class CreateCioFlash extends CreateRecord
 {
     protected static string $resource = CioFlashResource::class;
 
-    protected function mutateFormDataBeforeCreate(array $data): array
+    protected function afterCreate(): void
     {
-        if (empty($data['seoMeta']['og_image']) && ! empty($data['featured_image'])) {
-            $data['seoMeta']['og_image'] = $data['featured_image'];
+        $record = $this->record;
+
+        if (blank($record->featured_image)) {
+            return;
         }
 
-        return $data;
+        $seo = $record->seoMeta()->firstOrCreate([]);
+
+        if (blank($seo->og_image)) {
+            $seo->og_image = $record->featured_image;
+            $seo->save();
+        }
     }
 }

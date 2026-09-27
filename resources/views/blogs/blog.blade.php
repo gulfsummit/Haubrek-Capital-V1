@@ -167,15 +167,19 @@
                         $cardImageAlt = $blog->thumbnail_image ? $thumbnailAlt : ($blog->featured_image ? $featuredAlt : $blogTitle);
                     @endphp
                     <div class="article-card-articles" data-category="{{ \Illuminate\Support\Str::slug($blog->category ?? 'uncategorized') }}" dir="{{ $pageDirection }}">
-                        <div class="overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 rounded-lg">
-                            <div
-                                class="w-full h-48 sm:h-56 md:h-64 bg-contain bg-center bg-no-repeat"
-                                style="background-image: url('{{ $cardImage }}');"
-                                role="img"
-                                aria-label="{{ $cardImageAlt }}"
-                            ></div>
+                        <div class="overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 rounded-lg group">
+                            <a href="{{ route('blog.show', $blog->slug) }}" class="block overflow-hidden">
+                                <img
+                                    src="{{ $cardImage }}"
+                                    alt="{{ $cardImageAlt }}"
+                                    class="w-full h-48 sm:h-56 md:h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                                />
+                            </a>
                             <div class="pt-5">
-                                <p class="text-[14px] sm:text-[15px] font-['Poppins'] text-[#fff] mb-3 sm:mb-4 {{ $alignmentClass }}">
+                                <h2 class="text-base font-bold text-white mb-2 leading-snug line-clamp-2 {{ $alignmentClass }}">
+                                    <a href="{{ route('blog.show', $blog->slug) }}" class="hover:text-[#D4AF37] transition-colors">{{ $blogTitle }}</a>
+                                </h2>
+                                <p class="text-[14px] sm:text-[15px] font-['Poppins'] text-white/70 mb-3 sm:mb-4 line-clamp-3 {{ $alignmentClass }}">
                                     {!! $trimmedDescription !!}
                                 </p>
                                 <a href="{{ route('blog.show', $blog->slug) }}" class="inline-flex items-center gap-1 mt-4 px-4 py-2 text-sm font-semibold bg-[#D4AF37] hover:bg-[#b8962e] text-white rounded transition-colors {{ $alignmentClass }}">{{ $postButtonLabel }}</a>
