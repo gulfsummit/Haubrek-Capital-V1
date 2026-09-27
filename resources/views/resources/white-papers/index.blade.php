@@ -100,7 +100,7 @@
                     $image       = $paper->featured_image ? asset('storage/' . $paper->featured_image) : asset('design/images/blog.png');
                     $imageAlt    = $localize($paper->featured_image_alt_en, $paper->featured_image_alt_ar) ?: $title;
                 @endphp
-                <article class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow group">
+                <article class="rounded-lg overflow-hidden hover:opacity-90 transition-opacity group">
                     <a href="{{ route('white-papers.show', $paper->slug) }}" class="block">
                         <div class="h-52 overflow-hidden">
                             <img src="{{ $image }}" alt="{{ $imageAlt }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
@@ -115,15 +115,15 @@
                                 @endforeach
                             </div>
                         @endif
-                        <h2 class="text-base font-bold text-gray-900 mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
+                        <h2 class="text-base font-bold text-white mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
                             <a href="{{ route('white-papers.show', $paper->slug) }}" class="hover:text-[#D4AF37] transition-colors">
                                 {{ $title }}
                             </a>
                         </h2>
                         @if($description)
-                            <p class="text-gray-600 text-sm mb-4 line-clamp-3 {{ $alignmentClass }}">{!! strip_tags($description) !!}</p>
+                            <p class="text-white/70 text-sm mb-4 line-clamp-3 {{ $alignmentClass }}">{!! strip_tags($description) !!}</p>
                         @endif
-                        <div class="flex items-center justify-between text-xs text-gray-400 mt-auto">
+                        <div class="flex items-center justify-between text-xs text-white/50 mt-auto">
                             @if($author)
                                 <span>{{ $author }}</span>
                             @endif

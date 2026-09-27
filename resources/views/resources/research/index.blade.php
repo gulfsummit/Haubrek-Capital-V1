@@ -101,7 +101,7 @@
                     $rImage  = $item->cover_image ? asset('storage/' . $item->cover_image) : asset('design/images/blog.png');
                     $rAlt    = $localize($item->cover_image_alt_en, $item->cover_image_alt_ar) ?: $rTitle;
                 @endphp
-                <article class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
+                <article class="rounded-lg overflow-hidden hover:opacity-90 transition-opacity group flex flex-col">
                     <a href="{{ route('research.show', $item->slug) }}" class="block">
                         <div class="h-52 overflow-hidden relative">
                             <img src="{{ $rImage }}" alt="{{ $rAlt }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
@@ -124,13 +124,13 @@
                                 @endforeach
                             </div>
                         @endif
-                        <h2 class="text-base font-bold text-gray-900 mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
+                        <h2 class="text-base font-bold text-white mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
                             <a href="{{ route('research.show', $item->slug) }}" class="hover:text-[#D4AF37] transition-colors">{{ $rTitle }}</a>
                         </h2>
                         @if($rDesc)
-                            <p class="text-gray-500 text-sm mb-3 line-clamp-3 {{ $alignmentClass }}">{{ strip_tags($rDesc) }}</p>
+                            <p class="text-white/70 text-sm mb-3 line-clamp-3 {{ $alignmentClass }}">{{ strip_tags($rDesc) }}</p>
                         @endif
-                        <div class="flex items-center justify-between text-xs text-gray-400 mt-auto">
+                        <div class="flex items-center justify-between text-xs text-white/50 mt-auto">
                             @if($rAuthor) <span>{{ $rAuthor }}</span> @endif
                             @if($item->publication_date) <span>{{ $item->publication_date->format('M Y') }}</span> @endif
                         </div>

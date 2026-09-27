@@ -138,7 +138,11 @@
             Request::routeIs('case-studies.show') ||
             Request::routeIs('article.show') ||
             Request::routeIs('book.show') ||
-            Request::routeIs('glossary.show')
+            Request::routeIs('glossary.show') ||
+            Request::routeIs('white-papers.show') ||
+            Request::routeIs('cio-flash.show') ||
+            Request::routeIs('monday-window.show') ||
+            Request::routeIs('research.show')
         )
             bg-[#041B44]
         @else

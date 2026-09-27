@@ -93,7 +93,7 @@
                     $epImage   = $episode->featured_image ? asset('storage/' . $episode->featured_image) : asset('design/images/blog.png');
                     $epAlt     = $localize($episode->featured_image_alt_en, $episode->featured_image_alt_ar) ?: $epTitle;
                 @endphp
-                <article class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow group">
+                <article class="rounded-lg overflow-hidden hover:opacity-90 transition-opacity group">
                     <a href="{{ route('cio-flash.show', $episode->slug) }}" class="block relative">
                         <div class="h-48 overflow-hidden">
                             <img src="{{ $epImage }}" alt="{{ $epAlt }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
@@ -113,16 +113,16 @@
                         @endif
                     </a>
                     <div class="p-5" dir="{{ $pageDirection }}">
-                        <h2 class="text-base font-bold text-gray-900 mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
+                        <h2 class="text-base font-bold text-white mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
                             <a href="{{ route('cio-flash.show', $episode->slug) }}" class="hover:text-[#D4AF37] transition-colors">{{ $epTitle }}</a>
                         </h2>
                         @if($epDesc)
-                            <p class="text-gray-500 text-sm mb-3 line-clamp-2 {{ $alignmentClass }}">{!! strip_tags($epDesc) !!}</p>
+                            <p class="text-white/70 text-sm mb-3 line-clamp-2 {{ $alignmentClass }}">{!! strip_tags($epDesc) !!}</p>
                         @endif
-                        <div class="flex items-center justify-between text-xs text-gray-400">
+                        <div class="flex items-center justify-between text-xs text-white/50">
                             <div>
-                                @if($epSpeaker) <span class="font-medium text-gray-600">{{ $epSpeaker }}</span> @endif
-                                @if($epPos) <span class="block text-gray-400">{{ $epPos }}</span> @endif
+                                @if($epSpeaker) <span class="font-medium text-white/70">{{ $epSpeaker }}</span> @endif
+                                @if($epPos) <span class="block text-white/50">{{ $epPos }}</span> @endif
                             </div>
                             @if($episode->duration)
                                 <span class="flex items-center gap-1">

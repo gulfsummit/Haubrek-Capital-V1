@@ -91,20 +91,20 @@
                     $edImage   = $edition->featured_image ? asset('storage/' . $edition->featured_image) : asset('design/images/blog.png');
                     $edAlt     = $localize($edition->featured_image_alt_en, $edition->featured_image_alt_ar) ?: $edTitle;
                 @endphp
-                <article class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow group">
+                {{-- Date shown outside/above the card --}}
+                @if($edition->week_date)
+                    <div class="mb-1 text-sm font-semibold text-white/80 {{ $alignmentClass }}">
+                        {{ $edition->week_date->locale($locale)->isoFormat('dddd') }}
+                        {{ $edition->week_date->format('Y/n/j') }}
+                    </div>
+                @endif
+                <article class="rounded-lg overflow-hidden hover:opacity-90 transition-opacity group">
                     <a href="{{ route('monday-window.show', $edition->slug) }}" class="block">
                         <div class="h-48 overflow-hidden">
                             <img src="{{ $edImage }}" alt="{{ $edAlt }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
                         </div>
                     </a>
                     <div class="p-5" dir="{{ $pageDirection }}">
-                        {{-- Week Date Badge --}}
-                        @if($edition->week_date)
-                            <div class="flex items-center gap-1 text-xs text-[#D4AF37] font-semibold mb-2">
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                {{ $edition->week_date->format('d M Y') }}
-                            </div>
-                        @endif
                         {{-- Market Topics --}}
                         @if(!empty($edition->market_topics))
                             <div class="flex flex-wrap gap-1 mb-2">
@@ -113,11 +113,11 @@
                                 @endforeach
                             </div>
                         @endif
-                        <h2 class="text-base font-bold text-gray-900 mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
+                        <h2 class="text-base font-bold text-white mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
                             <a href="{{ route('monday-window.show', $edition->slug) }}" class="hover:text-[#D4AF37] transition-colors">{{ $edTitle }}</a>
                         </h2>
                         @if($edSummary)
-                            <p class="text-gray-500 text-sm mb-3 line-clamp-3 {{ $alignmentClass }}">{!! strip_tags($edSummary) !!}</p>
+                            <p class="text-white/70 text-sm mb-3 line-clamp-3 {{ $alignmentClass }}">{!! strip_tags($edSummary) !!}</p>
                         @endif
                         <a href="{{ route('monday-window.show', $edition->slug) }}"
                            class="inline-flex items-center text-sm font-semibold text-[#D4AF37] hover:text-[#b8962e] transition-colors">
