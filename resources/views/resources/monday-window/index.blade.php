@@ -55,6 +55,9 @@
             {{ $isArabic ? 'ابحث في الإصدارات' : 'Search Monday Window' }}
         </p>
         <form method="GET" action="{{ route('monday-window') }}" class="flex w-full max-w-2xl gap-0 rounded-xl overflow-hidden shadow-lg ring-1 ring-white/10">
+            @if($selectedDate)
+                <input type="hidden" name="date" value="{{ $selectedDate }}" />
+            @endif
             <input
                 type="text"
                 name="search"
@@ -66,7 +69,7 @@
                 {{ $isArabic ? 'بحث' : 'Search' }}
             </button>
             @if($searchTerm)
-                <a href="{{ route('monday-window') }}" class="bg-white/10 text-white/70 px-5 py-3 text-sm hover:bg-white/20 transition whitespace-nowrap">
+                <a href="{{ route('monday-window', $selectedDate ? ['date' => $selectedDate] : []) }}" class="bg-white/10 text-white/70 px-5 py-3 text-sm hover:bg-white/20 transition whitespace-nowrap">
                     {{ $isArabic ? 'مسح' : 'Clear' }}
                 </a>
             @endif
@@ -77,25 +80,36 @@
 {{-- Editions --}}
 <section class="py-12 bg-gray-50 bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('design/images/blog-bg.png') }}');" dir="{{ $pageDirection }}">
     <div class="container mx-auto px-4">
+        <div class="max-w-md mx-auto mb-10 rounded-lg border border-gray-200 bg-white p-5 shadow-sm" id="monday-window-calendar" dir="{{ $pageDirection }}">
+            <form method="GET" action="{{ route('monday-window') }}" id="monday-window-date-form">
+                @if($searchTerm)
+                    <input type="hidden" name="search" value="{{ $searchTerm }}" />
+                @endif
+                <input type="hidden" name="date" id="monday-window-selected-date" value="{{ $selectedDate ?? '' }}" />
+                <div class="flex items-center justify-between gap-4 mb-5">
+                    <button type="button" id="monday-window-previous-month" aria-label="{{ $isArabic ? 'الشهر السابق' : 'Previous month' }}" class="w-10 h-10 rounded-md text-gray-700 hover:bg-gray-100 transition">&#8249;</button>
+                    <h2 id="monday-window-calendar-month" class="text-gray-900 font-semibold text-lg" aria-live="polite"></h2>
+                    <button type="button" id="monday-window-next-month" aria-label="{{ $isArabic ? 'الشهر التالي' : 'Next month' }}" class="w-10 h-10 rounded-md text-gray-700 hover:bg-gray-100 transition">&#8250;</button>
+                </div>
+                <div id="monday-window-calendar-weekdays" class="grid grid-cols-7 gap-1 mb-1 text-center text-xs text-gray-500" aria-hidden="true"></div>
+                <div id="monday-window-calendar-days" class="grid grid-cols-7 gap-1 text-center text-sm"></div>
+                <div class="mt-4 flex min-h-8 items-center justify-between gap-3 border-t border-gray-100 pt-3 text-sm">
+                    <p id="monday-window-calendar-selection" class="text-gray-600" aria-live="polite">
+                        {{ $selectedDate ? \Carbon\CarbonImmutable::parse($selectedDate)->locale($locale)->translatedFormat('l, j F Y') : ($isArabic ? 'اختر يوم اثنين يتوفر فيه إصدار' : 'Select a Monday with an edition') }}
+                    </p>
+                    @if($selectedDate)
+                        <a href="{{ route('monday-window', $searchTerm ? ['search' => $searchTerm] : []) }}" class="text-[#9b7b20] hover:text-[#715a17] transition whitespace-nowrap">{{ $isArabic ? 'عرض الكل' : 'Clear date' }}</a>
+                    @endif
+                </div>
+            </form>
+        </div>
+
         @if($editions->isEmpty())
-            <div class="text-center py-20">
+            <div class="text-center py-16">
                 <p class="text-2xl font-semibold text-gray-700 mb-2">{{ $noItemsLabel }}</p>
                 <p class="text-gray-500">{{ $checkBackLabel }}</p>
             </div>
         @else
-            <div class="max-w-md mx-auto mb-10 rounded-lg border border-white/10 bg-[#041B44] p-5 shadow-lg" id="monday-window-calendar" dir="{{ $pageDirection }}">
-                <div class="flex items-center justify-between gap-4 mb-5">
-                    <button type="button" id="monday-window-previous-month" aria-label="{{ $isArabic ? 'الشهر السابق' : 'Previous month' }}" class="w-10 h-10 rounded-md text-white hover:bg-white/10 transition">&#8249;</button>
-                    <h2 id="monday-window-calendar-month" class="text-white font-semibold text-lg" aria-live="polite"></h2>
-                    <button type="button" id="monday-window-next-month" aria-label="{{ $isArabic ? 'الشهر التالي' : 'Next month' }}" class="w-10 h-10 rounded-md text-white hover:bg-white/10 transition">&#8250;</button>
-                </div>
-                <div id="monday-window-calendar-weekdays" class="grid grid-cols-7 gap-1 mb-1 text-center text-xs text-white/60" aria-hidden="true"></div>
-                <div id="monday-window-calendar-days" class="grid grid-cols-7 gap-1 text-center text-sm"></div>
-                <div class="mt-4 flex items-center justify-between gap-3 text-sm">
-                    <p id="monday-window-calendar-selection" class="text-white/70" aria-live="polite">{{ $isArabic ? 'اختر يوم اثنين يتوفر فيه إصدار' : 'Choose a Monday with an edition' }}</p>
-                    <button type="button" id="monday-window-clear-date" class="hidden text-[#D4AF37] hover:text-white transition whitespace-nowrap">{{ $isArabic ? 'مسح التاريخ' : 'Clear date' }}</button>
-                </div>
-            </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($editions as $edition)
                 @php
@@ -105,7 +119,7 @@
                     $edAlt     = $localize($edition->featured_image_alt_en, $edition->featured_image_alt_ar) ?: $edTitle;
                 @endphp
                 {{-- Date shown outside/above the card --}}
-                <div class="monday-window-edition" data-monday-edition data-week-date="{{ $edition->week_date?->format('Y-m-d') ?? '' }}">
+                <div>
                     @if($edition->week_date)
                         <div class="mb-2 text-sm font-semibold text-white/80 {{ $alignmentClass }}">
                             @php
@@ -160,19 +174,21 @@
         if (!calendar) return;
 
         const locale = @json($isArabic ? 'ar' : 'en');
+        const mondayDates = new Set(@json($availableDates));
         const weekdayContainer = document.getElementById('monday-window-calendar-weekdays');
         const dayContainer = document.getElementById('monday-window-calendar-days');
         const monthHeading = document.getElementById('monday-window-calendar-month');
-        const selectionLabel = document.getElementById('monday-window-calendar-selection');
-        const clearButton = document.getElementById('monday-window-clear-date');
-        const editions = [...document.querySelectorAll('[data-monday-edition]')];
-        const editionDates = new Set(editions.map((edition) => edition.dataset.weekDate).filter(Boolean));
-        const mondayDates = new Set([...editionDates].filter((date) => parseDate(date).getUTCDay() === 1));
-        const labels = {
-            prompt: @json($isArabic ? 'اختر يوم اثنين يتوفر فيه إصدار' : 'Choose a Monday with an edition'),
-        };
+        const selectedDateInput = document.getElementById('monday-window-selected-date');
+        const dateForm = document.getElementById('monday-window-date-form');
         const monthFormatter = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric', timeZone: 'UTC' });
         const dayFormatter = new Intl.DateTimeFormat(locale, { day: 'numeric', timeZone: 'UTC' });
+        const selectedDate = selectedDateInput.value;
+        let visibleMonth = selectedDate
+            ? parseDate(selectedDate)
+            : mondayDates.size
+                ? parseDate([...mondayDates].sort().at(-1))
+            : new Date();
+        visibleMonth = new Date(Date.UTC(visibleMonth.getUTCFullYear(), visibleMonth.getUTCMonth(), 1));
         const selectedDateFormatter = new Intl.DateTimeFormat(locale, {
             weekday: 'long',
             day: 'numeric',
@@ -180,11 +196,6 @@
             year: 'numeric',
             timeZone: 'UTC',
         });
-        let selectedDate = null;
-        let visibleMonth = mondayDates.size
-            ? parseDate([...mondayDates].sort().at(-1))
-            : new Date();
-        visibleMonth = new Date(Date.UTC(visibleMonth.getUTCFullYear(), visibleMonth.getUTCMonth(), 1));
 
         function parseDate(value) {
             const [year, month, day] = value.split('-').map(Number);
@@ -232,27 +243,20 @@
                 button.disabled = !isAvailableMonday;
 
                 if (isAvailableMonday) {
-                    button.classList.add('bg-[#D4AF37]', 'text-white', 'font-semibold', 'hover:bg-[#b8962e]', 'cursor-pointer');
+                    button.classList.add('bg-[#f5edcf]', 'text-[#715a17]', 'font-semibold', 'hover:bg-[#e9d995]', 'cursor-pointer');
                     button.setAttribute('aria-label', selectedDateFormatter.format(date));
                     button.setAttribute('aria-pressed', String(selectedDate === key));
-                    if (selectedDate === key) button.classList.add('ring-2', 'ring-white', 'ring-offset-2', 'ring-offset-[#041B44]');
-                    button.addEventListener('click', () => selectDate(key));
+                    if (selectedDate === key) button.classList.add('bg-[#9b7b20]', 'text-white', 'hover:bg-[#715a17]');
+                    button.addEventListener('click', () => {
+                        selectedDateInput.value = key;
+                        dateForm.submit();
+                    });
                 } else {
-                    button.classList.add('text-white/30', 'cursor-not-allowed');
+                    button.classList.add('text-gray-300', 'cursor-not-allowed');
                 }
 
                 dayContainer.appendChild(button);
             }
-        }
-
-        function selectDate(date) {
-            selectedDate = date;
-            editions.forEach((edition) => {
-                edition.hidden = edition.dataset.weekDate !== selectedDate;
-            });
-            selectionLabel.textContent = selectedDateFormatter.format(parseDate(date));
-            clearButton.classList.remove('hidden');
-            renderCalendar();
         }
 
         document.getElementById('monday-window-previous-month').addEventListener('click', () => {
@@ -261,13 +265,6 @@
         });
         document.getElementById('monday-window-next-month').addEventListener('click', () => {
             visibleMonth = new Date(Date.UTC(visibleMonth.getUTCFullYear(), visibleMonth.getUTCMonth() + 1, 1));
-            renderCalendar();
-        });
-        clearButton.addEventListener('click', () => {
-            selectedDate = null;
-            editions.forEach((edition) => { edition.hidden = false; });
-            selectionLabel.textContent = labels.prompt;
-            clearButton.classList.add('hidden');
             renderCalendar();
         });
 

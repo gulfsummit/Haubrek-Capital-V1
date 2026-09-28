@@ -1519,6 +1519,21 @@ class FrontendController extends Controller
         $services  = SubCategory::get();
         $settings  = SettingResource::collection(Setting::first()->get())->resolve();
         $query     = MondayWindow::published()->ordered();
+        $availableDates = MondayWindow::published()
+            ->whereNotNull('week_date')
+            ->orderBy('week_date')
+            ->pluck('week_date')
+            ->map(fn ($date) => CarbonImmutable::parse($date)->toDateString())
+            ->filter(fn ($date) => CarbonImmutable::parse($date)->isMonday())
+            ->unique()
+            ->values();
+        $selectedDate = $request->query('date');
+
+        if (! is_string($selectedDate) || ! $availableDates->contains($selectedDate)) {
+            $selectedDate = null;
+        } else {
+            $query->whereDate('week_date', $selectedDate);
+        }
 
         if ($request->filled('search')) {
             $searchTerm = $request->search;
@@ -1538,6 +1553,8 @@ class FrontendController extends Controller
             'services'    => $services,
             'settings'    => $settings,
             'searchTerm'  => $request->get('search', ''),
+            'availableDates' => $availableDates,
+            'selectedDate' => $selectedDate,
             'seoMeta'     => $pageContent?->seoMeta ?? WebsiteSettings::getSettings()->seoMeta,
             'pageContent' => $pageContent,
         ]);
