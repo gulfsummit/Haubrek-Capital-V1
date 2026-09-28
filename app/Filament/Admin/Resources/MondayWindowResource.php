@@ -11,6 +11,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
 class MondayWindowResource extends Resource
@@ -215,6 +216,24 @@ class MondayWindowResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
+                Tables\Filters\Filter::make('week_date')
+                    ->form([
+                        Forms\Components\DatePicker::make('week_date_from')
+                            ->label('From Date'),
+                        Forms\Components\DatePicker::make('week_date_until')
+                            ->label('Until Date'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['week_date_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('week_date', '>=', $date),
+                            )
+                            ->when(
+                                $data['week_date_until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('week_date', '<=', $date),
+                            );
+                    }),
                 Tables\Filters\TernaryFilter::make('is_published')
                     ->label('Published Status'),
                 Tables\Filters\TernaryFilter::make('is_featured')
