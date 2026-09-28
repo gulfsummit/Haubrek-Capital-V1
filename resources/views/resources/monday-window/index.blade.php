@@ -80,20 +80,20 @@
 {{-- Editions --}}
 <section class="py-12 bg-gray-50 bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('design/images/blog-bg.png') }}');" dir="{{ $pageDirection }}">
     <div class="container mx-auto px-4">
-        <div class="max-w-md mx-auto mb-10 rounded-lg border border-gray-200 bg-white p-5 shadow-sm" id="monday-window-calendar" dir="{{ $pageDirection }}">
+        <div class="max-w-sm mx-auto mb-8 rounded-lg border border-gray-200 bg-white p-4 shadow-sm" id="monday-window-calendar" dir="{{ $pageDirection }}">
             <form method="GET" action="{{ route('monday-window') }}" id="monday-window-date-form">
                 @if($searchTerm)
                     <input type="hidden" name="search" value="{{ $searchTerm }}" />
                 @endif
                 <input type="hidden" name="date" id="monday-window-selected-date" value="{{ $selectedDate ?? '' }}" />
-                <div class="flex items-center justify-between gap-4 mb-5">
-                    <button type="button" id="monday-window-previous-month" aria-label="{{ $isArabic ? 'الشهر السابق' : 'Previous month' }}" class="w-10 h-10 rounded-md text-gray-700 hover:bg-gray-100 transition">&#8249;</button>
+                <div class="flex items-center justify-between gap-4 mb-3">
+                    <button type="button" id="monday-window-previous-month" aria-label="{{ $isArabic ? 'الشهر السابق' : 'Previous month' }}" class="w-9 h-9 rounded-md text-gray-700 hover:bg-gray-100 transition">&#8249;</button>
                     <h2 id="monday-window-calendar-month" class="text-gray-900 font-semibold text-lg" aria-live="polite"></h2>
-                    <button type="button" id="monday-window-next-month" aria-label="{{ $isArabic ? 'الشهر التالي' : 'Next month' }}" class="w-10 h-10 rounded-md text-gray-700 hover:bg-gray-100 transition">&#8250;</button>
+                    <button type="button" id="monday-window-next-month" aria-label="{{ $isArabic ? 'الشهر التالي' : 'Next month' }}" class="w-9 h-9 rounded-md text-gray-700 hover:bg-gray-100 transition">&#8250;</button>
                 </div>
                 <div id="monday-window-calendar-weekdays" class="grid grid-cols-7 gap-1 mb-1 text-center text-xs text-gray-500" aria-hidden="true"></div>
                 <div id="monday-window-calendar-days" class="grid grid-cols-7 gap-1 text-center text-sm"></div>
-                <div class="mt-4 flex min-h-8 items-center justify-between gap-3 border-t border-gray-100 pt-3 text-sm">
+                <div class="mt-3 flex min-h-8 items-center justify-between gap-3 border-t border-gray-100 pt-3 text-sm">
                     <p id="monday-window-calendar-selection" class="text-gray-600" aria-live="polite">
                         {{ $selectedDate ? \Carbon\CarbonImmutable::parse($selectedDate)->locale($locale)->translatedFormat('l, j F Y') : ($isArabic ? 'اختر يوم اثنين يتوفر فيه إصدار' : 'Select a Monday with an edition') }}
                     </p>
@@ -239,7 +239,7 @@
                 const button = document.createElement('button');
                 button.type = 'button';
                 button.textContent = dayFormatter.format(date);
-                button.className = 'w-full aspect-square rounded-md transition';
+                button.className = 'h-9 w-full rounded-md transition';
                 button.disabled = !isAvailableMonday;
 
                 if (isAvailableMonday) {

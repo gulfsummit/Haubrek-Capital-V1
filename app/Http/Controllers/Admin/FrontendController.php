@@ -1523,8 +1523,7 @@ class FrontendController extends Controller
             ->whereNotNull('week_date')
             ->orderBy('week_date')
             ->pluck('week_date')
-            ->map(fn ($date) => CarbonImmutable::parse($date)->toDateString())
-            ->filter(fn ($date) => CarbonImmutable::parse($date)->isMonday())
+            ->map(fn ($date) => CarbonImmutable::parse($date)->startOfWeek(CarbonImmutable::MONDAY)->toDateString())
             ->unique()
             ->values();
         $selectedDate = $request->query('date');
@@ -1532,7 +1531,9 @@ class FrontendController extends Controller
         if (! is_string($selectedDate) || ! $availableDates->contains($selectedDate)) {
             $selectedDate = null;
         } else {
-            $query->whereDate('week_date', $selectedDate);
+            $query
+                ->whereDate('week_date', '>=', $selectedDate)
+                ->whereDate('week_date', '<', CarbonImmutable::parse($selectedDate)->addWeek()->toDateString());
         }
 
         if ($request->filled('search')) {
