@@ -80,28 +80,63 @@
 {{-- Editions --}}
 <section class="py-12 bg-gray-50 bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('design/images/blog-bg.png') }}');" dir="{{ $pageDirection }}">
     <div class="container mx-auto px-4">
-        <div class="max-w-sm mx-auto mb-8 rounded-lg border border-gray-200 bg-white p-4 shadow-sm" id="monday-window-calendar" dir="{{ $pageDirection }}">
-            <form method="GET" action="{{ route('monday-window') }}" id="monday-window-date-form">
+        {{-- Date picker filter --}}
+        <div class="flex flex-wrap items-center justify-center gap-3 mb-8" dir="{{ $pageDirection }}">
+            <form method="GET" action="{{ route('monday-window') }}" class="flex flex-wrap items-center justify-center gap-3" id="monday-window-date-form">
                 @if($searchTerm)
                     <input type="hidden" name="search" value="{{ $searchTerm }}" />
                 @endif
-                <input type="hidden" name="date" id="monday-window-selected-date" value="{{ $selectedDate ?? '' }}" />
-                <div class="flex items-center justify-between gap-4 mb-3">
-                    <button type="button" id="monday-window-previous-month" aria-label="{{ $isArabic ? 'الشهر السابق' : 'Previous month' }}" class="w-9 h-9 rounded-md text-gray-700 hover:bg-gray-100 transition">&#8249;</button>
-                    <h2 id="monday-window-calendar-month" class="text-gray-900 font-semibold text-lg" aria-live="polite"></h2>
-                    <button type="button" id="monday-window-next-month" aria-label="{{ $isArabic ? 'الشهر التالي' : 'Next month' }}" class="w-9 h-9 rounded-md text-gray-700 hover:bg-gray-100 transition">&#8250;</button>
+
+                {{-- Native date input styled to look like a pill --}}
+                <div class="relative">
+                    <span class="pointer-events-none absolute inset-y-0 {{ $isArabic ? 'right-3' : 'left-3' }} flex items-center">
+                        <svg class="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                    </span>
+                    <input
+                        type="date"
+                        name="date"
+                        id="monday-window-date-input"
+                        value="{{ $selectedDate ?? '' }}"
+                        list="monday-window-date-list"
+                        {{ $isArabic ? 'dir=ltr' : '' }}
+                        class="appearance-none bg-white/10 text-white placeholder-white/40 border border-white/20 rounded-full {{ $isArabic ? 'pr-10 pl-4' : 'pl-10 pr-4' }} py-2.5 text-sm focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition cursor-pointer min-w-[180px]"
+                        aria-label="{{ $isArabic ? 'اختر تاريخاً' : 'Filter by date' }}"
+                    />
+                    {{-- Datalist restricts the native picker suggestions to only available Mondays --}}
+                    <datalist id="monday-window-date-list">
+                        @foreach($availableDates as $availDate)
+                            <option value="{{ $availDate }}"></option>
+                        @endforeach
+                    </datalist>
                 </div>
-                <div id="monday-window-calendar-weekdays" class="grid grid-cols-7 gap-1 mb-1 text-center text-xs text-gray-500" aria-hidden="true"></div>
-                <div id="monday-window-calendar-days" class="grid grid-cols-7 gap-1 text-center text-sm"></div>
-                <div class="mt-3 flex min-h-8 items-center justify-between gap-3 border-t border-gray-100 pt-3 text-sm">
-                    <p id="monday-window-calendar-selection" class="text-gray-600" aria-live="polite">
-                        {{ $selectedDate ? \Carbon\CarbonImmutable::parse($selectedDate)->locale($locale)->translatedFormat('l, j F Y') : ($isArabic ? 'اختر يوم اثنين يتوفر فيه إصدار' : 'Select a Monday with an edition') }}
-                    </p>
-                    @if($selectedDate)
-                        <a href="{{ route('monday-window', $searchTerm ? ['search' => $searchTerm] : []) }}" class="text-[#9b7b20] hover:text-[#715a17] transition whitespace-nowrap">{{ $isArabic ? 'عرض الكل' : 'Clear date' }}</a>
-                    @endif
-                </div>
+
+                <button
+                    type="submit"
+                    class="bg-[#D4AF37] hover:bg-[#b8962e] text-white px-5 py-2.5 rounded-full text-sm font-semibold transition whitespace-nowrap"
+                >
+                    {{ $isArabic ? 'تطبيق' : 'Apply' }}
+                </button>
+
+                @if($selectedDate)
+                    <a
+                        href="{{ route('monday-window', $searchTerm ? ['search' => $searchTerm] : []) }}"
+                        class="border border-white/30 text-white/70 hover:text-white hover:border-white/60 px-5 py-2.5 rounded-full text-sm transition whitespace-nowrap"
+                    >
+                        {{ $isArabic ? 'مسح الفلتر' : 'Clear filter' }}
+                    </a>
+                @endif
             </form>
+
+            @if($selectedDate)
+                <p class="w-full text-center text-sm text-white/50 mt-1">
+                    {{ $isArabic ? 'تصفية حسب الأسبوع:' : 'Showing week of:' }}
+                    <span class="text-[#D4AF37] font-medium">
+                        {{ \Carbon\CarbonImmutable::parse($selectedDate)->locale($locale)->translatedFormat('l, j F Y') }}
+                    </span>
+                </p>
+            @endif
         </div>
 
         @if($editions->isEmpty())
@@ -170,106 +205,31 @@
 
 <script>
     (() => {
-        const calendar = document.getElementById('monday-window-calendar');
-        if (!calendar) return;
+        // Validate the typed/selected date against available Mondays on submit
+        const form  = document.getElementById('monday-window-date-form');
+        const input = document.getElementById('monday-window-date-input');
+        if (!form || !input) return;
 
-        const locale = @json($isArabic ? 'ar' : 'en');
-        const mondayDates = new Set(@json($availableDates));
-        const weekdayContainer = document.getElementById('monday-window-calendar-weekdays');
-        const dayContainer = document.getElementById('monday-window-calendar-days');
-        const monthHeading = document.getElementById('monday-window-calendar-month');
-        const selectedDateInput = document.getElementById('monday-window-selected-date');
-        const dateForm = document.getElementById('monday-window-date-form');
-        const monthFormatter = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric', timeZone: 'UTC' });
-        const dayFormatter = new Intl.DateTimeFormat(locale, { day: 'numeric', timeZone: 'UTC' });
-        const selectedDate = selectedDateInput.value;
-        let visibleMonth = selectedDate
-            ? parseDate(selectedDate)
-            : mondayDates.size
-                ? parseDate([...mondayDates].sort().at(-1))
-            : new Date();
-        visibleMonth = new Date(Date.UTC(visibleMonth.getUTCFullYear(), visibleMonth.getUTCMonth(), 1));
-        const selectedDateFormatter = new Intl.DateTimeFormat(locale, {
-            weekday: 'long',
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-            timeZone: 'UTC',
+        const availableDates = new Set(@json($availableDates));
+
+        form.addEventListener('submit', (e) => {
+            const val = input.value;
+            // If a date is entered but it's not in our available set, block submission
+            if (val && !availableDates.has(val)) {
+                e.preventDefault();
+                input.setCustomValidity(
+                    @json($isArabic
+                        ? 'الرجاء اختيار تاريخ يتوفر فيه إصدار.'
+                        : 'Please pick a date that has an edition.')
+                );
+                input.reportValidity();
+            } else {
+                input.setCustomValidity('');
+            }
         });
 
-        function parseDate(value) {
-            const [year, month, day] = value.split('-').map(Number);
-            return new Date(Date.UTC(year, month - 1, day));
-        }
-
-        function dateKey(date) {
-            return [date.getUTCFullYear(), String(date.getUTCMonth() + 1).padStart(2, '0'), String(date.getUTCDate()).padStart(2, '0')].join('-');
-        }
-
-        function renderWeekdays() {
-            const monday = new Date(Date.UTC(2024, 0, 1));
-            for (let index = 0; index < 7; index += 1) {
-                const weekday = new Date(monday.getTime() + index * 86400000);
-                const label = new Intl.DateTimeFormat(locale, { weekday: 'short', timeZone: 'UTC' }).format(weekday);
-                const day = document.createElement('span');
-                day.textContent = label;
-                weekdayContainer.appendChild(day);
-            }
-        }
-
-        function renderCalendar() {
-            monthHeading.textContent = monthFormatter.format(visibleMonth);
-            dayContainer.replaceChildren();
-
-            const year = visibleMonth.getUTCFullYear();
-            const month = visibleMonth.getUTCMonth();
-            const firstDayOffset = (new Date(Date.UTC(year, month, 1)).getUTCDay() + 6) % 7;
-            const daysInMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
-
-            for (let index = 0; index < firstDayOffset; index += 1) {
-                const spacer = document.createElement('span');
-                spacer.setAttribute('aria-hidden', 'true');
-                dayContainer.appendChild(spacer);
-            }
-
-            for (let day = 1; day <= daysInMonth; day += 1) {
-                const date = new Date(Date.UTC(year, month, day));
-                const key = dateKey(date);
-                const isAvailableMonday = date.getUTCDay() === 1 && mondayDates.has(key);
-                const button = document.createElement('button');
-                button.type = 'button';
-                button.textContent = dayFormatter.format(date);
-                button.className = 'h-9 w-full rounded-md transition';
-                button.disabled = !isAvailableMonday;
-
-                if (isAvailableMonday) {
-                    button.classList.add('bg-[#f5edcf]', 'text-[#715a17]', 'font-semibold', 'hover:bg-[#e9d995]', 'cursor-pointer');
-                    button.setAttribute('aria-label', selectedDateFormatter.format(date));
-                    button.setAttribute('aria-pressed', String(selectedDate === key));
-                    if (selectedDate === key) button.classList.add('bg-[#9b7b20]', 'text-white', 'hover:bg-[#715a17]');
-                    button.addEventListener('click', () => {
-                        selectedDateInput.value = key;
-                        dateForm.submit();
-                    });
-                } else {
-                    button.classList.add('text-gray-300', 'cursor-not-allowed');
-                }
-
-                dayContainer.appendChild(button);
-            }
-        }
-
-        document.getElementById('monday-window-previous-month').addEventListener('click', () => {
-            visibleMonth = new Date(Date.UTC(visibleMonth.getUTCFullYear(), visibleMonth.getUTCMonth() - 1, 1));
-            renderCalendar();
-        });
-        document.getElementById('monday-window-next-month').addEventListener('click', () => {
-            visibleMonth = new Date(Date.UTC(visibleMonth.getUTCFullYear(), visibleMonth.getUTCMonth() + 1, 1));
-            renderCalendar();
-        });
-
-        renderWeekdays();
-        renderCalendar();
+        // Clear the custom validity message when the user changes the value
+        input.addEventListener('change', () => input.setCustomValidity(''));
     })();
 </script>
 
