@@ -14,9 +14,10 @@
     $textSize    = $textSize    ?? 'text-lg sm:text-xl md:text-2xl';
     $heightClass = $heightClass ?? 'h-[180px] sm:h-[200px] md:h-[220px]';
     $extraClass  = $extraClass  ?? '';
+    $widthClass  = $widthClass  ?? 'w-full';
 @endphp
 
-<div class="bg-transparent rounded-xl overflow-hidden flex flex-col items-center {{ $heightClass }} {{ $extraClass }}">
+<div class="bg-transparent rounded-xl overflow-hidden flex flex-col items-center {{ $widthClass }} {{ $heightClass }} {{ $extraClass }}">
     @if($enabled && $link)
         <a href="{{ $link }}" class="relative w-full h-full group">
             <img

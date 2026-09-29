@@ -150,17 +150,16 @@
                     $researchCardAlt = $localize($resourceCenter?->research_card_image_alt_en, $resourceCenter?->research_card_image_alt_ar) ?: ($localize($resourceCenter?->research_card_title_en, $resourceCenter?->research_card_title_ar) ?: 'Research');
                 @endphp
                 <div class="resource-tab-content" id="tab-blog">
-                    {{-- 2 rows × 3 cols: Blog/News · White Papers · CIO Flash | Monday Window · Research --}}
-                    {{-- Outer flex centres the inner grid so the last 2 cards sit in the middle of row 2 --}}
-                    <div class="flex justify-center mb-6 md:mb-8">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 w-full" style="justify-items:center;">
+                    {{-- Row 1: 3 cards --}}
+                    <div class="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 mb-4 md:mb-6">
                         @include('resources.partials.resource-card', [
-                            'enabled'     => $blogEnabled,
-                            'link'        => $blogLink,
-                            'image'       => $resourceCenter?->blog_card_image,
-                            'fallback'    => 'design/images/articles.png',
-                            'alt'         => $blogCardAlt,
-                            'label'       => $localize($resourceCenter?->blog_card_title_en, $resourceCenter?->blog_card_title_ar) ?: 'Blogs / News',
+                            'enabled'  => $blogEnabled,
+                            'link'     => $blogLink,
+                            'image'    => $resourceCenter?->blog_card_image,
+                            'fallback' => 'design/images/articles.png',
+                            'alt'      => $blogCardAlt,
+                            'label'    => $localize($resourceCenter?->blog_card_title_en, $resourceCenter?->blog_card_title_ar) ?: 'Blogs / News',
+                            'widthClass' => 'w-full sm:w-1/3',
                         ])
 
                         @include('resources.partials.resource-card', [
@@ -170,6 +169,7 @@
                             'fallback' => 'design/images/articles.png',
                             'alt'      => $whitePapersCardAlt,
                             'label'    => $localize($resourceCenter?->white_papers_card_title_en, $resourceCenter?->white_papers_card_title_ar) ?: 'White Papers',
+                            'widthClass' => 'w-full sm:w-1/3',
                         ])
 
                         @include('resources.partials.resource-card', [
@@ -179,30 +179,32 @@
                             'fallback' => 'design/images/e-book.png',
                             'alt'      => $cioFlashCardAlt,
                             'label'    => $localize($resourceCenter?->cio_flash_card_title_en, $resourceCenter?->cio_flash_card_title_ar) ?: 'CIO Flash',
+                            'widthClass' => 'w-full sm:w-1/3',
+                        ])
+                    </div>
+
+                    {{-- Row 2: 2 cards — justify-center keeps them in the middle --}}
+                    <div class="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 mb-6 md:mb-8">
+                        @include('resources.partials.resource-card', [
+                            'enabled'  => $mondayWindowEnabled,
+                            'link'     => $mondayWindowLink,
+                            'image'    => $resourceCenter?->monday_window_card_image,
+                            'fallback' => 'design/images/glossary.png',
+                            'alt'      => $mondayWindowCardAlt,
+                            'label'    => $localize($resourceCenter?->monday_window_card_title_en, $resourceCenter?->monday_window_card_title_ar) ?: 'Monday Window',
+                            'widthClass' => 'w-full sm:w-1/3',
                         ])
 
-                        {{-- Row 2: 2 cards centred on desktop via named classes set in the style block below --}}
                         @include('resources.partials.resource-card', [
-                            'enabled'    => $mondayWindowEnabled,
-                            'link'       => $mondayWindowLink,
-                            'image'      => $resourceCenter?->monday_window_card_image,
-                            'fallback'   => 'design/images/glossary.png',
-                            'alt'        => $mondayWindowCardAlt,
-                            'label'      => $localize($resourceCenter?->monday_window_card_title_en, $resourceCenter?->monday_window_card_title_ar) ?: 'Monday Window',
-                            'extraClass' => 'rc-card-row2-left',
+                            'enabled'  => $researchEnabled,
+                            'link'     => $researchLink,
+                            'image'    => $resourceCenter?->research_card_image,
+                            'fallback' => 'design/images/articles.png',
+                            'alt'      => $researchCardAlt,
+                            'label'    => $localize($resourceCenter?->research_card_title_en, $resourceCenter?->research_card_title_ar) ?: 'Research',
+                            'widthClass' => 'w-full sm:w-1/3',
                         ])
-
-                        @include('resources.partials.resource-card', [
-                            'enabled'    => $researchEnabled,
-                            'link'       => $researchLink,
-                            'image'      => $resourceCenter?->research_card_image,
-                            'fallback'   => 'design/images/articles.png',
-                            'alt'        => $researchCardAlt,
-                            'label'      => $localize($resourceCenter?->research_card_title_en, $resourceCenter?->research_card_title_ar) ?: 'Research',
-                            'extraClass' => 'rc-card-row2-right',
-                        ])
-                        </div>{{-- /grid --}}
-                    </div>{{-- /flex --}}
+                    </div>
                 </div>{{-- /tab-blog --}}
 
                 {{-- Responsive column placement for the 2 centred cards in row 2 --}}
