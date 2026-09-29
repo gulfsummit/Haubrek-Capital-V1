@@ -108,7 +108,7 @@
         </div>
     </section>
 
-    <section class="pt-32 pb-16 sm:pt-36 sm:pb-20 md:pt-40 md:pb-24 lg:pt-[5em] lg:pb-32 bg-white bg-cover bg-center bg-no-repeat" style="background-image: url('{{ $bodyBackground }}');">
+    <section class="py-12 bg-white bg-cover bg-center bg-no-repeat" style="background-image: url('{{ $bodyBackground }}');">
         <div dir="{{ $pageDirection }}" class="{{ $isArabic ? 'rtl' : 'ltr' }}">
         <div class="container mx-auto px-4">
             <!-- Search Bar -->
@@ -152,7 +152,7 @@
             <!-- Cards Grid -->
 
             @if($pageContent?->isSectionVisible('listing') ?? true)
-            <div id="articles-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10 w-full xl:max-w-[1300px] md:max-w-[950px] mx-auto" dir="{{ $pageDirection }}">
+            <div id="articles-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full mx-auto" dir="{{ $pageDirection }}">
                 @forelse($blogs as $blog)
                     @php
                         $blogTitle = $localize($blog->title_en ?? null, $blog->title_ar ?? null) ?? $blog->title;
