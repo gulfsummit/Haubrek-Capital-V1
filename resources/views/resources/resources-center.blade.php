@@ -151,7 +151,9 @@
                 @endphp
                 <div class="resource-tab-content" id="tab-blog">
                     {{-- 2 rows × 3 cols: Blog/News · White Papers · CIO Flash | Monday Window · Research --}}
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
+                    {{-- Outer flex centres the inner grid so the last 2 cards sit in the middle of row 2 --}}
+                    <div class="flex justify-center mb-6 md:mb-8">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 w-full" style="justify-items:center;">
                         @include('resources.partials.resource-card', [
                             'enabled'     => $blogEnabled,
                             'link'        => $blogLink,
@@ -179,25 +181,38 @@
                             'label'    => $localize($resourceCenter?->cio_flash_card_title_en, $resourceCenter?->cio_flash_card_title_ar) ?: 'CIO Flash',
                         ])
 
+                        {{-- Row 2: 2 cards centred on desktop via named classes set in the style block below --}}
                         @include('resources.partials.resource-card', [
-                            'enabled'  => $mondayWindowEnabled,
-                            'link'     => $mondayWindowLink,
-                            'image'    => $resourceCenter?->monday_window_card_image,
-                            'fallback' => 'design/images/glossary.png',
-                            'alt'      => $mondayWindowCardAlt,
-                            'label'    => $localize($resourceCenter?->monday_window_card_title_en, $resourceCenter?->monday_window_card_title_ar) ?: 'Monday Window',
+                            'enabled'    => $mondayWindowEnabled,
+                            'link'       => $mondayWindowLink,
+                            'image'      => $resourceCenter?->monday_window_card_image,
+                            'fallback'   => 'design/images/glossary.png',
+                            'alt'        => $mondayWindowCardAlt,
+                            'label'      => $localize($resourceCenter?->monday_window_card_title_en, $resourceCenter?->monday_window_card_title_ar) ?: 'Monday Window',
+                            'extraClass' => 'rc-card-row2-left',
                         ])
 
                         @include('resources.partials.resource-card', [
-                            'enabled'  => $researchEnabled,
-                            'link'     => $researchLink,
-                            'image'    => $resourceCenter?->research_card_image,
-                            'fallback' => 'design/images/articles.png',
-                            'alt'      => $researchCardAlt,
-                            'label'    => $localize($resourceCenter?->research_card_title_en, $resourceCenter?->research_card_title_ar) ?: 'Research',
+                            'enabled'    => $researchEnabled,
+                            'link'       => $researchLink,
+                            'image'      => $resourceCenter?->research_card_image,
+                            'fallback'   => 'design/images/articles.png',
+                            'alt'        => $researchCardAlt,
+                            'label'      => $localize($resourceCenter?->research_card_title_en, $resourceCenter?->research_card_title_ar) ?: 'Research',
+                            'extraClass' => 'rc-card-row2-right',
                         ])
-                    </div>
-                </div>
+                        </div>{{-- /grid --}}
+                    </div>{{-- /flex --}}
+                </div>{{-- /tab-blog --}}
+
+                {{-- Responsive column placement for the 2 centred cards in row 2 --}}
+                <style>
+                    @media (min-width: 768px) {
+                        .rc-card-row2-left  { grid-column: 2; }
+                        .rc-card-row2-right { grid-column: 3; }
+                    }
+                </style>
+
                 <!-- MANUALS TAB -->
                 <div class="resource-tab-content hidden" id="tab-manuals">
                     <div class="py-8 md:py-12 text-[#223057] text-lg md:text-xl font-neue-bold text-center">Hauberk Manuals content goes here.</div>

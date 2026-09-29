@@ -7,15 +7,16 @@
       $fallback    – string: fallback asset path, e.g. 'design/images/articles.png'
       $alt         – string: image alt text
       $label       – string: overlay label text
-      $textSize    – (optional) Tailwind text size classes, defaults to 'text-lg sm:text-xl'
+      $textSize    – (optional) Tailwind text size classes, defaults to 'text-lg sm:text-xl md:text-2xl'
       $heightClass – (optional) Tailwind height classes, defaults to 'h-[180px] sm:h-[200px] md:h-[220px]'
 --}}
 @php
-    $textSize    = $textSize    ?? 'text-sm sm:text-base';
+    $textSize    = $textSize    ?? 'text-lg sm:text-xl md:text-2xl';
     $heightClass = $heightClass ?? 'h-[180px] sm:h-[200px] md:h-[220px]';
+    $extraClass  = $extraClass  ?? '';
 @endphp
 
-<div class="bg-transparent rounded-xl overflow-hidden flex flex-col items-center {{ $heightClass }}">
+<div class="bg-transparent rounded-xl overflow-hidden flex flex-col items-center {{ $heightClass }} {{ $extraClass }}">
     @if($enabled && $link)
         <a href="{{ $link }}" class="relative w-full h-full group">
             <img
