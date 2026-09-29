@@ -85,11 +85,10 @@
                     </div>
                 @endif
 
-                {{-- Download Section --}}
+                {{-- Download Section — at end of article, always visible as an option --}}
                 @if($research->pdf_file)
-                    <div class="my-8 p-6 bg-gray-50 rounded-xl border border-gray-100">
+                    <div class="mt-10 pt-6 border-t border-gray-100">
                         @if(!$research->form_required)
-                            {{-- Free download: direct link, no gate --}}
                             <a href="{{ asset('storage/' . $research->pdf_file) }}" target="_blank" download
                                class="inline-flex items-center gap-2 bg-[#D4AF37] text-white px-6 py-3 rounded font-semibold hover:bg-[#b8962e] transition text-base">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -98,15 +97,11 @@
                                 {{ $downloadLabel }}
                             </a>
                         @else
-                            {{-- Gated download: button opens the modal --}}
-                            <p class="text-sm text-gray-500 mb-4 {{ $alignmentClass }}">
-                                {{ $isArabic ? 'يُرجى ملء نموذج بسيط للوصول إلى هذا التقرير.' : 'Please complete a short form to access this report.' }}
+                            <p class="text-sm text-gray-500 mb-3 {{ $alignmentClass }}">
+                                {{ $isArabic ? 'يُرجى ملء نموذج بسيط للوصول إلى هذا التقرير.' : 'Complete a short form to download this report.' }}
                             </p>
-                            <button
-                                type="button"
-                                id="open-download-modal"
-                                class="inline-flex items-center gap-2 bg-[#D4AF37] text-white px-6 py-3 rounded font-semibold hover:bg-[#b8962e] transition text-base"
-                            >
+                            <button type="button" id="open-download-modal"
+                                    class="inline-flex items-center gap-2 bg-[#D4AF37] text-white px-6 py-3 rounded font-semibold hover:bg-[#b8962e] transition text-base">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                 </svg>
@@ -262,7 +257,7 @@
                         {{-- Business Email --}}
                         <div class="sm:col-span-2 flex flex-col gap-1.5">
                             <label class="text-sm font-semibold text-gray-700">
-                                {{ $isArabic ? 'البريد الإلكتروني المهني' : 'Business Email' }}
+                                {{ $isArabic ? 'البريد الإلكتروني' : 'Email' }}
                                 <span class="text-[#D4AF37] ml-0.5" aria-hidden="true">*</span>
                             </label>
                             <input type="email" name="business_email" autocomplete="email" required
@@ -274,14 +269,14 @@
                             </p>
                         </div>
 
-                        {{-- Company --}}
+                        {{-- Phone Number — REQUIRED --}}
                         <div class="flex flex-col gap-1.5">
                             <label class="text-sm font-semibold text-gray-700">
-                                {{ $isArabic ? 'الشركة' : 'Company' }}
+                                {{ $isArabic ? 'رقم الهاتف' : 'Phone Number' }}
                                 <span class="text-[#D4AF37] ml-0.5" aria-hidden="true">*</span>
                             </label>
-                            <input type="text" name="company" autocomplete="organization" required
-                                   placeholder="{{ $isArabic ? 'اسم الشركة' : 'Your company name' }}"
+                            <input type="tel" name="phone_number" autocomplete="tel" required
+                                   placeholder="{{ $isArabic ? '+966 5X XXX XXXX' : '+1 555 000 0000' }}"
                                    class="modal-field w-full border border-gray-200 bg-gray-50 rounded-lg px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition"/>
                             <p class="modal-field-error hidden text-xs text-red-500 flex items-center gap-1">
                                 <svg class="w-3 h-3 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
@@ -289,7 +284,7 @@
                             </p>
                         </div>
 
-                        {{-- Job Title --}}
+                        {{-- Job Title — REQUIRED --}}
                         <div class="flex flex-col gap-1.5">
                             <label class="text-sm font-semibold text-gray-700">
                                 {{ $isArabic ? 'المسمى الوظيفي' : 'Job Title' }}
@@ -304,34 +299,30 @@
                             </p>
                         </div>
 
-                        {{-- Country --}}
+                        {{-- Company — OPTIONAL --}}
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-sm font-semibold text-gray-700">
+                                {{ $isArabic ? 'الشركة' : 'Company' }}
+                                <span class="text-xs font-normal text-gray-400 ml-1">({{ $isArabic ? 'اختياري' : 'Optional' }})</span>
+                            </label>
+                            <input type="text" name="company" autocomplete="organization"
+                                   placeholder="{{ $isArabic ? 'اسم الشركة' : 'Your company name' }}"
+                                   class="w-full border border-gray-200 bg-gray-50 rounded-lg px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition"/>
+                        </div>
+
+                        {{-- Country — OPTIONAL --}}
                         <div class="flex flex-col gap-1.5">
                             <label class="text-sm font-semibold text-gray-700">
                                 {{ $isArabic ? 'الدولة' : 'Country' }}
-                                <span class="text-[#D4AF37] ml-0.5" aria-hidden="true">*</span>
+                                <span class="text-xs font-normal text-gray-400 ml-1">({{ $isArabic ? 'اختياري' : 'Optional' }})</span>
                             </label>
-                            <select name="country" required
-                                    class="modal-field w-full border border-gray-200 bg-gray-50 rounded-lg px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition">
+                            <select name="country"
+                                    class="w-full border border-gray-200 bg-gray-50 rounded-lg px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition">
                                 <option value="">{{ $isArabic ? 'اختر الدولة' : 'Select your country' }}</option>
                                 @foreach($countries as $country)
                                     <option value="{{ $country }}">{{ $country }}</option>
                                 @endforeach
                             </select>
-                            <p class="modal-field-error hidden text-xs text-red-500 flex items-center gap-1">
-                                <svg class="w-3 h-3 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
-                                <span></span>
-                            </p>
-                        </div>
-
-                        {{-- Phone (optional) --}}
-                        <div class="flex flex-col gap-1.5">
-                            <label class="text-sm font-semibold text-gray-700">
-                                {{ $isArabic ? 'رقم الهاتف' : 'Phone Number' }}
-                                <span class="text-xs font-normal text-gray-400 ml-1">({{ $isArabic ? 'اختياري' : 'Optional' }})</span>
-                            </label>
-                            <input type="tel" name="phone_number" autocomplete="tel"
-                                   placeholder="{{ $isArabic ? '+966 5X XXX XXXX' : '+1 555 000 0000' }}"
-                                   class="w-full border border-gray-200 bg-gray-50 rounded-lg px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition"/>
                         </div>
 
                     </div>

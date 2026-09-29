@@ -74,6 +74,7 @@ Route::get('/resources-center',[FrontendController::class,'resourcesCenter'])->n
 // ── Resources Center sub-sections ──────────────────────────────────────────
 Route::get('/resources-center/white-papers', [FrontendController::class, 'whitePapers'])->name('white-papers');
 Route::get('/resources-center/white-papers/{whitePaper}', [FrontendController::class, 'whitePaperShow'])->name('white-papers.show');
+Route::post('/resources-center/white-papers/{whitePaper}/download', [FrontendController::class, 'whitePaperDownload'])->name('white-papers.download');
 
 Route::get('/resources-center/cio-flash', [FrontendController::class, 'cioFlash'])->name('cio-flash');
 Route::get('/resources-center/cio-flash/{cioFlash}', [FrontendController::class, 'cioFlashShow'])->name('cio-flash.show');

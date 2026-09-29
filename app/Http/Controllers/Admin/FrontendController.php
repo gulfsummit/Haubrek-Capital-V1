@@ -1456,6 +1456,62 @@ class FrontendController extends Controller
         ]);
     }
 
+    /**
+     * Handle the white paper download form submission.
+     * Always requires the lead form — there is no "free download" toggle on white papers.
+     * Returns JSON for AJAX requests; redirects for plain form submissions.
+     */
+    public function whitePaperDownload(Request $request, WhitePaper $whitePaper)
+    {
+        if (! $whitePaper->pdf_file) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'errors' => ['pdf' => ['No file available.']]], 422);
+            }
+            return redirect()->route('white-papers.show', $whitePaper->slug);
+        }
+
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
+            'first_name'     => 'required|string|max:255',
+            'last_name'      => 'required|string|max:255',
+            'business_email' => 'required|email|max:255',
+            'phone_number'   => 'required|string|max:30',
+            'job_title'      => 'required|string|max:255',
+            'company'        => 'nullable|string|max:255',
+            'country'        => 'nullable|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'errors' => $validator->errors()->toArray()], 422);
+            }
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $validated = $validator->validated();
+
+        \App\Models\WhitePaperDownload::create([
+            'white_paper_id' => $whitePaper->id,
+            'first_name'     => $validated['first_name'],
+            'last_name'      => $validated['last_name'],
+            'business_email' => $validated['business_email'],
+            'phone_number'   => $validated['phone_number'],
+            'job_title'      => $validated['job_title'],
+            'company'        => $validated['company'] ?? null,
+            'country'        => $validated['country'] ?? null,
+            'downloaded_at'  => now(),
+        ]);
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'pdf_url' => asset('storage/' . $whitePaper->pdf_file),
+            ]);
+        }
+
+        return redirect()->route('white-papers.show', $whitePaper->slug)
+            ->with('download_success', true);
+    }
+
     // =========================================================================
     // CIO FLASH
     // =========================================================================
@@ -1655,10 +1711,10 @@ class FrontendController extends Controller
             'first_name'     => 'required|string|max:255',
             'last_name'      => 'required|string|max:255',
             'business_email' => 'required|email|max:255',
-            'company'        => 'required|string|max:255',
+            'phone_number'   => 'required|string|max:30',
             'job_title'      => 'required|string|max:255',
-            'country'        => 'required|string|max:255',
-            'phone_number'   => 'nullable|string|max:30',
+            'company'        => 'nullable|string|max:255',
+            'country'        => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -1678,10 +1734,10 @@ class FrontendController extends Controller
             'first_name'     => $validated['first_name'],
             'last_name'      => $validated['last_name'],
             'business_email' => $validated['business_email'],
-            'company'        => $validated['company'],
+            'phone_number'   => $validated['phone_number'],
             'job_title'      => $validated['job_title'],
-            'country'        => $validated['country'],
-            'phone_number'   => $validated['phone_number'] ?? null,
+            'company'        => $validated['company'] ?? null,
+            'country'        => $validated['country'] ?? null,
             'downloaded_at'  => now(),
         ]);
 

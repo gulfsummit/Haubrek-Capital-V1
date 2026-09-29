@@ -112,4 +112,9 @@ class WhitePaper extends Model
     {
         return $query->orderBy('sort_order')->orderBy('publication_date', 'desc');
     }
+
+    public function downloads()
+    {
+        return $this->hasMany(WhitePaperDownload::class);
+    }
 }

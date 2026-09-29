@@ -7,11 +7,11 @@
       $fallback    – string: fallback asset path, e.g. 'design/images/articles.png'
       $alt         – string: image alt text
       $label       – string: overlay label text
-      $textSize    – (optional) Tailwind text size classes, defaults to 'text-lg sm:text-xl md:text-2xl'
+      $textSize    – (optional) Tailwind text size classes, defaults to 'text-xl sm:text-2xl md:text-2xl'
       $heightClass – (optional) Tailwind height classes, defaults to 'h-[180px] sm:h-[200px] md:h-[220px]'
 --}}
 @php
-    $textSize    = $textSize    ?? 'text-lg sm:text-xl md:text-2xl';
+    $textSize    = $textSize    ?? 'text-xl sm:text-2xl md:text-2xl';
     $heightClass = $heightClass ?? 'h-[180px] sm:h-[200px] md:h-[220px]';
     $extraClass  = $extraClass  ?? '';
     $widthClass  = $widthClass  ?? 'w-full';

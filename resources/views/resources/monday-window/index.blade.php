@@ -183,7 +183,7 @@
                                     @endforeach
                                 </div>
                             @endif
-                            <h2 class="text-base font-bold text-white mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
+                            <h2 class="text-sm font-bold text-white mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
                                 <a href="{{ route('monday-window.show', $edition->slug) }}" class="hover:text-[#D4AF37] transition-colors">{{ $edTitle }}</a>
                             </h2>
                             @if($edSummary)
