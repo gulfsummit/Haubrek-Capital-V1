@@ -82,7 +82,7 @@
 </section>
 
 {{-- Search + Research Grid --}}
-<section class="py-12 bg-white bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('design/images/blog-bg.png') }}');" dir="{{ $pageDirection }}">
+<section class="pt-32 pb-16 sm:pt-36 sm:pb-20 md:pt-40 md:pb-24 lg:pt-[5em] lg:pb-32 bg-white bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('design/images/blog-bg.png') }}');" dir="{{ $pageDirection }}">
     {{-- Research Grid --}}
     <div class="container mx-auto px-4">
         @if($researchItems->isEmpty())
@@ -91,7 +91,7 @@
                 <p class="text-white/70">{{ $checkBackLabel }}</p>
             </div>
         @else
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10 w-full xl:max-w-[1300px] md:max-w-[950px] mx-auto">
                 @foreach($researchItems as $item)
                 @php
                     $rTitle  = $localize($item->title_en, $item->title_ar);
