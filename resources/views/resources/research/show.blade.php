@@ -171,32 +171,52 @@
     <div id="download-modal-backdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
 
     {{-- Panel --}}
-    <div class="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+    <div class="relative w-full max-w-xl bg-white rounded-2xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col">
 
         {{-- ── FORM STATE ── --}}
-        <div id="download-modal-form-state">
+        <div id="download-modal-form-state" class="flex flex-col min-h-0">
+
+            {{-- Gold accent top bar --}}
+            <div class="h-1 w-full bg-gradient-to-r from-[#D4AF37] to-[#b8962e] shrink-0"></div>
+
             {{-- Header --}}
-            <div class="flex items-start justify-between gap-4 px-6 pt-6 pb-4 border-b border-gray-100">
-                <div>
-                    <h2 id="download-modal-title" class="text-lg font-bold text-gray-900">{{ $downloadFormTitle }}</h2>
-                    <p class="text-sm text-gray-500 mt-1">{{ $downloadFormSubtitle }}</p>
+            <div class="flex items-start justify-between gap-4 px-7 pt-6 pb-5 shrink-0">
+                <div class="flex items-start gap-4">
+                    {{-- Icon --}}
+                    <div class="shrink-0 w-11 h-11 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center mt-0.5">
+                        <svg class="w-5 h-5 text-[#b8962e]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 id="download-modal-title" class="text-xl font-bold text-gray-900 leading-tight">{{ $downloadFormTitle }}</h2>
+                        <p class="text-sm text-gray-500 mt-1.5 leading-relaxed">{{ $downloadFormSubtitle }}</p>
+                    </div>
                 </div>
                 <button type="button" id="close-download-modal" aria-label="{{ $isArabic ? 'إغلاق' : 'Close' }}"
-                        class="shrink-0 text-gray-400 hover:text-gray-600 transition mt-0.5">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        class="shrink-0 w-8 h-8 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </button>
             </div>
 
+            {{-- Divider --}}
+            <div class="h-px bg-gray-100 mx-7 shrink-0"></div>
+
             {{-- Scrollable body --}}
-            <div class="overflow-y-auto px-6 py-5 flex-1">
+            <div class="overflow-y-auto px-7 py-6 flex-1">
                 {{-- Inline error box (shown on AJAX 422) --}}
-                <div id="download-modal-errors" class="hidden bg-red-50 border border-red-200 rounded-lg p-4 mb-5">
-                    <p class="text-sm font-semibold text-red-700 mb-1">
-                        {{ $isArabic ? 'يُرجى تصحيح الأخطاء التالية:' : 'Please fix the following:' }}
-                    </p>
-                    <ul id="download-modal-error-list" class="text-sm text-red-600 space-y-1 list-disc list-inside"></ul>
+                <div id="download-modal-errors" class="hidden bg-red-50 border border-red-200 rounded-xl p-4 mb-6 flex gap-3">
+                    <svg class="w-5 h-5 text-red-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <div>
+                        <p class="text-sm font-semibold text-red-700 mb-1">
+                            {{ $isArabic ? 'يُرجى تصحيح الأخطاء التالية:' : 'Please fix the following:' }}
+                        </p>
+                        <ul id="download-modal-error-list" class="text-sm text-red-600 space-y-0.5 list-disc list-inside"></ul>
+                    </div>
                 </div>
 
                 <form id="download-modal-form"
@@ -204,97 +224,136 @@
                       method="POST"
                       novalidate>
                     @csrf
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-5">
+
                         {{-- First Name --}}
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">
-                                {{ $isArabic ? 'الاسم الأول' : 'First Name' }} <span class="text-red-500" aria-hidden="true">*</span>
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-sm font-semibold text-gray-700">
+                                {{ $isArabic ? 'الاسم الأول' : 'First Name' }}
+                                <span class="text-[#D4AF37] ml-0.5" aria-hidden="true">*</span>
                             </label>
                             <input type="text" name="first_name" autocomplete="given-name" required
-                                   class="modal-field w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"/>
-                            <p class="modal-field-error hidden text-xs text-red-600 mt-1"></p>
+                                   placeholder="{{ $isArabic ? 'أدخل اسمك الأول' : 'e.g. John' }}"
+                                   class="modal-field w-full border border-gray-200 bg-gray-50 rounded-lg px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition"/>
+                            <p class="modal-field-error hidden text-xs text-red-500 flex items-center gap-1">
+                                <svg class="w-3 h-3 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                                <span></span>
+                            </p>
                         </div>
+
                         {{-- Last Name --}}
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">
-                                {{ $isArabic ? 'اسم العائلة' : 'Last Name' }} <span class="text-red-500" aria-hidden="true">*</span>
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-sm font-semibold text-gray-700">
+                                {{ $isArabic ? 'اسم العائلة' : 'Last Name' }}
+                                <span class="text-[#D4AF37] ml-0.5" aria-hidden="true">*</span>
                             </label>
                             <input type="text" name="last_name" autocomplete="family-name" required
-                                   class="modal-field w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"/>
-                            <p class="modal-field-error hidden text-xs text-red-600 mt-1"></p>
+                                   placeholder="{{ $isArabic ? 'أدخل اسم العائلة' : 'e.g. Smith' }}"
+                                   class="modal-field w-full border border-gray-200 bg-gray-50 rounded-lg px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition"/>
+                            <p class="modal-field-error hidden text-xs text-red-500 flex items-center gap-1">
+                                <svg class="w-3 h-3 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                                <span></span>
+                            </p>
                         </div>
+
                         {{-- Business Email --}}
-                        <div class="sm:col-span-2">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">
-                                {{ $isArabic ? 'البريد الإلكتروني المهني' : 'Business Email' }} <span class="text-red-500" aria-hidden="true">*</span>
+                        <div class="sm:col-span-2 flex flex-col gap-1.5">
+                            <label class="text-sm font-semibold text-gray-700">
+                                {{ $isArabic ? 'البريد الإلكتروني المهني' : 'Business Email' }}
+                                <span class="text-[#D4AF37] ml-0.5" aria-hidden="true">*</span>
                             </label>
                             <input type="email" name="business_email" autocomplete="email" required
-                                   class="modal-field w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"/>
-                            <p class="modal-field-error hidden text-xs text-red-600 mt-1"></p>
+                                   placeholder="{{ $isArabic ? 'example@company.com' : 'you@company.com' }}"
+                                   class="modal-field w-full border border-gray-200 bg-gray-50 rounded-lg px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition"/>
+                            <p class="modal-field-error hidden text-xs text-red-500 flex items-center gap-1">
+                                <svg class="w-3 h-3 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                                <span></span>
+                            </p>
                         </div>
+
                         {{-- Company --}}
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">
-                                {{ $isArabic ? 'الشركة' : 'Company' }} <span class="text-red-500" aria-hidden="true">*</span>
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-sm font-semibold text-gray-700">
+                                {{ $isArabic ? 'الشركة' : 'Company' }}
+                                <span class="text-[#D4AF37] ml-0.5" aria-hidden="true">*</span>
                             </label>
                             <input type="text" name="company" autocomplete="organization" required
-                                   class="modal-field w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"/>
-                            <p class="modal-field-error hidden text-xs text-red-600 mt-1"></p>
+                                   placeholder="{{ $isArabic ? 'اسم الشركة' : 'Your company name' }}"
+                                   class="modal-field w-full border border-gray-200 bg-gray-50 rounded-lg px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition"/>
+                            <p class="modal-field-error hidden text-xs text-red-500 flex items-center gap-1">
+                                <svg class="w-3 h-3 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                                <span></span>
+                            </p>
                         </div>
+
                         {{-- Job Title --}}
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">
-                                {{ $isArabic ? 'المسمى الوظيفي' : 'Job Title' }} <span class="text-red-500" aria-hidden="true">*</span>
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-sm font-semibold text-gray-700">
+                                {{ $isArabic ? 'المسمى الوظيفي' : 'Job Title' }}
+                                <span class="text-[#D4AF37] ml-0.5" aria-hidden="true">*</span>
                             </label>
                             <input type="text" name="job_title" autocomplete="organization-title" required
-                                   class="modal-field w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"/>
-                            <p class="modal-field-error hidden text-xs text-red-600 mt-1"></p>
+                                   placeholder="{{ $isArabic ? 'مثال: مدير مالي' : 'e.g. CFO, Analyst' }}"
+                                   class="modal-field w-full border border-gray-200 bg-gray-50 rounded-lg px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition"/>
+                            <p class="modal-field-error hidden text-xs text-red-500 flex items-center gap-1">
+                                <svg class="w-3 h-3 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                                <span></span>
+                            </p>
                         </div>
+
                         {{-- Country --}}
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">
-                                {{ $isArabic ? 'الدولة' : 'Country' }} <span class="text-red-500" aria-hidden="true">*</span>
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-sm font-semibold text-gray-700">
+                                {{ $isArabic ? 'الدولة' : 'Country' }}
+                                <span class="text-[#D4AF37] ml-0.5" aria-hidden="true">*</span>
                             </label>
                             <select name="country" required
-                                    class="modal-field w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]">
-                                <option value="">{{ $isArabic ? 'اختر الدولة' : 'Select Country' }}</option>
+                                    class="modal-field w-full border border-gray-200 bg-gray-50 rounded-lg px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition">
+                                <option value="">{{ $isArabic ? 'اختر الدولة' : 'Select your country' }}</option>
                                 @foreach($countries as $country)
                                     <option value="{{ $country }}">{{ $country }}</option>
                                 @endforeach
                             </select>
-                            <p class="modal-field-error hidden text-xs text-red-600 mt-1"></p>
+                            <p class="modal-field-error hidden text-xs text-red-500 flex items-center gap-1">
+                                <svg class="w-3 h-3 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                                <span></span>
+                            </p>
                         </div>
+
                         {{-- Phone (optional) --}}
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">
-                                {{ $isArabic ? 'رقم الهاتف (اختياري)' : 'Phone Number (Optional)' }}
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-sm font-semibold text-gray-700">
+                                {{ $isArabic ? 'رقم الهاتف' : 'Phone Number' }}
+                                <span class="text-xs font-normal text-gray-400 ml-1">({{ $isArabic ? 'اختياري' : 'Optional' }})</span>
                             </label>
                             <input type="tel" name="phone_number" autocomplete="tel"
-                                   class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"/>
+                                   placeholder="{{ $isArabic ? '+966 5X XXX XXXX' : '+1 555 000 0000' }}"
+                                   class="w-full border border-gray-200 bg-gray-50 rounded-lg px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition"/>
                         </div>
+
                     </div>
                 </form>
             </div>
 
             {{-- Footer --}}
-            <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 flex items-center justify-between gap-3">
-                <p class="text-xs text-gray-400">
-                    {{ $isArabic ? 'جميع الحقول المعلّمة بـ * إلزامية.' : 'Fields marked * are required.' }}
+            <div class="shrink-0 h-px bg-gray-100 mx-7"></div>
+            <div class="shrink-0 px-7 py-4 flex items-center justify-between gap-4">
+                <p class="text-xs text-gray-400 leading-relaxed">
+                    <span class="text-[#D4AF37] font-semibold">*</span>
+                    {{ $isArabic ? 'الحقول الإلزامية' : 'Required fields' }}
                 </p>
                 <button
                     type="submit"
                     form="download-modal-form"
                     id="download-modal-submit"
-                    class="inline-flex items-center gap-2 bg-[#D4AF37] text-white px-6 py-2.5 rounded-lg font-semibold text-sm hover:bg-[#b8962e] transition disabled:opacity-60 disabled:cursor-not-allowed"
+                    class="inline-flex items-center gap-2 bg-[#D4AF37] text-white px-6 py-2.5 rounded-lg font-semibold text-sm hover:bg-[#b8962e] active:scale-95 transition disabled:opacity-60 disabled:cursor-not-allowed shadow-sm"
                 >
-                    {{-- Default label --}}
                     <span id="download-modal-btn-label" class="flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                         </svg>
                         {{ $downloadLabel }}
                     </span>
-                    {{-- Spinner (hidden until submitting) --}}
                     <span id="download-modal-spinner" class="hidden items-center gap-2">
                         <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
@@ -385,10 +444,11 @@
     // ── field-level error helpers ────────────────────────────────
     function clearFieldErrors() {
         form.querySelectorAll('.modal-field').forEach(el => {
-            el.classList.remove('border-red-400', 'ring-red-400');
+            el.classList.remove('border-red-400', '!bg-red-50');
         });
         form.querySelectorAll('.modal-field-error').forEach(el => {
-            el.textContent = '';
+            const span = el.querySelector('span') || el;
+            span.textContent = '';
             el.classList.add('hidden');
         });
         errorBox.classList.add('hidden');
@@ -396,26 +456,24 @@
     }
 
     function showFieldErrors(errors) {
-        // errors = { field_name: ["message", ...], ... }
         const allMessages = [];
 
         Object.entries(errors).forEach(([field, messages]) => {
             const msg = Array.isArray(messages) ? messages[0] : messages;
             allMessages.push(msg);
 
-            // Highlight the input
             const input = form.querySelector(`[name="${field}"]`);
             if (input) {
-                input.classList.add('border-red-400');
+                input.classList.add('border-red-400', '!bg-red-50');
                 const errEl = input.closest('div')?.querySelector('.modal-field-error');
                 if (errEl) {
-                    errEl.textContent = msg;
+                    const span = errEl.querySelector('span') || errEl;
+                    span.textContent = msg;
                     errEl.classList.remove('hidden');
                 }
             }
         });
 
-        // Also show the summary box
         errorList.innerHTML = allMessages.map(m => `<li>${m}</li>`).join('');
         errorBox.classList.remove('hidden');
         errorBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -491,9 +549,13 @@
     // Clear field errors when user starts typing again
     form.querySelectorAll('.modal-field').forEach(el => {
         el.addEventListener('input', () => {
-            el.classList.remove('border-red-400');
+            el.classList.remove('border-red-400', '!bg-red-50');
             const errEl = el.closest('div')?.querySelector('.modal-field-error');
-            if (errEl) { errEl.textContent = ''; errEl.classList.add('hidden'); }
+            if (errEl) {
+                const span = errEl.querySelector('span') || errEl;
+                span.textContent = '';
+                errEl.classList.add('hidden');
+            }
         });
     });
 })();
