@@ -28,26 +28,29 @@
 @endphp
 
 {{-- Breadcrumb --}}
-<section class="pt-32 pb-4">
+<section class="bg-white pt-32 pb-4">
     <div class="container mx-auto px-4" dir="{{ $pageDirection }}">
         <nav class="flex items-center gap-2 text-sm">
-            <a href="{{ route('home') }}" class="text-white/60 hover:text-[#D4AF37] transition-colors">{{ $homeLabel }}</a>
+            <a href="{{ route('home') }}" class="text-gray-500 hover:text-[#D4AF37] transition-colors">{{ $homeLabel }}</a>
             {!! $breadcrumbSep !!}
-            <a href="{{ route('white-papers') }}" class="text-white/60 hover:text-[#D4AF37] transition-colors">{{ $listLabel }}</a>
+            <a href="{{ route('white-papers') }}" class="text-gray-500 hover:text-[#D4AF37] transition-colors">{{ $listLabel }}</a>
             {!! $breadcrumbSep !!}
-            <span class="text-[#D4AF37] font-medium">{{ Str::limit($title, 40) }}</span>
+            <span class="text-[#20B2AA] font-medium">{{ Str::limit($title, 40) }}</span>
         </nav>
     </div>
 </section>
 
 {{-- Main Content --}}
-<section class="py-8 bg-white" dir="{{ $pageDirection }}">
+<section class="container mx-auto bg-white pt-8" dir="{{ $pageDirection }}">
+    <div class="px-4">
+        <div
+            class="rounded w-full h-[500px] bg-contain bg-center bg-no-repeat mb-6"
+            style="background-image: url('{{ $heroImage }}');"
+            role="img"
+            aria-label="{{ $heroImageAlt }}"
+        ></div>
+    </div>
     <div class="container mx-auto px-4">
-        {{-- Hero Image --}}
-        <div class="rounded-lg overflow-hidden mb-8 max-h-[500px]">
-            <img src="{{ $heroImage }}" alt="{{ $heroImageAlt }}" class="w-full h-full object-cover"/>
-        </div>
-
         <div class="flex flex-col lg:flex-row gap-10 {{ $isArabic ? 'lg:flex-row-reverse' : '' }}">
             {{-- Main Article --}}
             <main class="flex-1 min-w-0">

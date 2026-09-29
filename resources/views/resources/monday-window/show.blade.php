@@ -24,25 +24,29 @@
 @endphp
 
 {{-- Breadcrumb --}}
-<section class="pt-32 pb-4">
+<section class="bg-white pt-32 pb-4">
     <div class="container mx-auto px-4" dir="{{ $pageDirection }}">
         <nav class="flex items-center gap-2 text-sm">
-            <a href="{{ route('home') }}" class="text-white/60 hover:text-[#D4AF37] transition-colors">{{ $homeLabel }}</a>
+            <a href="{{ route('home') }}" class="text-gray-500 hover:text-[#D4AF37] transition-colors">{{ $homeLabel }}</a>
             {!! $breadcrumbSep !!}
-            <a href="{{ route('monday-window') }}" class="text-white/60 hover:text-[#D4AF37] transition-colors">{{ $listLabel }}</a>
+            <a href="{{ route('monday-window') }}" class="text-gray-500 hover:text-[#D4AF37] transition-colors">{{ $listLabel }}</a>
             {!! $breadcrumbSep !!}
-            <span class="text-[#D4AF37] font-medium">{{ Str::limit($title, 40) }}</span>
+            <span class="text-[#20B2AA] font-medium">{{ Str::limit($title, 40) }}</span>
         </nav>
     </div>
 </section>
 
 {{-- Main --}}
-<section class="py-8 bg-white" dir="{{ $pageDirection }}">
+<section class="container mx-auto bg-white pt-8" dir="{{ $pageDirection }}">
+    <div class="px-4">
+        <div
+            class="rounded w-full h-[500px] bg-contain bg-center bg-no-repeat mb-6"
+            style="background-image: url('{{ $image }}');"
+            role="img"
+            aria-label="{{ $imageAlt }}"
+        ></div>
+    </div>
     <div class="container mx-auto px-4">
-        <div class="rounded-lg overflow-hidden mb-8 max-h-[450px]">
-            <img src="{{ $image }}" alt="{{ $imageAlt }}" class="w-full h-full object-cover"/>
-        </div>
-
         <div class="flex flex-col lg:flex-row gap-10 {{ $isArabic ? 'lg:flex-row-reverse' : '' }}">
             <main class="flex-1 min-w-0">
                 {{-- Week Date --}}
