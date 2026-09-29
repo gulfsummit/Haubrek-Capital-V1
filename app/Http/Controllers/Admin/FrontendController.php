@@ -1639,12 +1639,19 @@ class FrontendController extends Controller
      */
     public function researchDownload(Request $request, Research $research)
     {
-        // If no form required, redirect to show page (PDF is freely accessible)
+        // If no form required, just serve the file / redirect to show page
         if (! $research->form_required) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success'  => true,
+                    'pdf_url'  => $research->pdf_file ? asset('storage/' . $research->pdf_file) : null,
+                    'redirect' => null,
+                ]);
+            }
             return redirect()->route('research.show', $research->slug);
         }
 
-        $validated = $request->validate([
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
             'first_name'     => 'required|string|max:255',
             'last_name'      => 'required|string|max:255',
             'business_email' => 'required|email|max:255',
@@ -1653,6 +1660,18 @@ class FrontendController extends Controller
             'country'        => 'required|string|max:255',
             'phone_number'   => 'nullable|string|max:30',
         ]);
+
+        if ($validator->fails()) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'errors'  => $validator->errors()->toArray(),
+                ], 422);
+            }
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $validated = $validator->validated();
 
         ResearchDownload::create([
             'research_id'    => $research->id,
@@ -1665,6 +1684,14 @@ class FrontendController extends Controller
             'phone_number'   => $validated['phone_number'] ?? null,
             'downloaded_at'  => now(),
         ]);
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success'  => true,
+                'pdf_url'  => $research->pdf_file ? asset('storage/' . $research->pdf_file) : null,
+                'redirect' => route('research.thank-you', $research->slug),
+            ]);
+        }
 
         return redirect()->route('research.thank-you', $research->slug);
     }
