@@ -115,7 +115,7 @@
                                 @endforeach
                             </div>
                         @endif
-                        <p class="text-sm font-bold text-white mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
+                        <p class="text-base font-bold text-white mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
                             <a href="{{ route('white-papers.show', $paper->slug) }}" class="hover:text-[#D4AF37] transition-colors">
                                 {{ $title }}
                             </a>

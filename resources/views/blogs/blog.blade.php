@@ -176,7 +176,7 @@
                                 />
                             </a>
                             <div class="pt-5">
-                                <p class="text-sm font-bold text-white mb-2 leading-snug line-clamp-2 {{ $alignmentClass }}">
+                                <p class="text-base font-bold text-white mb-2 leading-snug line-clamp-2 {{ $alignmentClass }}">
                                     <a href="{{ route('blog.show', $blog->slug) }}" class="hover:text-[#D4AF37] transition-colors">{{ $blogTitle }}</a>
                                 </p>
                                 <p class="text-[14px] sm:text-[15px] font-['Poppins'] text-white/70 mb-3 sm:mb-4 line-clamp-3 {{ $alignmentClass }}">
