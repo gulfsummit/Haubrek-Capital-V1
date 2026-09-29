@@ -80,44 +80,54 @@
 {{-- Editions --}}
 <section class="py-12 bg-gray-50 bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('design/images/blog-bg.png') }}');" dir="{{ $pageDirection }}">
     <div class="container mx-auto px-4">
-        {{-- Date picker filter --}}
+        {{-- Date filter --}}
+        @if($availableDates->isNotEmpty())
         <div class="flex flex-wrap items-center justify-center gap-3 mb-8" dir="{{ $pageDirection }}">
-            <form method="GET" action="{{ route('monday-window') }}" class="flex flex-wrap items-center justify-center gap-3" id="monday-window-date-form">
+            <form method="GET" action="{{ route('monday-window') }}" class="flex flex-wrap items-center justify-center gap-3">
                 @if($searchTerm)
                     <input type="hidden" name="search" value="{{ $searchTerm }}" />
                 @endif
 
-                {{-- Native date input styled to look like a pill --}}
                 <div class="relative">
+                    {{-- Calendar icon --}}
                     <span class="pointer-events-none absolute inset-y-0 {{ $isArabic ? 'right-3' : 'left-3' }} flex items-center">
                         <svg class="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                         </svg>
                     </span>
-                    <input
-                        type="date"
+                    {{-- Chevron icon --}}
+                    <span class="pointer-events-none absolute inset-y-0 {{ $isArabic ? 'left-3' : 'right-3' }} flex items-center">
+                        <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </span>
+                    <select
                         name="date"
-                        id="monday-window-date-input"
-                        value="{{ $selectedDate ?? '' }}"
-                        list="monday-window-date-list"
-                        {{ $isArabic ? 'dir=ltr' : '' }}
-                        class="appearance-none bg-white/10 text-white placeholder-white/40 border border-white/20 rounded-full {{ $isArabic ? 'pr-10 pl-4' : 'pl-10 pr-4' }} py-2.5 text-sm focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition cursor-pointer min-w-[180px]"
-                        aria-label="{{ $isArabic ? 'اختر تاريخاً' : 'Filter by date' }}"
-                    />
-                    {{-- Datalist restricts the native picker suggestions to only available Mondays --}}
-                    <datalist id="monday-window-date-list">
-                        @foreach($availableDates as $availDate)
-                            <option value="{{ $availDate }}"></option>
+                        onchange="this.form.submit()"
+                        class="appearance-none bg-white/10 text-white border border-white/20 rounded-full
+                               {{ $isArabic ? 'pr-10 pl-10' : 'pl-10 pr-10' }}
+                               py-2.5 text-sm focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]
+                               transition cursor-pointer min-w-[220px]"
+                        aria-label="{{ $isArabic ? 'فلترة حسب الأسبوع' : 'Filter by week' }}"
+                    >
+                        <option value="" {{ !$selectedDate ? 'selected' : '' }} class="bg-[#041B44]">
+                            {{ $isArabic ? '— كل الإصدارات —' : '— All editions —' }}
+                        </option>
+                        @foreach($availableDates->sortDesc() as $availDate)
+                            @php
+                                $carbon  = \Carbon\CarbonImmutable::parse($availDate);
+                                $label   = $isArabic
+                                    ? $carbon->locale('ar')->translatedFormat('j F Y')
+                                    : $carbon->translatedFormat('j F Y');
+                            @endphp
+                            <option
+                                value="{{ $availDate }}"
+                                {{ $selectedDate === $availDate ? 'selected' : '' }}
+                                class="bg-[#041B44]"
+                            >{{ $label }}</option>
                         @endforeach
-                    </datalist>
+                    </select>
                 </div>
-
-                <button
-                    type="submit"
-                    class="bg-[#D4AF37] hover:bg-[#b8962e] text-white px-5 py-2.5 rounded-full text-sm font-semibold transition whitespace-nowrap"
-                >
-                    {{ $isArabic ? 'تطبيق' : 'Apply' }}
-                </button>
 
                 @if($selectedDate)
                     <a
@@ -128,16 +138,8 @@
                     </a>
                 @endif
             </form>
-
-            @if($selectedDate)
-                <p class="w-full text-center text-sm text-white/50 mt-1">
-                    {{ $isArabic ? 'تصفية حسب الأسبوع:' : 'Showing week of:' }}
-                    <span class="text-[#D4AF37] font-medium">
-                        {{ \Carbon\CarbonImmutable::parse($selectedDate)->locale($locale)->translatedFormat('l, j F Y') }}
-                    </span>
-                </p>
-            @endif
         </div>
+        @endif
 
         @if($editions->isEmpty())
             <div class="text-center py-16">
@@ -203,35 +205,8 @@
     </div>
 </section>
 
-<script>
-    (() => {
-        // Validate the typed/selected date against available Mondays on submit
-        const form  = document.getElementById('monday-window-date-form');
-        const input = document.getElementById('monday-window-date-input');
-        if (!form || !input) return;
 
-        const availableDates = new Set(@json($availableDates));
 
-        form.addEventListener('submit', (e) => {
-            const val = input.value;
-            // If a date is entered but it's not in our available set, block submission
-            if (val && !availableDates.has(val)) {
-                e.preventDefault();
-                input.setCustomValidity(
-                    @json($isArabic
-                        ? 'الرجاء اختيار تاريخ يتوفر فيه إصدار.'
-                        : 'Please pick a date that has an edition.')
-                );
-                input.reportValidity();
-            } else {
-                input.setCustomValidity('');
-            }
-        });
-
-        // Clear the custom validity message when the user changes the value
-        input.addEventListener('change', () => input.setCustomValidity(''));
-    })();
-</script>
 
 {{-- CTA --}}
 <section class="relative py-20 text-white overflow-hidden">
