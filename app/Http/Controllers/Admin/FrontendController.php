@@ -1582,12 +1582,25 @@ class FrontendController extends Controller
             ->map(fn ($date) => CarbonImmutable::parse($date)->toDateString())
             ->unique()
             ->values();
-        $selectedDate = $request->query('date');
 
-        if (! is_string($selectedDate) || ! $availableDates->contains($selectedDate)) {
-            $selectedDate = null;
-        } else {
-            $query->whereDate('week_date', $selectedDate);
+        $selectedDate   = null;
+        $weekStart      = null;
+        $weekEnd        = null;
+        $rawDate        = $request->query('date');
+
+        if (is_string($rawDate) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $rawDate)) {
+            try {
+                // Compute the Monday of the selected date's week
+                $picked    = CarbonImmutable::parse($rawDate);
+                $weekStart = $picked->startOfWeek(CarbonImmutable::MONDAY)->toDateString();
+                $weekEnd   = $picked->endOfWeek(CarbonImmutable::SUNDAY)->toDateString();
+                $selectedDate = $rawDate; // keep original for the input field
+
+                $query->whereDate('week_date', '>=', $weekStart)
+                      ->whereDate('week_date', '<=', $weekEnd);
+            } catch (\Exception $e) {
+                $selectedDate = null;
+            }
         }
 
         if ($request->filled('search')) {
@@ -1604,14 +1617,15 @@ class FrontendController extends Controller
         $pageContent = $this->getPageContent('monday-window-list');
 
         return view('resources.monday-window.index', [
-            'editions'    => $editions,
-            'services'    => $services,
-            'settings'    => $settings,
-            'searchTerm'  => $request->get('search', ''),
+            'editions'       => $editions,
+            'services'       => $services,
+            'settings'       => $settings,
+            'searchTerm'     => $request->get('search', ''),
             'availableDates' => $availableDates,
-            'selectedDate' => $selectedDate,
-            'seoMeta'     => $pageContent?->seoMeta ?? WebsiteSettings::getSettings()->seoMeta,
-            'pageContent' => $pageContent,
+            'selectedDate'   => $selectedDate,
+            'weekStart'      => $weekStart,
+            'seoMeta'        => $pageContent?->seoMeta ?? WebsiteSettings::getSettings()->seoMeta,
+            'pageContent'    => $pageContent,
         ]);
     }
 

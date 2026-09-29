@@ -81,53 +81,40 @@
 <section class="pt-32 pb-16 sm:pt-36 sm:pb-20 md:pt-40 md:pb-24 lg:pt-[5em] lg:pb-32 bg-gray-50 bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('design/images/blog-bg.png') }}');" dir="{{ $pageDirection }}">
     <div class="container mx-auto px-4">
         {{-- Date filter --}}
-        @if($availableDates->isNotEmpty())
         <div class="flex flex-wrap items-center justify-center gap-3 mb-8" dir="{{ $pageDirection }}">
-            <form method="GET" action="{{ route('monday-window') }}" class="flex flex-wrap items-center justify-center gap-3">
+            <form method="GET" action="{{ route('monday-window') }}" class="flex flex-wrap items-center justify-center gap-3" id="mw-date-form">
                 @if($searchTerm)
                     <input type="hidden" name="search" value="{{ $searchTerm }}" />
                 @endif
 
-                <div class="relative">
-                    {{-- Calendar icon --}}
-                    <span class="pointer-events-none absolute inset-y-0 {{ $isArabic ? 'right-3' : 'left-3' }} flex items-center">
-                        <svg class="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                        </svg>
+                {{-- Hidden date input — triggered by the button below --}}
+                <input
+                    type="date"
+                    name="date"
+                    id="mw-date-input"
+                    value="{{ $selectedDate ?? '' }}"
+                    class="sr-only"
+                    aria-label="{{ $isArabic ? 'اختر تاريخاً' : 'Pick a date' }}"
+                />
+
+                {{-- Visible trigger button --}}
+                <button
+                    type="button"
+                    id="mw-date-trigger"
+                    class="inline-flex items-center gap-2 border border-white/30 text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:border-[#D4AF37] hover:text-[#D4AF37] transition"
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                    <span id="mw-date-label">
+                        @if($selectedDate && $weekStart)
+                            {{ $isArabic ? 'أسبوع' : 'Week of' }}
+                            {{ \Carbon\CarbonImmutable::parse($weekStart)->locale($locale)->translatedFormat('j F Y') }}
+                        @else
+                            {{ $isArabic ? 'فلترة حسب التاريخ' : 'Filter by date' }}
+                        @endif
                     </span>
-                    {{-- Chevron icon --}}
-                    <span class="pointer-events-none absolute inset-y-0 {{ $isArabic ? 'left-3' : 'right-3' }} flex items-center">
-                        <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </span>
-                    <select
-                        name="date"
-                        onchange="this.form.submit()"
-                        class="appearance-none bg-white/10 text-white border border-white/20 rounded-full
-                               {{ $isArabic ? 'pr-10 pl-10' : 'pl-10 pr-10' }}
-                               py-2.5 text-sm focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]
-                               transition cursor-pointer min-w-[220px]"
-                        aria-label="{{ $isArabic ? 'فلترة حسب الأسبوع' : 'Filter by week' }}"
-                    >
-                        <option value="" {{ !$selectedDate ? 'selected' : '' }} class="bg-[#041B44]">
-                            {{ $isArabic ? '— كل الإصدارات —' : '— All editions —' }}
-                        </option>
-                        @foreach($availableDates->sortDesc() as $availDate)
-                            @php
-                                $carbon  = \Carbon\CarbonImmutable::parse($availDate);
-                                $label   = $isArabic
-                                    ? $carbon->locale('ar')->translatedFormat('j F Y')
-                                    : $carbon->translatedFormat('j F Y');
-                            @endphp
-                            <option
-                                value="{{ $availDate }}"
-                                {{ $selectedDate === $availDate ? 'selected' : '' }}
-                                class="bg-[#041B44]"
-                            >{{ $label }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                </button>
 
                 @if($selectedDate)
                     <a
@@ -139,7 +126,29 @@
                 @endif
             </form>
         </div>
-        @endif
+
+        <script>
+        (() => {
+            const input   = document.getElementById('mw-date-input');
+            const trigger = document.getElementById('mw-date-trigger');
+            const form    = document.getElementById('mw-date-form');
+            if (!input || !trigger || !form) return;
+
+            trigger.addEventListener('click', () => {
+                // showPicker() is supported in modern browsers; fall back to focus()
+                if (typeof input.showPicker === 'function') {
+                    input.showPicker();
+                } else {
+                    input.focus();
+                }
+            });
+
+            // Auto-submit as soon as a date is chosen
+            input.addEventListener('change', () => {
+                if (input.value) form.submit();
+            });
+        })();
+        </script>
 
         @if($editions->isEmpty())
             <div class="text-center py-16">
