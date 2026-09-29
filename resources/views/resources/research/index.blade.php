@@ -124,9 +124,9 @@
                                 @endforeach
                             </div>
                         @endif
-                        <h2 class="text-sm font-bold text-white mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
+                        <p class="text-sm font-bold text-white mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
                             <a href="{{ route('research.show', $item->slug) }}" class="hover:text-[#D4AF37] transition-colors">{{ $rTitle }}</a>
-                        </h2>
+                        </p>
                         @if($rDesc)
                             <p class="text-white/70 text-sm mb-3 line-clamp-3 {{ $alignmentClass }}">{{ strip_tags($rDesc) }}</p>
                         @endif

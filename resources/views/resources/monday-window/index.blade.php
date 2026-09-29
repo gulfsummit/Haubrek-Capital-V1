@@ -183,9 +183,9 @@
                                     @endforeach
                                 </div>
                             @endif
-                            <h2 class="text-sm font-bold text-white mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
+                            <p class="text-sm font-bold text-white mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
                                 <a href="{{ route('monday-window.show', $edition->slug) }}" class="hover:text-[#D4AF37] transition-colors">{{ $edTitle }}</a>
-                            </h2>
+                            </p>
                             @if($edSummary)
                                 <p class="text-white/70 text-sm mb-3 line-clamp-3 {{ $alignmentClass }}">{!! strip_tags($edSummary) !!}</p>
                             @endif

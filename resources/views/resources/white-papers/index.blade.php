@@ -115,11 +115,11 @@
                                 @endforeach
                             </div>
                         @endif
-                        <h2 class="text-sm font-bold text-white mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
+                        <p class="text-sm font-bold text-white mb-2 leading-snug line-clamp-2 min-h-[3rem] {{ $alignmentClass }}">
                             <a href="{{ route('white-papers.show', $paper->slug) }}" class="hover:text-[#D4AF37] transition-colors">
                                 {{ $title }}
                             </a>
-                        </h2>
+                        </p>
                         @if($description)
                             <p class="text-white/70 text-sm mb-4 line-clamp-3 {{ $alignmentClass }}">{!! strip_tags($description) !!}</p>
                         @endif
