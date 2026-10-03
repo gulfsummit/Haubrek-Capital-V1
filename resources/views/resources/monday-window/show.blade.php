@@ -57,7 +57,7 @@
                     </div>
                 @endif
 
-                <h1 class="font-neue-extrabold text-gray-900 mb-4 {{ $alignmentClass }}" style="font-size: clamp(1rem, 2.5vw, 1.4rem); line-height: 1.3;">{{ $title }}</h1>
+                <h1 class="font-neue-extrabold text-gray-900 mb-4 {{ $alignmentClass }}" style="font-size: 18px; line-height: 1.3;">{{ $title }}</h1>
 
                 {{-- Market Topics --}}
                 @if(!empty($edition->market_topics))
