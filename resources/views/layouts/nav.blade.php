@@ -252,7 +252,7 @@
                                     </p>
                                 </li>
                                 <li class="group relative nav-header-flex desktop-text-ltr">
-                                    <a href="{{route('resource-center')}}" class="text-[0.8rem] xl:text-[0.973rem] hover:text-gray-300 flex items-center gap-3 font-['Poppins'] nav-header-flex desktop-text-ltr">
+                                    <a href="{{route('resources-center')}}" class="text-[0.8rem] xl:text-[0.973rem] hover:text-gray-300 flex items-center gap-3 font-['Poppins'] nav-header-flex desktop-text-ltr">
                                         Resources Center
                                         <i class="fas fa-caret-down text-[0.9375rem] transition-transform duration-200 group-hover:rotate-180 flex items-center nav-header-flex"></i>
                                     </a>
@@ -272,10 +272,28 @@
                             @endif
 
                             @if(isset($websiteSettings) && $websiteSettings->show_language_switcher)
+                            @php
+                                $currentRouteName = Route::currentRouteName() ?? 'home';
+                                $isArabic = str_starts_with($currentRouteName, 'ar.');
+                                $baseRouteName = $isArabic ? substr($currentRouteName, 3) : $currentRouteName;
+                                $routeParams = request()->route() ? request()->route()->parameters() : [];
+                                try {
+                                    $enUrl = route($baseRouteName, $routeParams);
+                                } catch (\Exception $e) {
+                                    $enUrl = url('/');
+                                }
+                                try {
+                                    $arUrl = route('ar.' . $baseRouteName, $routeParams);
+                                } catch (\Exception $e) {
+                                    $arUrl = url('/ar');
+                                }
+                            @endphp
                             <div class="flex items-center space-x-2 ml-6 pl-6 text-[0.75rem] sm:text-[0.875rem] font-['Poppins']">
-                                <a href="{{ route('lang.switch', 'en') }}" class="{{ app()->getLocale() === 'en' ? 'text-white' : 'text-[#BF9874]' }} hover:text-white">EN</a>
+                                <a href="{{$enUrl}}"
+                                   class="{{!$isArabic ? 'text-white' : 'text-[#BF9874]'}} hover:text-white transition-colors duration-200">EN</a>
                                 <span class="text-[#BF9874]">|</span>
-                                <a href="{{ route('lang.switch', 'ar') }}" class="{{ app()->getLocale() === 'ar' ? 'text-white' : 'text-[#BF9874]' }} hover:text-white">AR</a>
+                                <a href="{{$arUrl}}"
+                                   class="{{$isArabic ? 'text-white' : 'text-[#BF9874]'}} hover:text-white transition-colors duration-200">AR</a>
                             </div>
                             @endif
 
@@ -360,7 +378,7 @@
                             </li>
                             <li class="group">
                                 <div class="flex items-center justify-between desktop-reverse-flex">
-                                    <a href="{{route('resource-center')}}" class="text-base hover:text-gray-300 font-['Poppins'] desktop-text-ltr">Resources Center</a>
+                                    <a href="{{route('resources-center')}}" class="text-base hover:text-gray-300 font-['Poppins'] desktop-text-ltr">Resources Center</a>
                                     <i class="fas fa-caret-down text-[0.9375rem] transition-transform duration-200 cursor-pointer desktop-reverse-flex" onclick="toggleDropdown(this)"></i>
                                 </div>
                                 <div class="site-mobile-dropdown hidden pl-4 mt-2">
@@ -379,10 +397,28 @@
                         @endif
 
                         @if(isset($websiteSettings) && $websiteSettings->show_language_switcher)
+                        @php
+                            $currentRouteNameMobile = Route::currentRouteName() ?? 'home';
+                            $isArabicMobile = str_starts_with($currentRouteNameMobile, 'ar.');
+                            $baseRouteNameMobile = $isArabicMobile ? substr($currentRouteNameMobile, 3) : $currentRouteNameMobile;
+                            $routeParamsMobile = request()->route() ? request()->route()->parameters() : [];
+                            try {
+                                $enUrlMobile = route($baseRouteNameMobile, $routeParamsMobile);
+                            } catch (\Exception $e) {
+                                $enUrlMobile = url('/');
+                            }
+                            try {
+                                $arUrlMobile = route('ar.' . $baseRouteNameMobile, $routeParamsMobile);
+                            } catch (\Exception $e) {
+                                $arUrlMobile = url('/ar');
+                            }
+                        @endphp
                         <div class="site-mobile-lang flex items-center space-x-2 py-2 text-base font-['Poppins'] desktop-reverse-flex">
-                            <a href="{{ route('lang.switch', 'en') }}" class="{{ app()->getLocale() === 'en' ? 'text-white' : 'text-[#BF9874]' }} hover:text-[#FFFFFF] desktop-text-ltr">EN</a>
+                            <a href="{{$enUrlMobile}}"
+                               class="{{!$isArabicMobile ? 'text-white' : 'text-[#BF9874]'}} hover:text-[#FFFFFF] desktop-text-ltr transition-colors duration-200">EN</a>
                             <span class="text-[#BF9874]">|</span>
-                            <a href="{{ route('lang.switch', 'ar') }}" class="{{ app()->getLocale() === 'ar' ? 'text-white' : 'text-[#BF9874]' }} hover:text-[#FFFFFF] desktop-text-ltr">AR</a>
+                            <a href="{{$arUrlMobile}}"
+                               class="{{$isArabicMobile ? 'text-white' : 'text-[#BF9874]'}} hover:text-[#FFFFFF] desktop-text-ltr transition-colors duration-200">AR</a>
                         </div>
                         @endif
 

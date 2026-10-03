@@ -1077,7 +1077,7 @@ class FrontendController extends Controller
             ['loc' => route('wealth-services'), 'lastmod' => optional(\App\Models\WealthServices::first()?->updated_at)->toAtomString()],
             ['loc' => route('investment-services'), 'lastmod' => optional(\App\Models\InvestmentServices::first()?->updated_at)->toAtomString()],
             ['loc' => route('cio-services'), 'lastmod' => optional(\App\Models\CioServices::first()?->updated_at)->toAtomString()],
-            ['loc' => route('resource-center'), 'lastmod' => optional(\App\Models\ResourceCenter::first()?->updated_at)->toAtomString()],
+            ['loc' => route('resources-center'), 'lastmod' => optional(\App\Models\ResourceCenter::first()?->updated_at)->toAtomString()],
             ['loc' => route('tools'), 'lastmod' => optional(\App\Models\Tools::first()?->updated_at)->toAtomString()],
             ['loc' => route('blog'), 'lastmod' => optional($this->getPageContent('blog-list')?->updated_at)->toAtomString()],
             ['loc' => route('case-studies'), 'lastmod' => optional($this->getPageContent('case-studies-list')?->updated_at)->toAtomString()],

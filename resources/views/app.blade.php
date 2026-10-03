@@ -12,6 +12,7 @@
     $metaTitle = $seoMetaTitle ?: $seoOgTitle ?: $seoH1Title ?: $websiteTitle;
     $metaDescription = $seoMeta ? $localize($seoMeta->meta_description_en, $seoMeta->meta_description_ar) : null;
     $metaKeywords = $seoMeta ? $localize($seoMeta->meta_keywords_en, $seoMeta->meta_keywords_ar) : null;
+    // Canonical reflects the current language version (includes /ar/ prefix for Arabic routes)
     $canonicalUrl = $seoMeta && $seoMeta->canonical_url ? $seoMeta->canonical_url : url()->current();
     $ogTitle = $seoOgTitle ?: $metaTitle;
     $ogDescription = $seoMeta ? $localize($seoMeta->og_description_en, $seoMeta->og_description_ar) : $metaDescription;
@@ -230,6 +231,25 @@
         <meta name="keywords" content="{{ $metaKeywords }}">
     @endif
     <link rel="canonical" href="{{ $canonicalUrl }}">
+    @php
+        $hreflangRouteName = Route::currentRouteName() ?? 'home';
+        $hreflangIsArabic = str_starts_with($hreflangRouteName, 'ar.');
+        $hreflangBase = $hreflangIsArabic ? substr($hreflangRouteName, 3) : $hreflangRouteName;
+        $hreflangParams = request()->route() ? request()->route()->parameters() : [];
+        try {
+            $hreflangEn = route($hreflangBase, $hreflangParams);
+        } catch (\Exception $e) {
+            $hreflangEn = url('/');
+        }
+        try {
+            $hreflangAr = route('ar.' . $hreflangBase, $hreflangParams);
+        } catch (\Exception $e) {
+            $hreflangAr = url('/ar');
+        }
+    @endphp
+    <link rel="alternate" hreflang="en" href="{{$hreflangEn}}">
+    <link rel="alternate" hreflang="ar" href="{{$hreflangAr}}">
+    <link rel="alternate" hreflang="x-default" href="{{$hreflangEn}}">
     <meta property="og:title" content="{{ $ogTitle }}">
     @if($ogDescription)
         <meta property="og:description" content="{{ \Illuminate\Support\Str::limit(strip_tags($ogDescription), 200) }}">

@@ -31,10 +31,8 @@ Route::get('/sitemap.xml', [FrontendController::class, 'sitemap'])->name('sitema
 Route::get('/robots.txt', [FrontendController::class, 'robots'])->name('robots');
 
 Route::get('/',[FrontendController::class,'home'])->name('home');
-Route::get('/about-us',[FrontendController::class,'about_us'])->name('about_us');
 Route::get('/board-of-directors',[FrontendController::class,'board_of_directors'])->name('board_of_directors');
 Route::get('/app',[FrontendController::class,'app'])->name('app');
-Route::get('/contact-us',[FrontendController::class,'contact_us'])->name('contact_us');
 Route::get('/services',[FrontendController::class,'service'])->name('services');
 Route::get('/articles',[FrontendController::class,'articles'])->name('articles');
 Route::get('/article/show/{id}',[FrontendController::class,'article'])->name('article.show');
@@ -102,13 +100,45 @@ Route::get('/privacy-policy', [FrontendController::class, 'privacyPolicy'])->nam
 Route::get('/terms-conditions', [FrontendController::class, 'termsConditions'])->name('terms-conditions');
 Route::get('/cookie-policy', [FrontendController::class, 'cookiePolicy'])->name('cookie-policy');
 
+// ── Arabic Routes (/ar/ prefix) ────────────────────────────
+Route::prefix('ar')
+    ->middleware('locale.url:ar')
+    ->name('ar.')
+    ->group(function () {
+
+        Route::get('/', [FrontendController::class, 'home'])->name('home');
+        Route::get('/about-us', [FrontendController::class, 'about_us'])->name('about-us');
+        Route::get('/services', [FrontendController::class, 'service'])->name('services');
+        Route::get('/governance-services', [FrontendController::class, 'governanceServices'])->name('governance-services');
+        Route::get('/wealth-services', [FrontendController::class, 'wealthServices'])->name('wealth-services');
+        Route::get('/wealth-planning-services', [FrontendController::class, 'wealthPlanningServices'])->name('wealth-planning-services');
+        Route::get('/investment-services', [FrontendController::class, 'investmentServices'])->name('investment-services');
+        Route::get('/cio-services', [FrontendController::class, 'cioServices'])->name('cio-services');
+        Route::get('/contact-us', [FrontendController::class, 'contactUs'])->name('contact-us');
+        Route::get('/careers', [FrontendController::class, 'careers'])->name('careers');
+        Route::get('/faq', [FrontendController::class, 'question'])->name('faq');
+        Route::get('/appointment', [FrontendController::class, 'appointment'])->name('appointment');
+        Route::get('/request-meeting', [FrontendController::class, 'requestMeeting'])->name('request-meeting');
+        Route::get('/teams', [FrontendController::class, 'teamsPage'])->name('teams');
+        Route::get('/resources-center', [FrontendController::class, 'resourcesCenter'])->name('resources-center');
+        Route::get('/resources-center/white-papers', [FrontendController::class, 'whitePapers'])->name('white-papers');
+        Route::get('/resources-center/white-papers/{whitePaper}', [FrontendController::class, 'whitePaperShow'])->name('white-papers.show');
+        Route::get('/resources-center/cio-flash', [FrontendController::class, 'cioFlash'])->name('cio-flash');
+        Route::get('/resources-center/cio-flash/{cioFlash}', [FrontendController::class, 'cioFlashShow'])->name('cio-flash.show');
+        Route::get('/resources-center/monday-window', [FrontendController::class, 'mondayWindow'])->name('monday-window');
+        Route::get('/resources-center/monday-window/{mondayWindow}', [FrontendController::class, 'mondayWindowShow'])->name('monday-window.show');
+        Route::get('/resources-center/research', [FrontendController::class, 'research'])->name('research');
+        Route::get('/resources-center/research/{research}', [FrontendController::class, 'researchShow'])->name('research.show');
+        Route::get('/resources-center/research/{research}/thank-you', [FrontendController::class, 'researchThankYou'])->name('research.thank-you');
+        Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');
+        Route::get('/blog/{blog}', [FrontendController::class, 'blogShow'])->name('blog.show');
+        Route::get('/case-studies', [FrontendController::class, 'caseStudies'])->name('case-studies');
+        Route::get('/case-studies/{caseStudy}', [FrontendController::class, 'caseStudyShow'])->name('case-studies.show');
+        Route::get('/privacy-policy', [FrontendController::class, 'privacyPolicy'])->name('privacy-policy');
+        Route::get('/terms-conditions', [FrontendController::class, 'termsConditions'])->name('terms-conditions');
+        Route::get('/cookie-policy', [FrontendController::class, 'cookiePolicy'])->name('cookie-policy');
+
+    });
+
 Route::fallback([FrontendController::class, 'fallback']);
-
-Route::get('/sitemap.xml', function () {
-    SitemapGenerator::create('https://hauberkcapital.com')->writeToFile(public_path('sitemap-static.xml'));
-
-    return response()->file(public_path('sitemap-static.xml'), [
-        'Content-Type' => 'application/xml',
-    ]);
-});
 
