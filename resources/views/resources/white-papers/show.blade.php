@@ -63,7 +63,7 @@
                     </div>
                 @endif
 
-                <h1 class="text-xl sm:text-2xl md:text-3xl font-neue-extrabold text-gray-900 mb-4 {{ $alignmentClass }}">{{ $title }}</h1>
+                <h1 class="text-base sm:text-xl md:text-2xl lg:text-3xl leading-[1.3] font-neue-extrabold text-gray-900 mb-4 {{ $alignmentClass }}">{{ $title }}</h1>
 
                 {{-- Meta --}}
                 <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-6 {{ $alignmentClass }}">
