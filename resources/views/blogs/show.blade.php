@@ -97,13 +97,13 @@
                 <span class="text-[#D4AF37] font-semibold lg:mx-12 mb-2 {{ $alignmentClass }}">{{ $shareLabel }}</span>
                 <div class="flex gap-4 {{ $reverseFlexClass }}">
                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ $currentUrl }}" target="_blank" rel="noopener noreferrer" class="text-[#041B44] hover:text-[#D4AF37] transition-colors" title="{{ $isArabic ? 'شارك على فيسبوك' : 'Share on Facebook' }}">
-                        <img src="{{ asset('design/images/blue-fb.svg') }}" class="w-8 h-8 inline" alt="Facebook icon">
+                        <img loading="lazy" src="{{ asset('design/images/blue-fb.svg') }}" class="w-8 h-8 inline" alt="Facebook icon">
                     </a>
                     <a href="https://twitter.com/intent/tweet?url={{ $currentUrl }}&text={{ $blogTitle }}" target="_blank" rel="noopener noreferrer" class="text-[#041B44] hover:text-[#D4AF37] transition-colors" title="{{ $isArabic ? 'شارك على إكس (تويتر)' : 'Share on X (Twitter)' }}">
-                        <img src="{{ asset('design/images/blue-x.svg') }}" class="w-8 h-8 inline" alt="X (Twitter) icon">
+                        <img loading="lazy" src="{{ asset('design/images/blue-x.svg') }}" class="w-8 h-8 inline" alt="X (Twitter) icon">
                     </a>
                     <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ $currentUrl }}" target="_blank" rel="noopener noreferrer" class="text-[#041B44] hover:text-[#D4AF37] transition-colors" title="{{ $isArabic ? 'شارك على لينكدإن' : 'Share on LinkedIn' }}">
-                        <img src="{{ asset('design/images/blue-in.svg') }}" class="w-8 h-8 inline" alt="LinkedIn icon">
+                        <img loading="lazy" src="{{ asset('design/images/blue-in.svg') }}" class="w-8 h-8 inline" alt="LinkedIn icon">
                     </a>
                 </div>
             </div>

@@ -290,7 +290,7 @@
             fbq('track', 'PageView');
         </script>
         <noscript>
-            <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={{ $websiteSettings->facebook_pixel_id }}&ev=PageView&noscript=1" />
+            <img loading="lazy" height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={{ $websiteSettings->facebook_pixel_id }}&ev=PageView&noscript=1" />
         </noscript>
     @endif
 
@@ -317,7 +317,7 @@
             s.parentNode.insertBefore(b, s);})();
         </script>
         <noscript>
-            <img height="1" width="1" style="display:none;" alt=""
+            <img loading="lazy" height="1" width="1" style="display:none;" alt=""
                  src="https://px.ads.linkedin.com/collect/?pid={{ $websiteSettings->linkedin_pixel_id }}&fmt=gif" />
         </noscript>
     @endif

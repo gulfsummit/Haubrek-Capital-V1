@@ -34,11 +34,11 @@
                     <div class="w-full flex-shrink-0 relative">
                         <!-- Desktop background -->
                         <div class="absolute inset-0 hidden md:block">
-                            <img src="{{ $heroDesktopImage }}" alt="{{ $pageTitle }}" class="w-full h-full object-cover"/>
+                            <img loading="lazy" src="{{ $heroDesktopImage }}" alt="{{ $pageTitle }}" class="w-full h-full object-cover"/>
                         </div>
                         <!-- Mobile background -->
                         <div class="absolute inset-0 block md:hidden">
-                            <img src="{{ $heroMobileImage }}" alt="{{ $pageTitle }} Mobile" class="w-full h-full object-cover"/>
+                            <img loading="lazy" src="{{ $heroMobileImage }}" alt="{{ $pageTitle }} Mobile" class="w-full h-full object-cover"/>
                         </div>
                         <div class="absolute inset-0"></div>
                         <div class="relative h-[120vh] md:h-[90vh] flex items-center justify-center">

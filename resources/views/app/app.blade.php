@@ -20,11 +20,11 @@
                     <div class="w-full flex-shrink-0 relative">
                         <!-- Desktop background -->
                         <div class="absolute inset-0 hidden md:block">
-                            <img src="{{ $heroBackgroundImage }}" alt="Wealth Management" class="w-full h-full object-cover"/>
+                            <img loading="lazy" src="{{ $heroBackgroundImage }}" alt="Wealth Management" class="w-full h-full object-cover"/>
                         </div>
                         <!-- Mobile background -->
                         <div class="absolute inset-0 block md:hidden">
-                            <img src="{{ $heroMobileBackgroundImage }}" alt="Wealth Management Mobile" class="w-full h-full object-cover"/>
+                            <img loading="lazy" src="{{ $heroMobileBackgroundImage }}" alt="Wealth Management Mobile" class="w-full h-full object-cover"/>
                         </div>
                         <div class="absolute inset-0 "></div>
                         <div class="relative h-[120vh] md:h-[90vh] flex items-center justify-center">
@@ -66,7 +66,7 @@
           </div>
           <!-- Right: Two Phones -->
           <div class="md:w-[70%] flex justify-center md:justify-end relative">
-            <img src="{{ $promoMobile1Image }}" alt="App Screenshot 1" class="rounded-2xl z-20 absolute md:relative" style="z-index: 100; transform: translateY(250px) translateX(-50%); left: 50%;">
+            <img loading="lazy" src="{{ $promoMobile1Image }}" alt="App Screenshot 1" class="rounded-2xl z-20 absolute md:relative" style="z-index: 100; transform: translateY(250px) translateX(-50%); left: 50%;">
           </div>
         </div>
       </div>
@@ -91,7 +91,7 @@
         <div class="max-w-7xl mx-auto flex z-10 flex-col md:flex-row items-center justify-between px-6 pt-[200px] pb-[100px]">
           <!-- Left: Single Phone -->
           <div class="md:w-1/2 flex justify-center md:justify-start mb-10 md:mb-0">
-            <img src="{{ $bottomMobileImage }}" alt="App Screenshot 3" class="w-40 md:w-56 rounded-2xl shadow-2xl" style="z-index: 101;">
+            <img loading="lazy" src="{{ $bottomMobileImage }}" alt="App Screenshot 3" class="w-40 md:w-56 rounded-2xl shadow-2xl" style="z-index: 101;">
           </div>
           <!-- Right: Text and Bullets -->
           <div class="relative z-20" dir="{{ $locale === 'ar' ? 'rtl' : 'ltr' }}">
@@ -136,7 +136,7 @@
       <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-6">
         <!-- Right: Phone Image -->
         <div class="md:w-1/3 flex justify-center md:justify-end mb-12 md:mb-0 order-1 md:order-2">
-          <img src="{{ $connectMobileImage }}" alt="Chat App Screenshot" class="w-64 md:w-80 rounded-2xl shadow-2xl">
+          <img loading="lazy" src="{{ $connectMobileImage }}" alt="Chat App Screenshot" class="w-64 md:w-80 rounded-2xl shadow-2xl">
         </div>
         <!-- Left: Text -->
         <div class="md:w-2/3 order-2 md:order-1" dir="{{ $locale === 'ar' ? 'rtl' : 'ltr' }}">
@@ -175,7 +175,7 @@
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-6">
           <!-- Left: Two Phones -->
           <div class="md:w-1/2 flex justify-center md:justify-start mb-10 md:mb-0 gap-6">
-            <img src="{{ $docsMobileImage }}" alt="Documentation App Screenshot 2" class=" z-10 relative">
+            <img loading="lazy" src="{{ $docsMobileImage }}" alt="Documentation App Screenshot 2" class=" z-10 relative">
           </div>
           <!-- Right: Text -->
           <div class="md:w-1/2" dir="{{ $locale === 'ar' ? 'rtl' : 'ltr' }}">
@@ -215,7 +215,7 @@
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-6">
           <!-- Right: Phone Image -->
           <div class="md:w-1/3 flex justify-center md:justify-end mb-12 md:mb-0 order-1 md:order-2">
-            <img src="{{ $knowledgeMobileImage }}" alt="Chat App Screenshot" class="w-64 md:w-80 rounded-2xl shadow-2xl">
+            <img loading="lazy" src="{{ $knowledgeMobileImage }}" alt="Chat App Screenshot" class="w-64 md:w-80 rounded-2xl shadow-2xl">
           </div>
           <!-- Left: Text -->
           <div class="md:w-2/3 order-2 md:order-1" dir="{{ $locale === 'ar' ? 'rtl' : 'ltr' }}">
@@ -251,7 +251,7 @@
         <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between px-6">
           <!-- Left: Two Phones -->
           <div class="md:w-1/2 flex justify-center md:justify-start mb-10 md:mb-0 gap-6">
-            <img src="{{ $securityMobileImage }}" alt="Documentation App Screenshot 2" class=" z-10 relative">
+            <img loading="lazy" src="{{ $securityMobileImage }}" alt="Documentation App Screenshot 2" class=" z-10 relative">
           </div>
           <!-- Right: Text -->
           <div dir="{{ $locale === 'ar' ? 'rtl' : 'ltr' }}">

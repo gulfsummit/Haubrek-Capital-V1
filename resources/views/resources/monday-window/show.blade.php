@@ -140,7 +140,7 @@
                     @endphp
                     <a href="{{ route('monday-window.show', $item->slug) }}" class="flex gap-3 group">
                         <div class="w-20 h-16 shrink-0 rounded overflow-hidden">
-                            <img src="{{ $iImg }}" alt="{{ $iTitle }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform"/>
+                            <img loading="lazy" src="{{ $iImg }}" alt="{{ $iTitle }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform"/>
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-semibold text-gray-800 group-hover:text-[#D4AF37] transition line-clamp-2 {{ $alignmentClass }}">{{ $iTitle }}</p>

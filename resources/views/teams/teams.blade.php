@@ -39,15 +39,15 @@
                         <div class="absolute inset-0">
                             <!-- Desktop background -->
                             @if($teamsData && $teamsData->hero_desktop_image)
-                                <img src="{{ asset('storage/' . $teamsData->hero_desktop_image) }}" alt="Wealth Management" class="hidden md:block w-full h-full object-cover"/>
+                                <img loading="lazy" src="{{ asset('storage/' . $teamsData->hero_desktop_image) }}" alt="Wealth Management" class="hidden md:block w-full h-full object-cover"/>
                             @else
-                                <img src="{{ asset('design/images/board-hero.png') }}" alt="Wealth Management" class="hidden md:block w-full h-full object-cover"/>
+                                <img loading="lazy" src="{{ asset('design/images/board-hero.png') }}" alt="Wealth Management" class="hidden md:block w-full h-full object-cover"/>
                             @endif
                             <!-- Mobile background -->
                             @if($teamsData && $teamsData->hero_mobile_image)
-                                <img src="{{ asset('storage/' . $teamsData->hero_mobile_image) }}" alt="Wealth Management" class="block md:hidden w-full h-full object-cover"/>
+                                <img loading="lazy" src="{{ asset('storage/' . $teamsData->hero_mobile_image) }}" alt="Wealth Management" class="block md:hidden w-full h-full object-cover"/>
                             @else
-                                <img src="{{ asset('design/images/mobile-board-hero.png') }}" alt="Wealth Management" class="block md:hidden w-full h-full object-cover"/>
+                                <img loading="lazy" src="{{ asset('design/images/mobile-board-hero.png') }}" alt="Wealth Management" class="block md:hidden w-full h-full object-cover"/>
                             @endif
                         </div>
                         <div class="absolute inset-0 "></div>
@@ -87,18 +87,18 @@
         <!-- Background image -->
         <div class="absolute inset-0 hidden md:block">
             @if($teamsData && $teamsData->leadership_background_image)
-                <img src="{{ asset('storage/' . $teamsData->leadership_background_image) }}" alt="Leadership Background" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('storage/' . $teamsData->leadership_background_image) }}" alt="Leadership Background" class="w-full h-full object-cover">
             @else
-                <img src="{{ asset('design/images/board-leadership-bg.png') }}" alt="Leadership Background" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('design/images/board-leadership-bg.png') }}" alt="Leadership Background" class="w-full h-full object-cover">
             @endif
         </div>
 
         <!-- Mobile Background image -->
         <div class="absolute inset-0 block md:hidden">
             @if($teamsData && $teamsData->leadership_mobile_background_image)
-                <img src="{{ asset('storage/' . $teamsData->leadership_mobile_background_image) }}" alt="Leadership Background Mobile" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('storage/' . $teamsData->leadership_mobile_background_image) }}" alt="Leadership Background Mobile" class="w-full h-full object-cover">
             @else
-                <img src="{{ asset('design/images/mobile-board-leadership-bg.png') }}" alt="Leadership Background Mobile" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('design/images/mobile-board-leadership-bg.png') }}" alt="Leadership Background Mobile" class="w-full h-full object-cover">
             @endif
         </div>
 
@@ -165,9 +165,9 @@
                                                 <div class="text-center director-slide" data-slide="{{ $slide }}">
                                                     <div class="bg-white rounded-lg overflow-hidden w-[280px] h-[380px] mb-4 cursor-pointer director-image" data-director="{{ strtolower(str_replace(' ', '-', is_string($director['name_en'] ?? '') ? $director['name_en'] : '')) }}">
                                                         @if($director['image'])
-                                                            <img src="{{ asset('storage/' . $director['image']) }}" alt="{{ is_string($director['name_en'] ?? '') ? $director['name_en'] : 'Director' }}" class="w-full h-full object-cover object-center">
+                                                            <img loading="lazy" src="{{ asset('storage/' . $director['image']) }}" alt="{{ is_string($director['name_en'] ?? '') ? $director['name_en'] : 'Director' }}" class="w-full h-full object-cover object-center">
                                                         @else
-                                                            <img src="{{ asset('design/images/wael.png') }}" alt="{{ is_string($director['name_en'] ?? '') ? $director['name_en'] : 'Director' }}" class="w-full h-full object-cover object-center">
+                                                            <img loading="lazy" src="{{ asset('design/images/wael.png') }}" alt="{{ is_string($director['name_en'] ?? '') ? $director['name_en'] : 'Director' }}" class="w-full h-full object-cover object-center">
                                                         @endif
                                                     </div>
                                                     <p class="text-[#FFFFFF] font-neue-bold text-xl mt-3">
@@ -196,7 +196,7 @@
                                 <div class="min-w-full flex-shrink-0 flex justify-center gap-8">
                                     <div class="text-center director-slide" data-slide="0">
                                         <div class="bg-white rounded-lg overflow-hidden w-[280px] h-[380px] mb-4 cursor-pointer director-image" data-director="wael">
-                                            <img src="{{ asset('design/images/wael.png') }}" alt="Wael Fawzi" class="w-full h-full object-cover object-center">
+                                            <img loading="lazy" src="{{ asset('design/images/wael.png') }}" alt="Wael Fawzi" class="w-full h-full object-cover object-center">
                                         </div>
                                         <p class="text-[#FFFFFF] font-neue-bold text-xl mt-3">Wael Fawzi</p>
                                         <p class="text-[#FFFFFF] opacity-70 font-['Poppins']">Managing Director</p>
@@ -204,7 +204,7 @@
 
                                     <div class="text-center director-slide" data-slide="0">
                                         <div class="bg-white rounded-lg overflow-hidden w-[280px] h-[380px] mb-4 cursor-pointer director-image" data-director="natalia">
-                                            <img src="{{ asset('design/images/natalia.png') }}" alt="Natalia Biryukova" class="w-full h-full object-cover object-center">
+                                            <img loading="lazy" src="{{ asset('design/images/natalia.png') }}" alt="Natalia Biryukova" class="w-full h-full object-cover object-center">
                                         </div>
                                         <p class="text-white font-neue-bold text-xl mt-3">Natalia Biryukova</p>
                                         <div class="text-white opacity-70 font-['Poppins']">Director</div>
@@ -212,7 +212,7 @@
 
                                     <div class="text-center director-slide" data-slide="0">
                                         <div class="bg-white rounded-lg overflow-hidden w-[280px] h-[380px] mb-4 cursor-pointer director-image" data-director="motesm">
-                                            <img src="{{ asset('design/images/motasem.png') }}" alt="Motesm Aggad" class="w-full h-full object-cover object-center">
+                                            <img loading="lazy" src="{{ asset('design/images/motasem.png') }}" alt="Motesm Aggad" class="w-full h-full object-cover object-center">
                                         </div>
                                         <p class="text-white font-neue-bold text-xl mt-3">Motesm Aggad</p>
                                         <div class="text-white opacity-70 font-['Poppins']">Director</div>
@@ -246,9 +246,9 @@
                                         <div class="flex flex-col items-center">
                                             <div class="bg-white rounded-lg overflow-hidden w-[240px] h-[320px] mb-4 cursor-pointer director-image" data-director="{{ strtolower(str_replace(' ', '-', is_string($director['name_en'] ?? '') ? $director['name_en'] : '')) }}">
                                                 @if($director['image'])
-                                                    <img src="{{ asset('storage/' . $director['image']) }}" alt="{{ is_string($director['name_en'] ?? '') ? $director['name_en'] : 'Director' }}" class="w-full h-full object-cover object-center">
+                                                    <img loading="lazy" src="{{ asset('storage/' . $director['image']) }}" alt="{{ is_string($director['name_en'] ?? '') ? $director['name_en'] : 'Director' }}" class="w-full h-full object-cover object-center">
                                                 @else
-                                                    <img src="{{ asset('design/images/wael.png') }}" alt="{{ is_string($director['name_en'] ?? '') ? $director['name_en'] : 'Director' }}" class="w-full h-full object-cover object-center">
+                                                    <img loading="lazy" src="{{ asset('design/images/wael.png') }}" alt="{{ is_string($director['name_en'] ?? '') ? $director['name_en'] : 'Director' }}" class="w-full h-full object-cover object-center">
                                                 @endif
                                             </div>
                                             <p class="text-white font-neue-bold text-xl mt-2">
@@ -275,7 +275,7 @@
                                 <div class="min-w-full px-4 mobile-slide" data-slide="0">
                                     <div class="flex flex-col items-center">
                                         <div class="bg-white rounded-lg overflow-hidden w-[240px] h-[320px] mb-4 cursor-pointer director-image" data-director="wael">
-                                            <img src="{{ asset('design/images/wael.png') }}" alt="Wael Fawzi" class="w-full h-full object-cover object-center">
+                                            <img loading="lazy" src="{{ asset('design/images/wael.png') }}" alt="Wael Fawzi" class="w-full h-full object-cover object-center">
                                         </div>
                                         <p class="text-white font-neue-bold text-xl mt-2">Wael Fawzi</p>
                                         <p class="text-white opacity-70 font-['Poppins'] text-sm">Managing Director</p>
@@ -285,7 +285,7 @@
                                 <div class="min-w-full px-4 mobile-slide" data-slide="1">
                                     <div class="flex flex-col items-center">
                                         <div class="bg-white rounded-lg overflow-hidden w-[240px] h-[320px] mb-4 cursor-pointer director-image" data-director="natalia">
-                                            <img src="{{ asset('design/images/natalia.png') }}" alt="Natalia Biryukova" class="w-full h-full object-cover object-center">
+                                            <img loading="lazy" src="{{ asset('design/images/natalia.png') }}" alt="Natalia Biryukova" class="w-full h-full object-cover object-center">
                                         </div>
                                         <p class="text-white font-neue-bold text-xl mt-2">Natalia Biryukova</p>
                                         <p class="text-white opacity-70 font-['Poppins'] text-sm">Director</p>
@@ -295,7 +295,7 @@
                                 <div class="min-w-full px-4 mobile-slide" data-slide="2">
                                     <div class="flex flex-col items-center">
                                         <div class="bg-white rounded-lg overflow-hidden w-[240px] h-[320px] mb-4 cursor-pointer director-image" data-director="motesm">
-                                            <img src="{{ asset('design/images/motasem.png') }}" alt="Motesm Aggad" class="w-full h-full object-cover object-center">
+                                            <img loading="lazy" src="{{ asset('design/images/motasem.png') }}" alt="Motesm Aggad" class="w-full h-full object-cover object-center">
                                         </div>
                                         <p class="text-white font-neue-bold text-xl mt-2">Motesm Aggad</p>
                                         <p class="text-white opacity-70 font-['Poppins'] text-sm">Director</p>
@@ -331,9 +331,9 @@
                                             {{ app()->getLocale() == 'ar' ? (is_string($director['name_ar'] ?? '') ? $director['name_ar'] : (is_string($director['name_en'] ?? '') ? $director['name_en'] : 'Director')) : (is_string($director['name_en'] ?? '') ? $director['name_en'] : 'Director') }}
                                         </h2>
                                         @if($director['popup_image'])
-                                            <img src="{{ asset('storage/' . $director['popup_image']) }}" alt="{{ is_string($director['name_en'] ?? '') ? $director['name_en'] : 'Director' }}" class="w-full rounded-lg">
+                                            <img loading="lazy" src="{{ asset('storage/' . $director['popup_image']) }}" alt="{{ is_string($director['name_en'] ?? '') ? $director['name_en'] : 'Director' }}" class="w-full rounded-lg">
                                         @else
-                                            <img src="{{ asset('design/images/wael.png') }}" alt="{{ is_string($director['name_en'] ?? '') ? $director['name_en'] : 'Director' }}" class="w-full rounded-lg">
+                                            <img loading="lazy" src="{{ asset('design/images/wael.png') }}" alt="{{ is_string($director['name_en'] ?? '') ? $director['name_en'] : 'Director' }}" class="w-full rounded-lg">
                                         @endif
                                     </div>
                                     <div class="md:w-2/3">
@@ -365,7 +365,7 @@
                             <div class="flex flex-col md:flex-row gap-8">
                                 <div class="hidden md:block md:w-1/2 flex flex-col justify-center space-y-4">
                                     <h2 class="text-[35px] font-neue-extrabold text-white text-center">WAEL FAWZI</h2>
-                                    <img src="{{ asset('design/images/wael.png') }}" alt="Wael Fawzi" class="w-full rounded-lg">
+                                    <img loading="lazy" src="{{ asset('design/images/wael.png') }}" alt="Wael Fawzi" class="w-full rounded-lg">
                                 </div>
                                 <div class="md:w-2/3">
                                     <div class="mt-20">
@@ -388,7 +388,7 @@
                             <div class="flex flex-col md:flex-row gap-8">
                                 <div class="hidden md:block md:w-1/2 flex flex-col justify-center space-y-4">
                                     <h2 class="text-[35px] font-neue-extrabold text-white text-center">NATALIA BIRYUKOVA</h2>
-                                    <img src="{{ asset('design/images/natalia.png') }}" alt="Natalia Biryukova" class="w-full rounded-lg">
+                                    <img loading="lazy" src="{{ asset('design/images/natalia.png') }}" alt="Natalia Biryukova" class="w-full rounded-lg">
                                 </div>
                                 <div class="md:w-2/3">
                                     <div class="mt-20">
@@ -411,7 +411,7 @@
                             <div class="flex flex-col md:flex-row gap-8">
                                 <div class="hidden md:block md:w-1/2 flex flex-col justify-center space-y-4">
                                     <h2 class="text-[35px] font-neue-extrabold text-white text-center">MOTESM AGGAD</h2>
-                                    <img src="{{ asset('design/images/motasem.png') }}" alt="Motesm Aggad" class="w-full rounded-lg">
+                                    <img loading="lazy" src="{{ asset('design/images/motasem.png') }}" alt="Motesm Aggad" class="w-full rounded-lg">
                                 </div>
                                 <div class="md:w-2/3">
                                     <div class="mt-20">
@@ -511,9 +511,9 @@
                         <div class="flex flex-col {{ $departmentsContentDirection }}">
                             <div class="w-full md:w-1/3 p-6 md:p-8">
                                 @if($teamsData && $teamsData->investment_advisory_image)
-                                    <img src="{{ asset('storage/' . $teamsData->investment_advisory_image) }}" alt="Investment Advisory" class="w-full h-full object-cover">
+                                    <img loading="lazy" src="{{ asset('storage/' . $teamsData->investment_advisory_image) }}" alt="Investment Advisory" class="w-full h-full object-cover">
                                 @else
-                                    <img src="{{ asset('design/images/placeholder.png') }}" alt="Investment Advisory" class="w-full h-full object-cover">
+                                    <img loading="lazy" src="{{ asset('design/images/placeholder.png') }}" alt="Investment Advisory" class="w-full h-full object-cover">
                                 @endif
                             </div>
                             <div class="w-full md:w-2/3 p-6 md:p-8 {{ $departmentsTextAlign }}" dir="{{ $departmentsDir }}">
@@ -536,9 +536,9 @@
                         <div class="flex flex-col {{ $departmentsContentDirection }}">
                             <div class="w-full md:w-1/3 p-6 md:p-8">
                                 @if($teamsData && $teamsData->research_analysis_image)
-                                    <img src="{{ asset('storage/' . $teamsData->research_analysis_image) }}" alt="Research & Analysis" class="w-full h-full object-cover">
+                                    <img loading="lazy" src="{{ asset('storage/' . $teamsData->research_analysis_image) }}" alt="Research & Analysis" class="w-full h-full object-cover">
                                 @else
-                                    <img src="{{ asset('design/images/research.png') }}" alt="Research & Analysis" class="w-full h-full object-cover">
+                                    <img loading="lazy" src="{{ asset('design/images/research.png') }}" alt="Research & Analysis" class="w-full h-full object-cover">
                                 @endif
                             </div>
                             <div class="w-full md:w-2/3 p-6 md:p-8 {{ $departmentsTextAlign }}" dir="{{ $departmentsDir }}">
@@ -561,9 +561,9 @@
                         <div class="flex flex-col {{ $departmentsContentDirection }}">
                             <div class="w-full md:w-1/3 p-6 md:p-8">
                                 @if($teamsData && $teamsData->financial_planning_image)
-                                    <img src="{{ asset('storage/' . $teamsData->financial_planning_image) }}" alt="Financial Planning" class="w-full h-full object-cover">
+                                    <img loading="lazy" src="{{ asset('storage/' . $teamsData->financial_planning_image) }}" alt="Financial Planning" class="w-full h-full object-cover">
                                 @else
-                                    <img src="{{ asset('design/images/placeholder.png') }}" alt="Financial Planning" class="w-full h-full object-cover">
+                                    <img loading="lazy" src="{{ asset('design/images/placeholder.png') }}" alt="Financial Planning" class="w-full h-full object-cover">
                                 @endif
                             </div>
                             <div class="w-full md:w-2/3 p-6 md:p-8 {{ $departmentsTextAlign }}" dir="{{ $departmentsDir }}">
@@ -586,9 +586,9 @@
                         <div class="flex flex-col {{ $departmentsContentDirection }}">
                             <div class="w-full md:w-1/3 p-6 md:p-8">
                                 @if($teamsData && $teamsData->client_relations_image)
-                                    <img src="{{ asset('storage/' . $teamsData->client_relations_image) }}" alt="Client Relations" class="w-full h-full object-cover">
+                                    <img loading="lazy" src="{{ asset('storage/' . $teamsData->client_relations_image) }}" alt="Client Relations" class="w-full h-full object-cover">
                                 @else
-                                    <img src="{{ asset('design/images/placeholder.png') }}" alt="Client Relations" class="w-full h-full object-cover">
+                                    <img loading="lazy" src="{{ asset('design/images/placeholder.png') }}" alt="Client Relations" class="w-full h-full object-cover">
                                 @endif
                             </div>
                             <div class="w-full md:w-2/3 p-6 md:p-8 {{ $departmentsTextAlign }}" dir="{{ $departmentsDir }}">
@@ -611,9 +611,9 @@
                         <div class="flex flex-col {{ $departmentsContentDirection }}">
                             <div class="w-full md:w-1/3 p-6 md:p-8">
                                 @if($teamsData && $teamsData->compliance_legal_image)
-                                    <img src="{{ asset('storage/' . $teamsData->compliance_legal_image) }}" alt="Compliance & Legal" class="w-full h-full object-cover">
+                                    <img loading="lazy" src="{{ asset('storage/' . $teamsData->compliance_legal_image) }}" alt="Compliance & Legal" class="w-full h-full object-cover">
                                 @else
-                                    <img src="{{ asset('design/images/placeholder.png') }}" alt="Compliance & Legal" class="w-full h-full object-cover">
+                                    <img loading="lazy" src="{{ asset('design/images/placeholder.png') }}" alt="Compliance & Legal" class="w-full h-full object-cover">
                                 @endif
                             </div>
                             <div class="w-full md:w-2/3 p-6 md:p-8 {{ $departmentsTextAlign }}" dir="{{ $departmentsDir }}">
@@ -636,9 +636,9 @@
                         <div class="flex flex-col {{ $departmentsContentDirection }}">
                             <div class="w-full md:w-1/3 p-6 md:p-8">
                                 @if($teamsData && $teamsData->operations_admin_image)
-                                    <img src="{{ asset('storage/' . $teamsData->operations_admin_image) }}" alt="Operations & Administration" class="w-full h-full object-cover">
+                                    <img loading="lazy" src="{{ asset('storage/' . $teamsData->operations_admin_image) }}" alt="Operations & Administration" class="w-full h-full object-cover">
                                 @else
-                                    <img src="{{ asset('design/images/placeholder.png') }}" alt="Operations & Administration" class="w-full h-full object-cover">
+                                    <img loading="lazy" src="{{ asset('design/images/placeholder.png') }}" alt="Operations & Administration" class="w-full h-full object-cover">
                                 @endif
                             </div>
                             <div class="w-full md:w-2/3 p-6 md:p-8 {{ $departmentsTextAlign }}" dir="{{ $departmentsDir }}">

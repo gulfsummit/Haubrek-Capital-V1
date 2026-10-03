@@ -84,17 +84,17 @@
                         <!-- Desktop background -->
                         <div class="absolute inset-0 hidden md:block">
                             @if($wealthData->hero_desktop_image && file_exists(storage_path('app/public/' . $wealthData->hero_desktop_image)))
-                                <img src="{{ asset('storage/' . $wealthData->hero_desktop_image) }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
+                                <img loading="eager" src="{{ asset('storage/' . $wealthData->hero_desktop_image) }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
                             @else
-                                <img src="{{ asset('design/images/wealth-innerpage-bg.png') }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
+                                <img loading="eager" src="{{ asset('design/images/wealth-innerpage-bg.png') }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
                             @endif
                         </div>
                         <!-- Mobile background -->
                         <div class="absolute inset-0 block md:hidden">
                             @if($wealthData->hero_mobile_image && file_exists(storage_path('app/public/' . $wealthData->hero_mobile_image)))
-                                <img src="{{ asset('storage/' . $wealthData->hero_mobile_image) }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
+                                <img loading="eager" src="{{ asset('storage/' . $wealthData->hero_mobile_image) }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
                             @else
-                                <img src="{{ asset('design/images/services-mob.png') }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
+                                <img loading="eager" src="{{ asset('design/images/services-mob.png') }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
                             @endif
                         </div>
                         <div class="absolute inset-0 "></div>
@@ -164,19 +164,19 @@
         <!-- Desktop Background -->
         <div class="absolute inset-0 hidden md:block">
             @if($wealthData->approach_background_image && file_exists(storage_path('app/public/' . $wealthData->approach_background_image)))
-                <img src="{{ asset('storage/' . $wealthData->approach_background_image) }}" alt="Approach Background" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('storage/' . $wealthData->approach_background_image) }}" alt="Approach Background" class="w-full h-full object-cover">
             @else
-                <img src="{{ asset('design/images/approach-bg.png') }}" alt="Approach Background" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('design/images/approach-bg.png') }}" alt="Approach Background" class="w-full h-full object-cover">
             @endif
         </div>
         <!-- Mobile Background -->
         <div class="absolute inset-0 block md:hidden">
             @if($wealthData->approach_mobile_background_image && file_exists(storage_path('app/public/' . $wealthData->approach_mobile_background_image)))
-                <img src="{{ asset('storage/' . $wealthData->approach_mobile_background_image) }}" alt="Approach Background Mobile" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('storage/' . $wealthData->approach_mobile_background_image) }}" alt="Approach Background Mobile" class="w-full h-full object-cover">
             @elseif($wealthData->approach_background_image && file_exists(storage_path('app/public/' . $wealthData->approach_background_image)))
-                <img src="{{ asset('storage/' . $wealthData->approach_background_image) }}" alt="Approach Background" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('storage/' . $wealthData->approach_background_image) }}" alt="Approach Background" class="w-full h-full object-cover">
             @else
-                <img src="{{ asset('design/images/approach-bg.png') }}" alt="Approach Background" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('design/images/approach-bg.png') }}" alt="Approach Background" class="w-full h-full object-cover">
             @endif
         </div>
         <div class="w-full xl:max-w-[1300px] md:max-w-[950px] mx-auto px-4 relative z-10">
@@ -386,9 +386,9 @@
                         <div class="flex flex-col">
                             <div class="bg-[#041B44] rounded-lg overflow-hidden mb-6">
                                 @if(isset($item['image']) && $item['image'] && file_exists(storage_path('app/public/' . $item['image'])))
-                                    <img src="{{ asset('storage/' . $item['image']) }}" alt="Why Choose Us" class="w-[250px] h-auto mx-auto">
+                                    <img loading="lazy" src="{{ asset('storage/' . $item['image']) }}" alt="Why Choose Us" class="w-[250px] h-auto mx-auto">
                                 @else
-                                    <img src="{{ asset('design/images/wcu-' . ($index % 3 + 1) . '.png') }}" alt="Why Choose Us" class="w-[250px] h-auto mx-auto">
+                                    <img loading="lazy" src="{{ asset('design/images/wcu-' . ($index % 3 + 1) . '.png') }}" alt="Why Choose Us" class="w-[250px] h-auto mx-auto">
                                 @endif
                                 <div class="pt-4">
                                     <h3 class="text-[#FFFFFF] text-[28px] font-neue-extrabold mb-6 text-center">{{ strtoupper($item['title_' . $locale] ?? $item['title_en'] ?? 'BENEFIT ' . ($index + 1)) }}</h3>

@@ -35,8 +35,8 @@
 <section class="bg-navy-900 text-white h-screen md:h-[70vh] relative">
     <div class="relative overflow-hidden h-full">
         <div class="w-full h-full relative">
-            <div class="absolute inset-0 hidden md:block"><img src="{{ $heroDesktop }}" alt="" class="w-full h-full object-cover"/></div>
-            <div class="absolute inset-0 block md:hidden"><img src="{{ $heroMobile }}" alt="" class="w-full h-full object-cover"/></div>
+            <div class="absolute inset-0 hidden md:block"><img loading="lazy" src="{{ $heroDesktop }}" alt="" class="w-full h-full object-cover"/></div>
+            <div class="absolute inset-0 block md:hidden"><img loading="lazy" src="{{ $heroMobile }}" alt="" class="w-full h-full object-cover"/></div>
             <div class="absolute inset-0 bg-navy-900/40"></div>
             <div class="relative h-full flex items-center justify-center">
                 <div class="container mx-auto text-center px-4">
@@ -96,7 +96,7 @@
                 <article class="rounded-lg overflow-hidden hover:opacity-90 transition-opacity group">
                     <a href="{{ route('cio-flash.show', $episode->slug) }}" class="block relative">
                         <div class="h-48 overflow-hidden">
-                            <img src="{{ $epImage }}" alt="{{ $epAlt }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                            <img loading="lazy" src="{{ $epImage }}" alt="{{ $epAlt }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
                         </div>
                         {{-- Play Icon Overlay --}}
                         <div class="absolute inset-0 bg-navy-900/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
@@ -151,7 +151,7 @@
 {{-- CTA --}}
 <section class="relative py-20 text-white overflow-hidden">
     <div class="absolute inset-0">
-        <img src="{{ $ctaBackground }}" alt="" class="w-full h-full object-cover" aria-hidden="true"/>
+        <img loading="lazy" src="{{ $ctaBackground }}" alt="" class="w-full h-full object-cover" aria-hidden="true"/>
         <div class="absolute inset-0 bg-navy-900/70"></div>
     </div>
     <div class="relative container mx-auto px-4 text-center">

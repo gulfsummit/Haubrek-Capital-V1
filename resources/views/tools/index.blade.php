@@ -21,11 +21,11 @@
                     <div class="w-full flex-shrink-0 relative">
                         <!-- Desktop background -->
                         <div class="absolute inset-0 hidden md:block">
-                            <img src="{{ $tools && $tools->hero_desktop_image ? asset('storage/' . $tools->hero_desktop_image) : asset('design/images/resource-bg.png') }}" alt="{{ $heroDesktopAlt }}" class="w-full h-full object-cover"/>
+                            <img loading="lazy" src="{{ $tools && $tools->hero_desktop_image ? asset('storage/' . $tools->hero_desktop_image) : asset('design/images/resource-bg.png') }}" alt="{{ $heroDesktopAlt }}" class="w-full h-full object-cover"/>
                         </div>
                         <!-- Mobile background -->
                         <div class="absolute inset-0 block md:hidden">
-                            <img src="{{ $tools && $tools->hero_mobile_image ? asset('storage/' . $tools->hero_mobile_image) : asset('design/images/resource-bg.png') }}" alt="{{ $heroMobileAlt }}" class="w-full h-full object-cover"/>
+                            <img loading="lazy" src="{{ $tools && $tools->hero_mobile_image ? asset('storage/' . $tools->hero_mobile_image) : asset('design/images/resource-bg.png') }}" alt="{{ $heroMobileAlt }}" class="w-full h-full object-cover"/>
                         </div>
                         <div class="absolute inset-0 "></div>
                         <div class="relative h-[120vh] md:h-[90vh] flex items-center justify-center">
@@ -45,7 +45,7 @@
         <div class="flex flex-col md:flex-row bg-[#11224A] rounded-xl justify-between shadow-lg border border-[#fff]/40">
           <!-- Image (first on mobile) -->
           <div class="w-full md:w-1/2 flex items-center justify-center bg-[#1A2747] order-first md:order-last">
-            <img src="{{ $tools && $tools->profile_image ? asset('storage/' . $tools->profile_image) : asset('design/images/tools-investment.png') }}" alt="{{ $profileImageAlt }}" class="object-cover w-full h-64 sm:h-80 md:h-full rounded-t-xl md:rounded-t-none md:rounded-r-xl" />
+            <img loading="lazy" src="{{ $tools && $tools->profile_image ? asset('storage/' . $tools->profile_image) : asset('design/images/tools-investment.png') }}" alt="{{ $profileImageAlt }}" class="object-cover w-full h-64 sm:h-80 md:h-full rounded-t-xl md:rounded-t-none md:rounded-r-xl" />
           </div>
           <!-- Text (second on mobile) -->
           <div class="w-full md:w-[40%] p-6 sm:p-8 md:p-12 lg:p-16 xl:p-24 flex flex-col order-last md:order-first">

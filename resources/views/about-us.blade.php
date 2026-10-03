@@ -266,9 +266,9 @@
                     <div class="w-full flex-shrink-0 relative">
                         <div class="absolute inset-0">
                             <!-- Desktop background -->
-                            <img src="{{ isset($about['hero_desktop_image']) && $about['hero_desktop_image'] ? asset('storage/' . $about['hero_desktop_image']) : asset('design') . '/images/about-us-hero.png' }}" alt="Wealth Management" class="hidden md:block w-full h-full object-cover"/>
+                            <img loading="lazy" src="{{ isset($about['hero_desktop_image']) && $about['hero_desktop_image'] ? asset('storage/' . $about['hero_desktop_image']) : asset('design') . '/images/about-us-hero.png' }}" alt="Wealth Management" class="hidden md:block w-full h-full object-cover"/>
                             <!-- Mobile background -->
-                            <img src="{{ isset($about['hero_mobile_image']) && $about['hero_mobile_image'] ? asset('storage/' . $about['hero_mobile_image']) : asset('design') . '/images/mobile-about-us-hero.png' }}" alt="Wealth Management" class="block md:hidden w-full h-full object-cover"/>
+                            <img loading="lazy" src="{{ isset($about['hero_mobile_image']) && $about['hero_mobile_image'] ? asset('storage/' . $about['hero_mobile_image']) : asset('design') . '/images/mobile-about-us-hero.png' }}" alt="Wealth Management" class="block md:hidden w-full h-full object-cover"/>
                         </div>
                         <div class="absolute inset-0 "></div>
                         <div class="about-hero-content relative h-[120vh] md:h-[90vh] flex items-center justify-center">
@@ -288,8 +288,8 @@
     @if($aboutModel?->isSectionVisible('who_we_are') ?? true)
     <section id="who-we-are-section" class="relative">
         <div class="absolute inset-0">
-            <img src="{{ isset($about['who_we_are_mobile_bg']) && $about['who_we_are_mobile_bg'] ? asset('storage/' . $about['who_we_are_mobile_bg']) : asset('design') . '/images/mobile-about-who-we-are-bg.png' }}" alt="Background" class="w-full h-full object-cover md:hidden"/>
-            <img src="{{ isset($about['who_we_are_desktop_bg']) && $about['who_we_are_desktop_bg'] ? asset('storage/' . $about['who_we_are_desktop_bg']) : asset('design') . '/images/about-who-we-are-bg.png' }}" alt="Background" class="hidden md:block w-full h-full object-cover"/>
+            <img loading="lazy" src="{{ isset($about['who_we_are_mobile_bg']) && $about['who_we_are_mobile_bg'] ? asset('storage/' . $about['who_we_are_mobile_bg']) : asset('design') . '/images/mobile-about-who-we-are-bg.png' }}" alt="Background" class="w-full h-full object-cover md:hidden"/>
+            <img loading="lazy" src="{{ isset($about['who_we_are_desktop_bg']) && $about['who_we_are_desktop_bg'] ? asset('storage/' . $about['who_we_are_desktop_bg']) : asset('design') . '/images/about-who-we-are-bg.png' }}" alt="Background" class="hidden md:block w-full h-full object-cover"/>
         </div>
         <div class="about-container about-section-y container mx-auto px-4 py-16 md:py-24 relative w-full xl:max-w-[1300px] md:max-w-[950px] mx-auto">
             <div class="flex flex-col lg:flex-row">
@@ -393,8 +393,8 @@
     @if($aboutModel?->isSectionVisible('concept') ?? true)
     <section class="about-section-y bg-[#041B44] text-white py-16 md:py-24 z-0 relative overflow-hidden">
         <div class="absolute inset-0">
-            <img src="{{ $conceptBackgroundDesktop }}" alt="" class="hidden md:block w-full h-full object-cover">
-            <img src="{{ $conceptBackgroundMobile }}" alt="" class="block md:hidden w-full h-full object-cover">
+            <img loading="lazy" src="{{ $conceptBackgroundDesktop }}" alt="" class="hidden md:block w-full h-full object-cover">
+            <img loading="lazy" src="{{ $conceptBackgroundMobile }}" alt="" class="block md:hidden w-full h-full object-cover">
         </div>
 
         <div class="about-container container mx-auto px-4 relative z-10 w-full xl:max-w-[1300px] md:max-w-[950px]">
@@ -427,8 +427,8 @@
                 </div>
 
                 <div class="w-full lg:w-1/2 flex justify-center items-center {{ $conceptImageOrder }}" dir="ltr">
-                    <img src="{{ $conceptDiagramDesktop }}" alt="{{ $conceptDiagramAlt }}" class="about-concept-diagram hidden md:block w-full">
-                    <img src="{{ $conceptDiagramMobile }}" alt="{{ $conceptDiagramAlt }}" class="about-concept-diagram block md:hidden w-full">
+                    <img loading="lazy" src="{{ $conceptDiagramDesktop }}" alt="{{ $conceptDiagramAlt }}" class="about-concept-diagram hidden md:block w-full">
+                    <img loading="lazy" src="{{ $conceptDiagramMobile }}" alt="{{ $conceptDiagramAlt }}" class="about-concept-diagram block md:hidden w-full">
                 </div>
             </div>
         </div>
@@ -455,7 +455,7 @@
                 <!-- Mission Section -->
                 <div class="flex flex-col items-center {{ $missionVisionBlockAlign }}">
                     <div class="flex flex-col md:flex {{ $missionVisionHeaderRow }} {{ $missionVisionHeaderGap }} items-center">
-                        <img src="{{ isset($about['mission_icon']) && $about['mission_icon'] ? asset('storage/' . $about['mission_icon']) : asset('design') . '/images/mission.svg' }}" alt="Mission" class="mb-2 md:mb-0 mr-0 {{ $missionVisionIconMargin }} w-12 md:w-auto">
+                        <img loading="lazy" src="{{ isset($about['mission_icon']) && $about['mission_icon'] ? asset('storage/' . $about['mission_icon']) : asset('design') . '/images/mission.svg' }}" alt="Mission" class="mb-2 md:mb-0 mr-0 {{ $missionVisionIconMargin }} w-12 md:w-auto">
                         <h2 class="about-mission-vision-title text-[22px] md:text-[48px] font-neue-extrabold text-white">{{ app()->getLocale() == 'ar' ? ($about['mission_title_ar'] ?? 'المهمة') : ($about['mission_title_en'] ?? 'MISSION') }}</h2>
                     </div>
                     <div class="about-mission-vision-copy text-white {{ $missionVisionBodyPaddingMission }} opacity-70 font-['Poppins'] font-bold text-[10.79px] md:text-[18px] leading-relaxed md:max-w-md {{ $missionVisionTextAlign }}" dir="{{ $missionVisionDirection }}">
@@ -466,7 +466,7 @@
                 <!-- Vision Section -->
                 <div class="flex flex-col items-center {{ $missionVisionBlockAlign }}">
                     <div class="flex flex-col md:flex {{ $missionVisionHeaderRow }} {{ $missionVisionHeaderGap }} items-center">
-                        <img src="{{ isset($about['vision_icon']) && $about['vision_icon'] ? asset('storage/' . $about['vision_icon']) : asset('design') . '/images/vision.svg' }}" alt="Vision" class="mb-2 md:mb-0 mr-0 {{ $missionVisionIconMargin }} w-12 md:w-auto">
+                        <img loading="lazy" src="{{ isset($about['vision_icon']) && $about['vision_icon'] ? asset('storage/' . $about['vision_icon']) : asset('design') . '/images/vision.svg' }}" alt="Vision" class="mb-2 md:mb-0 mr-0 {{ $missionVisionIconMargin }} w-12 md:w-auto">
                         <h2 class="about-mission-vision-title text-[22px] md:text-[48px] font-neue-extrabold text-white">{{ app()->getLocale() == 'ar' ? ($about['vision_title_ar'] ?? 'الرؤية') : ($about['vision_title_en'] ?? 'VISION') }}</h2>
                     </div>
                     <div class="about-mission-vision-copy text-white {{ $missionVisionBodyPaddingVision }} opacity-70 font-['Poppins'] font-bold text-[10.79px] md:text-[18px] leading-relaxed md:max-w-md {{ $missionVisionTextAlign }}" dir="{{ $missionVisionDirection }}">
@@ -502,7 +502,7 @@
                     @foreach($values as $value)
                     <div class="about-value-card bg-[#041B44] border border-[#1A2F57] rounded-lg p-8 md:p-14 hover:border-[#D4AF37] transition-colors">
                         <div class="flex items-start mb-2 {{ $valuesRowClass }} {{ $valuesHeaderGap }}">
-                            <img src="{{ isset($value['icon']) && $value['icon'] ? asset('storage/' . $value['icon']) : asset('design') . '/images/integrity.svg' }}" alt="{{ app()->getLocale() == 'ar' ? $value['title_ar'] : $value['title_en'] }}" class="{{ $valuesIconMargin }}">
+                            <img loading="lazy" src="{{ isset($value['icon']) && $value['icon'] ? asset('storage/' . $value['icon']) : asset('design') . '/images/integrity.svg' }}" alt="{{ app()->getLocale() == 'ar' ? $value['title_ar'] : $value['title_en'] }}" class="{{ $valuesIconMargin }}">
                             <h3 class="about-value-title text-[28px] font-['Poppins'] font-bold text-white {{ $valuesHeadingAlign }}">{{ app()->getLocale() == 'ar' ? $value['title_ar'] : $value['title_en'] }}</h3>
                         </div>
                         <div class="about-value-copy text-white opacity-70 {{ $valuesBodyPaddingLarge }} font-['Poppins'] text-[16px] leading-relaxed {{ $valuesTextAlign }}" dir="{{ $valuesDirection }}">
@@ -516,7 +516,7 @@
                 <div class="about-values-grid grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="about-value-card bg-[#041B44] border border-[#1A2F57] rounded-lg p-8 md:p-14 hover:border-[#D4AF37] transition-colors">
                         <div class="flex items-start mb-2 {{ $valuesRowClass }} {{ $valuesHeaderGap }}">
-                            <img src="{{asset('design')}}/images/integrity.svg" alt="Integrity" class="{{ $valuesIconMargin }}">
+                            <img loading="lazy" src="{{asset('design')}}/images/integrity.svg" alt="Integrity" class="{{ $valuesIconMargin }}">
                             <h3 class="about-value-title text-[28px] font-['Poppins'] font-bold text-white {{ $valuesHeadingAlign }}">Integrity</h3>
                         </div>
                         <div class="about-value-copy text-white opacity-70 {{ $valuesBodyPaddingLarge }} font-['Poppins'] text-[16px] leading-relaxed {{ $valuesTextAlign }}" dir="{{ $valuesDirection }}">
@@ -526,7 +526,7 @@
 
                     <div class="about-value-card bg-[#041B44] border border-[#1A2F57] rounded-lg p-8 md:p-14 hover:border-[#D4AF37] transition-colors">
                         <div class="flex items-start mb-2 {{ $valuesRowClass }} {{ $valuesHeaderGap }}">
-                            <img src="{{asset('design')}}/images/commitment.svg" alt="Commitment" class="{{ $valuesIconMargin }}">
+                            <img loading="lazy" src="{{asset('design')}}/images/commitment.svg" alt="Commitment" class="{{ $valuesIconMargin }}">
                             <h3 class="about-value-title text-[28px] font-['Poppins'] font-bold text-white {{ $valuesHeadingAlign }}">Commitment</h3>
                         </div>
                         <div class="about-value-copy text-white opacity-70 {{ $valuesBodyPaddingLarge }} font-['Poppins'] text-[16px] leading-relaxed {{ $valuesTextAlign }}" dir="{{ $valuesDirection }}">
@@ -536,7 +536,7 @@
 
                     <div class="about-value-card bg-[#041B44] border border-[#1A2F57] rounded-lg p-8 md:p-14 hover:border-[#D4AF37] transition-colors">
                         <div class="flex items-start mb-2 {{ $valuesRowClass }} {{ $valuesHeaderGap }}">
-                            <img src="{{asset('design')}}/images/passion.svg" alt="Passion" class="{{ $valuesIconMargin }}">
+                            <img loading="lazy" src="{{asset('design')}}/images/passion.svg" alt="Passion" class="{{ $valuesIconMargin }}">
                             <h3 class="about-value-title text-[28px] font-['Poppins'] font-bold text-white {{ $valuesHeadingAlign }}">Passion</h3>
                         </div>
                         <div class="about-value-copy text-white opacity-70 {{ $valuesBodyPaddingLarge }} font-['Poppins'] text-[16px] leading-relaxed {{ $valuesTextAlign }}" dir="{{ $valuesDirection }}">
@@ -545,7 +545,7 @@
                     </div>
                     <div class="about-value-card bg-[#041B44] border border-[#1A2F57] rounded-lg p-8 md:p-14 hover:border-[#D4AF37] transition-colors">
                         <div class="flex items-start {{ $valuesRowClass }} {{ $valuesHeaderGap }}">
-                            <img src="{{asset('design')}}/images/accountability.svg" alt="Accountability" class="{{ $valuesIconMargin }}">
+                            <img loading="lazy" src="{{asset('design')}}/images/accountability.svg" alt="Accountability" class="{{ $valuesIconMargin }}">
                             <h3 class="about-value-title text-[28px] font-['Poppins'] font-bold text-white {{ $valuesHeadingAlign }}">Accountability</h3>
                         </div>
                         <div class="about-value-copy text-white opacity-70 {{ $valuesBodyPaddingSmall }} font-['Poppins'] text-[16px] leading-relaxed {{ $valuesTextAlign }}" dir="{{ $valuesDirection }}">
@@ -555,7 +555,7 @@
 
                     <div class="about-value-card bg-[#041B44] border border-[#1A2F57] rounded-lg p-8 md:p-14 hover:border-[#D4AF37] transition-colors">
                         <div class="flex items-start {{ $valuesRowClass }} {{ $valuesHeaderGap }}">
-                            <img src="{{asset('design')}}/images/sustainability.svg" alt="Sustainability" class="{{ $valuesIconMargin }}">
+                            <img loading="lazy" src="{{asset('design')}}/images/sustainability.svg" alt="Sustainability" class="{{ $valuesIconMargin }}">
                             <h3 class="about-value-title text-[28px] font-['Poppins'] font-bold text-white {{ $valuesHeadingAlign }}">Sustainability</h3>
                         </div>
                         <div class="about-value-copy text-white opacity-70 {{ $valuesBodyPaddingSmall }} font-['Poppins'] text-[16px] leading-relaxed {{ $valuesTextAlign }}" dir="{{ $valuesDirection }}">
@@ -574,19 +574,19 @@
         <!-- Desktop Background -->
         <div class="absolute inset-0 hidden md:block">
             @if(isset($about['approach_bg_image']) && $about['approach_bg_image'])
-                <img src="{{ asset('storage/' . $about['approach_bg_image']) }}" alt="Approach Background" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('storage/' . $about['approach_bg_image']) }}" alt="Approach Background" class="w-full h-full object-cover">
             @else
-                <img src="{{ asset('design/images/approach-bg.png') }}" alt="Approach Background" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('design/images/approach-bg.png') }}" alt="Approach Background" class="w-full h-full object-cover">
             @endif
         </div>
         <!-- Mobile Background -->
         <div class="absolute inset-0 block md:hidden">
             @if(isset($about['approach_mobile_bg_image']) && $about['approach_mobile_bg_image'])
-                <img src="{{ asset('storage/' . $about['approach_mobile_bg_image']) }}" alt="Approach Background Mobile" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('storage/' . $about['approach_mobile_bg_image']) }}" alt="Approach Background Mobile" class="w-full h-full object-cover">
             @elseif(isset($about['approach_bg_image']) && $about['approach_bg_image'])
-                <img src="{{ asset('storage/' . $about['approach_bg_image']) }}" alt="Approach Background" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('storage/' . $about['approach_bg_image']) }}" alt="Approach Background" class="w-full h-full object-cover">
             @else
-                <img src="{{ asset('design/images/approach-bg.png') }}" alt="Approach Background" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('design/images/approach-bg.png') }}" alt="Approach Background" class="w-full h-full object-cover">
             @endif
         </div>
         <div class="about-container container mx-auto px-4 relative z-10">

@@ -83,17 +83,17 @@
                         <!-- Desktop background -->
                         <div class="absolute inset-0 hidden md:block">
                             @if($governance->hero_desktop_image && file_exists(storage_path('app/public/' . $governance->hero_desktop_image)))
-                                <img src="{{ asset('storage/' . $governance->hero_desktop_image) }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
+                                <img loading="eager" src="{{ asset('storage/' . $governance->hero_desktop_image) }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
                             @else
-                                <img src="{{ asset('design/images/governance-innerpage-pg.png') }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
+                                <img loading="eager" src="{{ asset('design/images/governance-innerpage-pg.png') }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
                             @endif
                         </div>
                         <!-- Mobile background -->
                         <div class="absolute inset-0 block md:hidden">
                             @if($governance->hero_mobile_image && file_exists(storage_path('app/public/' . $governance->hero_mobile_image)))
-                                <img src="{{ asset('storage/' . $governance->hero_mobile_image) }}" alt="{{ $heroTitle }} Mobile" class="w-full h-full object-cover"/>
+                                <img loading="eager" src="{{ asset('storage/' . $governance->hero_mobile_image) }}" alt="{{ $heroTitle }} Mobile" class="w-full h-full object-cover"/>
                             @else
-                                <img src="{{ asset('design/images/mobile-governance-innerpage-pg.png') }}" alt="{{ $heroTitle }} Mobile" class="w-full h-full object-cover"/>
+                                <img loading="eager" src="{{ asset('design/images/mobile-governance-innerpage-pg.png') }}" alt="{{ $heroTitle }} Mobile" class="w-full h-full object-cover"/>
                             @endif
                         </div>
                         <div class="absolute inset-0"></div>
@@ -156,19 +156,19 @@
         <!-- Desktop Background -->
         <div class="absolute inset-0 hidden md:block">
             @if($governance->approach_background_image && file_exists(storage_path('app/public/' . $governance->approach_background_image)))
-                <img src="{{ asset('storage/' . $governance->approach_background_image) }}" alt="Approach Background" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('storage/' . $governance->approach_background_image) }}" alt="Approach Background" class="w-full h-full object-cover">
             @else
-                <img src="{{ asset('design/images/approach-bg.png') }}" alt="Approach Background" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('design/images/approach-bg.png') }}" alt="Approach Background" class="w-full h-full object-cover">
             @endif
         </div>
         <!-- Mobile Background -->
         <div class="absolute inset-0 block md:hidden">
             @if($governance->approach_mobile_background_image && file_exists(storage_path('app/public/' . $governance->approach_mobile_background_image)))
-                <img src="{{ asset('storage/' . $governance->approach_mobile_background_image) }}" alt="Approach Background Mobile" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('storage/' . $governance->approach_mobile_background_image) }}" alt="Approach Background Mobile" class="w-full h-full object-cover">
             @elseif($governance->approach_background_image && file_exists(storage_path('app/public/' . $governance->approach_background_image)))
-                <img src="{{ asset('storage/' . $governance->approach_background_image) }}" alt="Approach Background" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('storage/' . $governance->approach_background_image) }}" alt="Approach Background" class="w-full h-full object-cover">
             @else
-                <img src="{{ asset('design/images/approach-bg.png') }}" alt="Approach Background" class="w-full h-full object-cover">
+                <img loading="lazy" src="{{ asset('design/images/approach-bg.png') }}" alt="Approach Background" class="w-full h-full object-cover">
             @endif
         </div>
         <div class="w-full xl:max-w-[1300px] md:max-w-[950px] mx-auto px-4 relative z-10">
@@ -279,12 +279,12 @@
                             <div class="bg-[#041B44] rounded-lg overflow-hidden mb-6">
                                 @if(isset($item['image']) && $item['image'])
                                     @if(isset($item['image']) && $item['image'] && file_exists(storage_path('app/public/' . $item['image'])))
-                                        <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $locale == 'ar' ? ($item['title_ar'] ?? $item['title_en']) : $item['title_en'] }}" class="w-[250px] h-auto mx-auto">
+                                        <img loading="lazy" src="{{ asset('storage/' . $item['image']) }}" alt="{{ $locale == 'ar' ? ($item['title_ar'] ?? $item['title_en']) : $item['title_en'] }}" class="w-[250px] h-auto mx-auto">
                                     @elseif(isset($item['image']) && $item['image'])
-                                        <img src="{{ asset('design/' . $item['image']) }}" alt="{{ $locale == 'ar' ? ($item['title_ar'] ?? $item['title_en']) : $item['title_en'] }}" class="w-[250px] h-auto mx-auto">
+                                        <img loading="lazy" src="{{ asset('design/' . $item['image']) }}" alt="{{ $locale == 'ar' ? ($item['title_ar'] ?? $item['title_en']) : $item['title_en'] }}" class="w-[250px] h-auto mx-auto">
                                     @endif
                                 @else
-                                    <img src="{{ asset('design/images/wcu-1.png') }}" alt="{{ $locale == 'ar' ? ($item['title_ar'] ?? $item['title_en']) : $item['title_en'] }}" class="w-[250px] h-auto mx-auto">
+                                    <img loading="lazy" src="{{ asset('design/images/wcu-1.png') }}" alt="{{ $locale == 'ar' ? ($item['title_ar'] ?? $item['title_en']) : $item['title_en'] }}" class="w-[250px] h-auto mx-auto">
                                 @endif
                                 <div class="pt-4">
                                     <h3 class="text-[#FFFFFF] text-[28px] font-neue-extrabold mb-6 text-center">

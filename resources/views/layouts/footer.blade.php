@@ -244,9 +244,9 @@
             @if($footer['show_logo_mobile'])
             <div class="site-footer-logo block md:hidden mb-6">
                 @if(isset($footer['logo_image']) && $footer['logo_image'])
-                    <img src="{{ asset('storage/' . $footer['logo_image']) }}" alt="{{ $footer['company_name'] ?? 'Company' }}" class="">
+                    <img loading="lazy" src="{{ asset('storage/' . $footer['logo_image']) }}" alt="{{ $footer['company_name'] ?? 'Company' }}" class="">
                 @else
-                    <img src="{{asset('design')}}/images/logo.svg" alt="{{ $footer['company_name'] ?? 'Company' }}" class="">
+                    <img loading="lazy" src="{{asset('design')}}/images/logo.svg" alt="{{ $footer['company_name'] ?? 'Company' }}" class="">
                 @endif
             </div>
             @endif
@@ -317,13 +317,13 @@
                     <ul class="hidden dropdown-content pb-4 space-y-3 text-xl {{ $isArabic ? 'text-right' : '' }}">
                         @if(isset($footer['phone']) && $footer['phone'])
                         <li class="flex items-start gap-2">
-                            <img src="{{asset('design')}}/images/phone.svg" class="w-6 h-6 mt-1" alt="Phone icon">
+                            <img loading="lazy" src="{{asset('design')}}/images/phone.svg" class="w-6 h-6 mt-1" alt="Phone icon">
                             <span class="font-sf-pro-regular {{ $isArabic ? 'text-right' : '' }}" @if($isArabic) dir="ltr" style="unicode-bidi: plaintext;" @endif>{{ $footer['phone'] }}</span>
                         </li>
                         @endif
                         @if(isset($footer['email']) && $footer['email'])
                         <li class="flex items-start gap-2">
-                            <img src="{{asset('design')}}/images/mail.svg" class="w-6 h-6 mt-1" alt="Email icon">
+                            <img loading="lazy" src="{{asset('design')}}/images/mail.svg" class="w-6 h-6 mt-1" alt="Email icon">
                             <span class="font-sf-pro-regular {{ $isArabic ? 'text-right' : '' }}" @if($isArabic) dir="ltr" style="unicode-bidi: plaintext;" @endif>{{ $footer['email'] }}</span>
                         </li>
                         @endif
@@ -332,7 +332,7 @@
                         @endphp
                         @if($hasAddress)
                         <li class="flex items-start gap-2 {{ $isArabic ? 'text-right' : '' }}">
-                            <img src="{{asset('design')}}/images/location.svg" class="w-6 h-6 mt-1" alt="Location icon">
+                            <img loading="lazy" src="{{asset('design')}}/images/location.svg" class="w-6 h-6 mt-1" alt="Location icon">
                             <span class="font-sf-pro-regular {{ $isArabic ? 'text-right' : '' }}" @if($isArabic) dir="auto" style="unicode-bidi: plaintext;" @endif>{!! app()->getLocale() == 'ar'
                                 ? ($footer['address_ar'] ?? $footer['address'] ?? '')
                                 : ($footer['address'] ?? $footer['address_ar'] ?? '') !!}</span>
@@ -360,7 +360,7 @@
                                     @if(isset($item['name']) && $item['name'] && isset($item['url']) && $item['url'])
                                     <a href="{{ $item['url'] }}" class="text-white" title="{{ $item['name'] }}" target="_blank" rel="noopener noreferrer">
                                         @if(isset($item['icon']) && $item['icon'])
-                                            <img src="{{ asset('storage/' . $item['icon']) }}" class="w-10 h-10" alt="{{ $item['name'] }} icon">
+                                            <img loading="lazy" src="{{ asset('storage/' . $item['icon']) }}" class="w-10 h-10" alt="{{ $item['name'] }} icon">
                                         @else
                                             @php
                                                 // Default icons based on platform name
@@ -371,7 +371,7 @@
                                                 elseif(stripos($item['name'], 'twitter') !== false || stripos($item['name'], 'x') !== false) $defaultIcon = 'design/images/x.svg';
                                                 elseif(stripos($item['name'], 'youtube') !== false) $defaultIcon = 'design/images/yt.svg';
                                             @endphp
-                                            <img src="{{ asset($defaultIcon) }}" class="w-10 h-10" alt="{{ $item['name'] }} icon">
+                                            <img loading="lazy" src="{{ asset($defaultIcon) }}" class="w-10 h-10" alt="{{ $item['name'] }} icon">
                                         @endif
                                     </a>
                                     @endif
@@ -397,17 +397,17 @@
                         <div class="site-footer-app-download flex items-center justify-center rounded-[10px] w-[180px] h-[56px]" style="background-color: {{ $footer['accent_color'] }};">
                             <a href="{{ $footer['ios_app_link'] ?? '#' }}" class="flex-1 flex items-center justify-center" target="_blank" rel="noopener noreferrer">
                                 @if(isset($footer['ios_app_icon']) && $footer['ios_app_icon'])
-                                    <img src="{{ asset('storage/' . $footer['ios_app_icon']) }}" alt="Apple" class="w-10 h-10" />
+                                    <img loading="lazy" src="{{ asset('storage/' . $footer['ios_app_icon']) }}" alt="Apple" class="w-10 h-10" />
                                 @else
-                                    <img src="{{asset('design')}}/images/ios.svg" alt="Apple" class="w-10 h-10" />
+                                    <img loading="lazy" src="{{asset('design')}}/images/ios.svg" alt="Apple" class="w-10 h-10" />
                                 @endif
                             </a>
                             <div class="w-px h-8 bg-white/60 mx-2"></div>
                             <a href="{{ $footer['android_app_link'] ?? '#' }}" class="flex-1 flex items-center justify-center" target="_blank" rel="noopener noreferrer">
                                 @if(isset($footer['android_app_icon']) && $footer['android_app_icon'])
-                                    <img src="{{ asset('storage/' . $footer['android_app_icon']) }}" alt="Android" class="w-10 h-10" />
+                                    <img loading="lazy" src="{{ asset('storage/' . $footer['android_app_icon']) }}" alt="Android" class="w-10 h-10" />
                                 @else
-                                    <img src="{{asset('design')}}/images/android.svg" alt="Android" class="w-10 h-10" />
+                                    <img loading="lazy" src="{{asset('design')}}/images/android.svg" alt="Android" class="w-10 h-10" />
                                 @endif
                             </a>
                         </div>
@@ -467,13 +467,13 @@
                     <ul class="space-y-3 text-sm {{ $isArabic ? 'text-right' : '' }}">
                         @if(isset($footer['phone']) && $footer['phone'])
                         <li class="flex items-start gap-2">
-                            <img src="{{asset('design')}}/images/phone.svg" class="w-4 h-4 mt-1" alt="Phone icon">
+                            <img loading="lazy" src="{{asset('design')}}/images/phone.svg" class="w-4 h-4 mt-1" alt="Phone icon">
                             <span class="font-sf-pro-regular {{ $isArabic ? 'text-right' : '' }}" @if($isArabic) dir="ltr" style="unicode-bidi: plaintext;" @endif>{{ $footer['phone'] }}</span>
                         </li>
                         @endif
                         @if(isset($footer['email']) && $footer['email'])
                         <li class="flex items-start gap-2">
-                            <img src="{{asset('design')}}/images/mail.svg" class="w-4 h-4 mt-1" alt="Email icon">
+                            <img loading="lazy" src="{{asset('design')}}/images/mail.svg" class="w-4 h-4 mt-1" alt="Email icon">
                             <span class="font-sf-pro-regular {{ $isArabic ? 'text-right' : '' }}" @if($isArabic) dir="ltr" style="unicode-bidi: plaintext;" @endif>{{ $footer['email'] }}</span>
                         </li>
                         @endif
@@ -482,7 +482,7 @@
                         @endphp
                         @if($hasAddress)
                         <li class="flex items-start gap-2 max-w-[250px] {{ $isArabic ? 'text-right' : '' }}">
-                            <img src="{{asset('design')}}/images/location.svg" class="w-4 h-4 mt-1 flex-shrink-0" alt="Location icon">
+                            <img loading="lazy" src="{{asset('design')}}/images/location.svg" class="w-4 h-4 mt-1 flex-shrink-0" alt="Location icon">
                             <span class="font-sf-pro-regular text-sm {{ $isArabic ? 'text-right' : '' }}" @if($isArabic) dir="auto" style="unicode-bidi: plaintext;" @endif>{!! app()->getLocale() == 'ar'
                                 ? ($footer['address_ar'] ?? $footer['address'] ?? '')
                                 : ($footer['address'] ?? $footer['address_ar'] ?? '') !!}</span>
@@ -504,7 +504,7 @@
                                 @if(isset($item['name']) && $item['name'] && isset($item['url']) && $item['url'])
                                 <a href="{{ $item['url'] }}" class="text-white hover:text-[{{ $footer['accent_color'] }}]" title="{{ $item['name'] }}" target="_blank" rel="noopener noreferrer">
                                     @if(isset($item['icon']) && $item['icon'])
-                                        <img src="{{ asset('storage/' . $item['icon']) }}" class="w-5 h-5" alt="{{ $item['name'] }} icon">
+                                        <img loading="lazy" src="{{ asset('storage/' . $item['icon']) }}" class="w-5 h-5" alt="{{ $item['name'] }} icon">
                                     @else
                                         @php
                                             // Default icons based on platform name
@@ -515,7 +515,7 @@
                                             elseif(stripos($item['name'], 'twitter') !== false || stripos($item['name'], 'x') !== false) $defaultIcon = 'design/images/x.svg';
                                             elseif(stripos($item['name'], 'youtube') !== false) $defaultIcon = 'design/images/yt.svg';
                                         @endphp
-                                        <img src="{{ asset($defaultIcon) }}" class="w-5 h-5" alt="{{ $item['name'] }} icon">
+                                        <img loading="lazy" src="{{ asset($defaultIcon) }}" class="w-5 h-5" alt="{{ $item['name'] }} icon">
                                     @endif
                                 </a>
                                 @endif
@@ -532,17 +532,17 @@
                         <div class="site-footer-app-download flex items-center justify-center rounded-[10px] w-[180px] h-[56px]" style="background-color: {{ $footer['accent_color'] }};">
                             <a href="{{ $footer['ios_app_link'] ?? '#' }}" class="flex-1 flex items-center justify-center" target="_blank" rel="noopener noreferrer">
                                 @if(isset($footer['ios_app_icon']) && $footer['ios_app_icon'])
-                                    <img src="{{ asset('storage/' . $footer['ios_app_icon']) }}" alt="Apple" class="w-10 h-10" />
+                                    <img loading="lazy" src="{{ asset('storage/' . $footer['ios_app_icon']) }}" alt="Apple" class="w-10 h-10" />
                                 @else
-                                    <img src="{{asset('design')}}/images/ios.svg" alt="Apple" class="w-10 h-10" />
+                                    <img loading="lazy" src="{{asset('design')}}/images/ios.svg" alt="Apple" class="w-10 h-10" />
                                 @endif
                             </a>
                             <div class="w-px h-8 bg-white/60 mx-2"></div>
                             <a href="{{ $footer['android_app_link'] ?? '#' }}" class="flex-1 flex items-center justify-center" target="_blank" rel="noopener noreferrer">
                                 @if(isset($footer['android_app_icon']) && $footer['android_app_icon'])
-                                    <img src="{{ asset('storage/' . $footer['android_app_icon']) }}" alt="Android" class="w-10 h-10" />
+                                    <img loading="lazy" src="{{ asset('storage/' . $footer['android_app_icon']) }}" alt="Android" class="w-10 h-10" />
                                 @else
-                                    <img src="{{asset('design')}}/images/android.svg" alt="Android" class="w-10 h-10" />
+                                    <img loading="lazy" src="{{asset('design')}}/images/android.svg" alt="Android" class="w-10 h-10" />
                                 @endif
                             </a>
                         </div>

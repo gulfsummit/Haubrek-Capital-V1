@@ -14,7 +14,7 @@
                     <!-- Mobile Image (shown only on mobile) -->
                     <div class="block lg:hidden mb-6">
                         <div class="relative w-full h-[280px] rounded-[20px] overflow-hidden">
-                            <img src="{{asset('design')}}/images/assist1.png" alt="Governance Advisory" class="w-full h-full object-cover"/>
+                            <img loading="lazy" src="{{asset('design')}}/images/assist1.png" alt="Governance Advisory" class="w-full h-full object-cover"/>
                             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                             <div class="absolute bottom-0 left-0 right-0 p-4">
                                 <div class="flex flex-col">

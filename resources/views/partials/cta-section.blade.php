@@ -11,7 +11,7 @@
 
 <section class="relative md:h-[100vh] md:max-h-[557px] text-white overflow-hidden z-0 flex items-end">
     <div class="absolute inset-0 z-0">
-        <img src="{{ $backgroundImage }}" alt="{{ $backgroundAlt }}" class="w-full h-full object-cover object-center"/>
+        <img loading="lazy" src="{{ $backgroundImage }}" alt="{{ $backgroundAlt }}" class="w-full h-full object-cover object-center"/>
     </div>
 
     <div class="w-full xl:max-w-[1300px] md:max-w-[950px] mx-auto px-4 relative z-10 w-full py-16">

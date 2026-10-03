@@ -20,7 +20,7 @@
             <!-- Left Side - Image -->
             <div class="w-full md:w-1/2 h-64 md:h-auto relative">
                 @if($newsletter->popup_image)
-                    <img 
+                    <img loading="lazy" 
                         src="{{ asset('storage/' . $newsletter->popup_image) }}" 
                         alt="Newsletter" 
                         class="w-full h-full object-cover"

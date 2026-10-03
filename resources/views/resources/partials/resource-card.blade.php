@@ -20,7 +20,7 @@
 <div class="bg-transparent rounded-xl overflow-hidden flex flex-col items-center {{ $widthClass }} {{ $heightClass }} {{ $extraClass }}">
     @if($enabled && $link)
         <a href="{{ $link }}" class="relative w-full h-full group">
-            <img
+            <img loading="lazy"
                 src="{{ $image ? asset('storage/' . $image) : asset($fallback) }}"
                 alt="{{ $alt }}"
                 class="w-full h-full object-cover rounded-lg transition group-hover:scale-105 duration-300"
@@ -33,7 +33,7 @@
         </a>
     @else
         <div class="relative w-full h-full pointer-events-none opacity-60">
-            <img
+            <img loading="lazy"
                 src="{{ $image ? asset('storage/' . $image) : asset($fallback) }}"
                 alt="{{ $alt }}"
                 class="w-full h-full object-cover rounded-lg"

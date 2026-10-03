@@ -159,7 +159,7 @@
                     @endphp
                     <a href="{{ route('cio-flash.show', $item->slug) }}" class="flex gap-3 group">
                         <div class="w-20 h-16 shrink-0 rounded overflow-hidden relative">
-                            <img src="{{ $iImg }}" alt="{{ $iTitle }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform"/>
+                            <img loading="lazy" src="{{ $iImg }}" alt="{{ $iTitle }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform"/>
                             <div class="absolute inset-0 flex items-center justify-center bg-navy-900/20 group-hover:bg-navy-900/40 transition">
                                 <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             </div>

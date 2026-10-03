@@ -177,9 +177,9 @@
                     <div>
                         <a href="/">
                             @if(isset($websiteSettings) && $websiteSettings->header_logo)
-                                <img src="{{ asset('storage/' . $websiteSettings->header_logo) }}" alt="{{ app()->getLocale() == 'ar' ? $websiteSettings->website_title_ar : $websiteSettings->website_title_en }}" class="site-logo h-8 sm:h-10 md:h-12 lg:h-full">
+                                <img loading="eager" src="{{ asset('storage/' . $websiteSettings->header_logo) }}" alt="{{ app()->getLocale() == 'ar' ? $websiteSettings->website_title_ar : $websiteSettings->website_title_en }}" class="site-logo h-8 sm:h-10 md:h-12 lg:h-full">
                             @else
-                                <img src="{{asset('design')}}/images/logo.svg" alt="{{ app()->getLocale() == 'ar' ? $websiteSettings->website_title_ar : $websiteSettings->website_title_en }}" class="site-logo h-8 sm:h-10 md:h-12 lg:h-full">
+                                <img loading="eager" src="{{asset('design')}}/images/logo.svg" alt="{{ app()->getLocale() == 'ar' ? $websiteSettings->website_title_ar : $websiteSettings->website_title_en }}" class="site-logo h-8 sm:h-10 md:h-12 lg:h-full">
                             @endif
                         </a>
                     </div>

@@ -240,11 +240,11 @@
                     <div class="w-full flex-shrink-0 relative">
                         <!-- Desktop background -->
                         <div class="absolute inset-0 hidden md:block">
-                            <img src="{{ $contactUs && $contactUs->hero_desktop_image ? asset('storage/' . $contactUs->hero_desktop_image) : asset('design/images/contact-us.png') }}" alt="{{ $heroDesktopAlt }}" class="w-full h-full object-cover"/>
+                            <img loading="lazy" src="{{ $contactUs && $contactUs->hero_desktop_image ? asset('storage/' . $contactUs->hero_desktop_image) : asset('design/images/contact-us.png') }}" alt="{{ $heroDesktopAlt }}" class="w-full h-full object-cover"/>
                         </div>
                         <!-- Mobile background -->
                         <div class="absolute inset-0 block md:hidden">
-                            <img src="{{ $contactUs && $contactUs->hero_mobile_image ? asset('storage/' . $contactUs->hero_mobile_image) : asset('design/images/contact-us.png') }}" alt="{{ $heroMobileAlt }}" class="w-full h-full object-cover"/>
+                            <img loading="lazy" src="{{ $contactUs && $contactUs->hero_mobile_image ? asset('storage/' . $contactUs->hero_mobile_image) : asset('design/images/contact-us.png') }}" alt="{{ $heroMobileAlt }}" class="w-full h-full object-cover"/>
                         </div>
                         <div class="absolute inset-0 "></div>
                         <div class="contact-hero-content relative h-[120vh] md:h-[90vh] flex items-center justify-center">
@@ -383,7 +383,7 @@
                   <div class="font-sf font-regular text-[17px] leading-[25px] {{ $detailsTextAlign }}">{!! $contactUs ? (app()->getLocale() === 'ar' ? $contactUs->phone_subtitle_ar : $contactUs->phone_subtitle_en) : '<p>'.$settings[0]['timing'].'</p>' !!}</div>
                   <a href="tel:{{ $contactUs && $contactUs->phone_number ? str_replace([' ', '/'], '', $contactUs->phone_number) : '+97145182591' }}" class="text-[#D4AF37] hover:underline font-sf font-regular text-[17px] leading-[30px] block {{ $detailsTextAlign }}">{{ $contactUs && $contactUs->phone_number ? $contactUs->phone_number : $settings[0]['phone'] }}</a>
                 </div>
-                <img src="{{asset('design/images/contact-us-phone.svg')}}" alt="Phone" class="mt-1 text-[#D4AF37] {{ $detailsIconSpacing }} {{ $detailsIconOrder }}">
+                <img loading="lazy" src="{{asset('design/images/contact-us-phone.svg')}}" alt="Phone" class="mt-1 text-[#D4AF37] {{ $detailsIconSpacing }} {{ $detailsIconOrder }}">
               </div>
             </div>
 
@@ -394,7 +394,7 @@
                   <div class="font-sf font-regular text-[17px] leading-[25px] {{ $detailsTextAlign }}">{!! $contactUs ? (app()->getLocale() === 'ar' ? $contactUs->email_subtitle_ar : $contactUs->email_subtitle_en) : '<p>Email us &amp; we will get back to you within 24 hours</p>' !!}</div>
                   <a href="mailto:{{ $contactUs && $contactUs->email_address ? $contactUs->email_address : 'info@hauberkcapital.com' }}" class="text-[#D4AF37] hover:underline font-sf font-regular text-[17px] leading-[30px] block {{ $detailsTextAlign }}">{{ $contactUs && $contactUs->email_address ? $contactUs->email_address : $settings[0]['email'] }}</a>
                 </div>
-                <img src="{{asset('design/images/contact-us-mail.svg')}}" alt="Email" class="mt-1 text-#D4AF37 {{ $detailsIconSpacing }} {{ $detailsIconOrder }}">
+                <img loading="lazy" src="{{asset('design/images/contact-us-mail.svg')}}" alt="Email" class="mt-1 text-#D4AF37 {{ $detailsIconSpacing }} {{ $detailsIconOrder }}">
               </div>
             </div>
 
@@ -407,7 +407,7 @@
                         : ($contactUs->address_text_en ?? $settings[0]['address']))
                         : $settings[0]['address'] !!}</div>
                 </div>
-                <img src="{{asset('design')}}/images/contact-us-address.svg" alt="Address" class="mt-1 text-#D4AF37 {{ $detailsIconSpacing }} {{ $detailsIconOrder }}">
+                <img loading="lazy" src="{{asset('design')}}/images/contact-us-address.svg" alt="Address" class="mt-1 text-#D4AF37 {{ $detailsIconSpacing }} {{ $detailsIconOrder }}">
               </div>
             </div>
             <div class="border-t border-gray-600 pt-6"></div>
@@ -419,7 +419,7 @@
                         @if(isset($item['name']) && $item['name'] && isset($item['url']) && $item['url'])
                             <a href="{{ $item['url'] }}" class="text-white hover:text-[#D4AF37]" title="{{ $item['name'] }}" target="_blank" rel="noopener noreferrer">
                                 @if(isset($item['icon']) && $item['icon'])
-                                    <img src="{{ asset('storage/' . $item['icon']) }}" class="h-8 w-8" alt="{{ $item['name'] }} icon">
+                                    <img loading="lazy" src="{{ asset('storage/' . $item['icon']) }}" class="h-8 w-8" alt="{{ $item['name'] }} icon">
                                 @else
                                     @php
                                         // Default icons based on platform name
@@ -430,7 +430,7 @@
                                         elseif(stripos($item['name'], 'twitter') !== false || stripos($item['name'], 'x') !== false) $defaultIcon = 'design/images/twitter.svg';
                                         elseif(stripos($item['name'], 'youtube') !== false) $defaultIcon = 'design/images/youtube.svg';
                                     @endphp
-                                    <img src="{{ asset($defaultIcon) }}" class="h-8 w-8" alt="{{ $item['name'] }} icon">
+                                    <img loading="lazy" src="{{ asset($defaultIcon) }}" class="h-8 w-8" alt="{{ $item['name'] }} icon">
                                 @endif
                             </a>
                         @endif
@@ -438,19 +438,19 @@
                 @else
                     <!-- Fallback to old hardcoded social media if new structure is not available -->
                     <a href="{{$settings[0]['facebook']}}" class="text-white hover:text-[#D4AF37]">
-                        <img src="{{asset('design')}}/images/facebook.svg" alt="Facebook" class="h-8 w-8">
+                        <img loading="lazy" src="{{asset('design')}}/images/facebook.svg" alt="Facebook" class="h-8 w-8">
                     </a>
                     <a href="{{$settings[0]['instagram']}}" class="text-white hover:text-[#D4AF37]">
-                        <img src="{{asset('design')}}/images/insta.svg" alt="Instagram" class="h-8 w-8">
+                        <img loading="lazy" src="{{asset('design')}}/images/insta.svg" alt="Instagram" class="h-8 w-8">
                     </a>
                     <a href="{{$settings[0]['linkedin']}}" class="text-white hover:text-[#D4AF37]">
-                        <img src="{{asset('design')}}/images/linkedin-contact.svg" alt="LinkedIn" class="h-8 w-8">
+                        <img loading="lazy" src="{{asset('design')}}/images/linkedin-contact.svg" alt="LinkedIn" class="h-8 w-8">
                     </a>
                     <a href="{{$settings[0]['twitter']}}" class="text-white hover:text-[#D4AF37]">
-                        <img src="{{asset('design')}}/images/twitter.svg" alt="Twitter" class="h-8 w-8">
+                        <img loading="lazy" src="{{asset('design')}}/images/twitter.svg" alt="Twitter" class="h-8 w-8">
                     </a>
                     <a href="{{$settings[0]['youtube']}}" class="text-white hover:text-[#D4AF37]">
-                        <img src="{{asset('design')}}/images/youtube.svg" alt="YouTube" class="h-8 w-8">
+                        <img loading="lazy" src="{{asset('design')}}/images/youtube.svg" alt="YouTube" class="h-8 w-8">
                     </a>
                 @endif
             </div>

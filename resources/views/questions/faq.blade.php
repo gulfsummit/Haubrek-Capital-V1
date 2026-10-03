@@ -61,8 +61,8 @@
             <div class="flex transition-transform duration-500 ease-in-out h-full">
                 <div class="w-full flex-shrink-0 relative">
                     <div class="absolute inset-0">
-                        <img src="{{ $heroDesktop }}" alt="{{ $heroDesktopAlt }}" class="hidden md:block w-full h-full object-cover"/>
-                        <img src="{{ $heroMobile }}" alt="{{ $heroMobileAlt }}" class="block md:hidden w-full h-full object-cover"/>
+                        <img loading="lazy" src="{{ $heroDesktop }}" alt="{{ $heroDesktopAlt }}" class="hidden md:block w-full h-full object-cover"/>
+                        <img loading="lazy" src="{{ $heroMobile }}" alt="{{ $heroMobileAlt }}" class="block md:hidden w-full h-full object-cover"/>
                     </div>
                     <div class="relative h-[120vh] md:h-[90vh] flex items-center justify-center">
                         <div class="container mx-auto text-center">

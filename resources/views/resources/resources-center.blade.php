@@ -73,11 +73,11 @@
                     <div class="w-full flex-shrink-0 relative">
                         <!-- Desktop background -->
                         <div class="absolute inset-0 hidden md:block">
-                            <img src="{{ $resourceCenter && $resourceCenter->hero_desktop_image ? asset('storage/' . $resourceCenter->hero_desktop_image) : asset('design/images/resource-bg.png') }}" alt="{{ $heroDesktopAlt }}" class="w-full h-full object-cover"/>
+                            <img loading="lazy" src="{{ $resourceCenter && $resourceCenter->hero_desktop_image ? asset('storage/' . $resourceCenter->hero_desktop_image) : asset('design/images/resource-bg.png') }}" alt="{{ $heroDesktopAlt }}" class="w-full h-full object-cover"/>
                         </div>
                         <!-- Mobile background -->
                         <div class="absolute inset-0 block md:hidden">
-                            <img src="{{ $resourceCenter && $resourceCenter->hero_mobile_image ? asset('storage/' . $resourceCenter->hero_mobile_image) : asset('design/images/resource-bg.png') }}" alt="{{ $heroMobileAlt }}" class="w-full h-full object-cover"/>
+                            <img loading="lazy" src="{{ $resourceCenter && $resourceCenter->hero_mobile_image ? asset('storage/' . $resourceCenter->hero_mobile_image) : asset('design/images/resource-bg.png') }}" alt="{{ $heroMobileAlt }}" class="w-full h-full object-cover"/>
                         </div>
                         <div class="absolute inset-0 "></div>
                         <div class="relative h-[120vh] md:h-[90vh] flex items-center justify-center">

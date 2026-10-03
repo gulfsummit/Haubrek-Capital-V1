@@ -49,10 +49,10 @@
             <div class="flex transition-transform duration-500 ease-in-out h-full">
                 <div class="w-full flex-shrink-0 relative">
                     <div class="absolute inset-0 hidden md:block">
-                        <img src="{{ $heroDesktop }}" alt="{{ $heroDesktopAlt }}" class="w-full h-full object-cover"/>
+                        <img loading="eager" src="{{ $heroDesktop }}" alt="{{ $heroDesktopAlt }}" class="w-full h-full object-cover"/>
                     </div>
                     <div class="absolute inset-0 block md:hidden">
-                        <img src="{{ $heroMobile }}" alt="{{ $heroMobileAlt }}" class="w-full h-full object-cover"/>
+                        <img loading="eager" src="{{ $heroMobile }}" alt="{{ $heroMobileAlt }}" class="w-full h-full object-cover"/>
                     </div>
                     <div class="absolute inset-0 "></div>
                     <div class="relative h-[120vh] md:h-[90vh] flex items-center justify-center">

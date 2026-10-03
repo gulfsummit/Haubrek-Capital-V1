@@ -450,7 +450,7 @@
                         @endphp
                         <div class="hero-slide flex-shrink-0 relative" style="width: {{ 100 / $heroSlideCount }}%;">
                             <div class="absolute inset-0">
-                                <img src="{{ $slideImage }}" alt="{{ $slideImageAlt }}" class="w-full h-full object-cover"/>
+                                <img loading="eager" src="{{ $slideImage }}" alt="{{ $slideImageAlt }}" class="w-full h-full object-cover"/>
                             </div>
                             <div class="absolute inset-0 "></div>
                             <div class="relative h-full flex items-center justify-center">
@@ -537,7 +537,7 @@
                         @if($homeData && $homeData->services && count($homeData->services) > 0)
                             @php $firstService = $homeData->services[0]; @endphp
                             <div class="relative w-full h-[17.5rem] rounded-[1.25rem] overflow-hidden">
-                                <img id="mobile-service-image" src="{{ isset($firstService['image']) && $firstService['image'] ? asset('storage/' . $firstService['image']) : asset('design/images/assist1.png') }}" alt="{{ $firstService['title_en'] ?? 'Service' }}" class="w-full h-full object-cover"/>
+                                <img loading="lazy" id="mobile-service-image" src="{{ isset($firstService['image']) && $firstService['image'] ? asset('storage/' . $firstService['image']) : asset('design/images/assist1.png') }}" alt="{{ $firstService['title_en'] ?? 'Service' }}" class="w-full h-full object-cover"/>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                                 <div class="absolute bottom-0 left-0 right-0 p-4">
                                     <div class="flex flex-col">
@@ -553,7 +553,7 @@
                             </div>
                         @else
                             <div class="relative w-full h-[17.5rem] rounded-[1.25rem] overflow-hidden">
-                                <img id="mobile-service-image" src="{{ asset('design/images/assist1.png') }}" alt="Governance Advisory" class="w-full h-full object-cover"/>
+                                <img loading="lazy" id="mobile-service-image" src="{{ asset('design/images/assist1.png') }}" alt="Governance Advisory" class="w-full h-full object-cover"/>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                                 <div class="absolute bottom-0 left-0 right-0 p-4">
                                     <div class="flex flex-col">
@@ -615,12 +615,12 @@
     <section class="home-diversified bg-[#041B44] h-[150vh] md:h-[180vh] lg:h-[100vh] relative overflow-hidden flex items-center">
         <!-- Background Image -->
         <div class="absolute inset-0 hidden lg:block">
-            <img src="{{ $homeData->diversified_desktop_image ? asset('storage/' . $homeData->diversified_desktop_image) : asset('design/images/diversified-bg.png') }}" alt="Pattern Background" class="w-full h-full object-cover"/>
+            <img loading="lazy" src="{{ $homeData->diversified_desktop_image ? asset('storage/' . $homeData->diversified_desktop_image) : asset('design/images/diversified-bg.png') }}" alt="Pattern Background" class="w-full h-full object-cover"/>
         </div>
 
         <!-- Mobile Background Image -->
         <div class="absolute inset-0 block lg:hidden">
-            <img src="{{ $homeData->diversified_mobile_image ? asset('storage/' . $homeData->diversified_mobile_image) : asset('design/images/mobile-diversified-bg.png') }}" alt="Pattern Background" class="w-full h-full object-cover"/>
+            <img loading="lazy" src="{{ $homeData->diversified_mobile_image ? asset('storage/' . $homeData->diversified_mobile_image) : asset('design/images/mobile-diversified-bg.png') }}" alt="Pattern Background" class="w-full h-full object-cover"/>
         </div>
 
         <!-- Content Container -->
@@ -660,7 +660,7 @@
                                 <div class="{{ $diversifiedDesktopRow }}">
                                     <div class="flex-shrink-0">
                                         @if(isset($service['icon']) && $service['icon'])
-                                            <img src="{{ asset('storage/' . $service['icon']) }}" alt="{{ $service['title_en'] ?? 'Service' }}" class="w-[4rem] h-[4rem] object-contain"/>
+                                            <img loading="lazy" src="{{ asset('storage/' . $service['icon']) }}" alt="{{ $service['title_en'] ?? 'Service' }}" class="w-[4rem] h-[4rem] object-contain"/>
                                         @else
                                             <div class="w-12 h-12 bg-[#D4AF37] rounded-full flex items-center justify-center">
                                                 <i class="fas fa-star text-white text-xl"></i>
@@ -682,7 +682,7 @@
                                 <div class="{{ $diversifiedMobileRow }}">
                                     <div class="flex-shrink-0">
                                         @if(isset($service['icon']) && $service['icon'])
-                                            <img src="{{ asset('storage/' . $service['icon']) }}" alt="{{ $service['title_en'] ?? 'Service' }}" class="w-8 h-8 object-contain"/>
+                                            <img loading="lazy" src="{{ asset('storage/' . $service['icon']) }}" alt="{{ $service['title_en'] ?? 'Service' }}" class="w-8 h-8 object-contain"/>
                                         @else
                                             <div class="w-8 h-8 bg-[#D4AF37] rounded-full flex items-center justify-center">
                                                 <i class="fas fa-star text-white text-sm"></i>
@@ -700,10 +700,10 @@
                     @else
                         <!-- Fallback to original image if no services data -->
                         <div class="hidden lg:block">
-                            <img src="{{ $homeData->diversified_content_desktop_image ? asset('storage/' . $homeData->diversified_content_desktop_image) : asset('design/images/diversified.png') }}" alt="Diversified Programs" class="w-full h-auto rounded-lg"/>
+                            <img loading="lazy" src="{{ $homeData->diversified_content_desktop_image ? asset('storage/' . $homeData->diversified_content_desktop_image) : asset('design/images/diversified.png') }}" alt="Diversified Programs" class="w-full h-auto rounded-lg"/>
                         </div>
                         <div class="block lg:hidden">
-                            <img src="{{ $homeData->diversified_content_mobile_image ? asset('storage/' . $homeData->diversified_content_mobile_image) : asset('design/images/mobile-diversified.png') }}" alt="Diversified Programs" class="w-full h-auto rounded-lg"/>
+                            <img loading="lazy" src="{{ $homeData->diversified_content_mobile_image ? asset('storage/' . $homeData->diversified_content_mobile_image) : asset('design/images/mobile-diversified.png') }}" alt="Diversified Programs" class="w-full h-auto rounded-lg"/>
                         </div>
                     @endif
 
@@ -722,7 +722,7 @@
     <section class="home-directors py-16 relative overflow-hidden bg-[#f5f5f5]">
         <!-- Background Pattern -->
         <div class="absolute inset-0">
-            <img src="{{ asset('design/images/directors-bg.png') }}" alt="Pattern Background" class="w-full h-full object-cover"/>
+            <img loading="lazy" src="{{ asset('design/images/directors-bg.png') }}" alt="Pattern Background" class="w-full h-full object-cover"/>
         </div>
 
         <div class="w-full xl:max-w-[1300px] md:max-w-[950px] mx-auto px-4 relative">
@@ -741,7 +741,7 @@
                         <div class="text-center">
                             <div class="bg-white rounded-lg overflow-hidden w-[17.5rem] h-[23.75rem] mx-auto mb-4">
                                 @if(isset($director['image']) && $director['image'])
-                                    <img src="{{ asset('storage/' . $director['image']) }}" alt="{{ app()->getLocale() == 'ar' ? ($director['name_ar'] ?? 'Director') : ($director['name_en'] ?? 'Director') }}" class="w-full h-full object-cover object-center">
+                                    <img loading="lazy" src="{{ asset('storage/' . $director['image']) }}" alt="{{ app()->getLocale() == 'ar' ? ($director['name_ar'] ?? 'Director') : ($director['name_en'] ?? 'Director') }}" class="w-full h-full object-cover object-center">
                                 @else
                                     <div class="w-full h-full bg-gray-200 flex items-center justify-center">
                                         <i class="fas fa-user text-gray-400 text-6xl"></i>
@@ -760,21 +760,21 @@
                     <!-- Fallback to default directors if no data -->
                     <div class="text-center">
                         <div class="bg-white rounded-lg overflow-hidden w-[17.5rem] h-[23.75rem] mx-auto mb-4">
-                            <img src="{{ asset('design/images/wael.png') }}" alt="Wael Fawzi" class="w-full h-full object-cover object-center">
+                            <img loading="lazy" src="{{ asset('design/images/wael.png') }}" alt="Wael Fawzi" class="w-full h-full object-cover object-center">
                         </div>
                         <p class="text-[#041B44] font-neue-bold text-xl mt-3">Wael Fawzi</p>
                         <div class="text-[#041B44] opacity-70 font-['Poppins']">Managing Director</div>
                     </div>
                     <div class="text-center">
                         <div class="bg-white rounded-lg overflow-hidden w-[17.5rem] h-[23.75rem] mx-auto mb-4">
-                            <img src="{{ asset('design/images/natalia.png') }}" alt="Natalia Biryukova" class="w-full h-full object-cover object-center">
+                            <img loading="lazy" src="{{ asset('design/images/natalia.png') }}" alt="Natalia Biryukova" class="w-full h-full object-cover object-center">
                         </div>
                         <p class="text-[#041B44] font-neue-bold text-xl mt-3">Natalia Biryukova</p>
                         <div class="text-[#041B44] opacity-70 font-['Poppins']">Director</div>
                     </div>
                     <div class="text-center">
                         <div class="bg-white rounded-lg overflow-hidden w-[17.5rem] h-[23.75rem] mx-auto mb-4">
-                            <img src="{{ asset('design/images/motasem.png') }}" alt="Motesm Aggad" class="w-full h-full object-cover object-center">
+                            <img loading="lazy" src="{{ asset('design/images/motasem.png') }}" alt="Motesm Aggad" class="w-full h-full object-cover object-center">
                         </div>
                         <p class="text-[#041B44] font-neue-bold text-xl mt-3">Motesm Aggad</p>
                         <div class="text-[#041B44] opacity-70 font-['Poppins']">Director</div>
@@ -791,7 +791,7 @@
                                     <div class="flex flex-col items-center desktop-reverse-flex">
                                         <div class="bg-white rounded-lg overflow-hidden w-[15rem] h-[20rem] mb-4">
                                             @if(isset($director['image']) && $director['image'])
-                                                <img src="{{ asset('storage/' . $director['image']) }}" alt="{{ app()->getLocale() == 'ar' ? ($director['name_ar'] ?? 'Director') : ($director['name_en'] ?? 'Director') }}" class="w-full h-full object-cover object-center">
+                                                <img loading="lazy" src="{{ asset('storage/' . $director['image']) }}" alt="{{ app()->getLocale() == 'ar' ? ($director['name_ar'] ?? 'Director') : ($director['name_en'] ?? 'Director') }}" class="w-full h-full object-cover object-center">
                                             @else
                                                 <div class="w-full h-full bg-gray-200 flex items-center justify-center">
                                                     <i class="fas fa-user text-gray-400 text-4xl"></i>
@@ -812,7 +812,7 @@
                             <div class="min-w-full px-4">
                                 <div class="flex flex-col items-center">
                                     <div class="bg-white rounded-lg overflow-hidden w-[15rem] h-[20rem] mb-4">
-                                        <img src="{{ asset('design/images/wael.png') }}" alt="Wael Fawzi" class="w-full h-full object-cover object-center">
+                                        <img loading="lazy" src="{{ asset('design/images/wael.png') }}" alt="Wael Fawzi" class="w-full h-full object-cover object-center">
                                     </div>
                                     <p class="text-[#041B44] font-neue-bold text-xl mt-2">Wael Fawzi</p>
                                     <div class="text-[#041B44] opacity-70 font-['Poppins'] text-sm">Managing Director</div>
@@ -821,7 +821,7 @@
                             <div class="min-w-full px-4">
                                 <div class="flex flex-col items-center">
                                     <div class="bg-white rounded-lg overflow-hidden w-[15rem] h-[20rem] mb-4">
-                                        <img src="{{ asset('design/images/natalia.png') }}" alt="Natalia Biryukova" class="w-full h-full object-cover object-center">
+                                        <img loading="lazy" src="{{ asset('design/images/natalia.png') }}" alt="Natalia Biryukova" class="w-full h-full object-cover object-center">
                                     </div>
                                     <p class="text-[#041B44] font-neue-bold text-xl mt-2">Natalia Biryukova</p>
                                     <div class="text-[#041B44] opacity-70 font-['Poppins'] text-sm">Director</div>
@@ -830,7 +830,7 @@
                             <div class="min-w-full px-4">
                                 <div class="flex flex-col items-center">
                                     <div class="bg-white rounded-lg overflow-hidden w-[15rem] h-[20rem] mb-4">
-                                        <img src="{{ asset('design/images/motasem.png') }}" alt="Motesm Aggad" class="w-full h-full object-cover object-center">
+                                        <img loading="lazy" src="{{ asset('design/images/motasem.png') }}" alt="Motesm Aggad" class="w-full h-full object-cover object-center">
                                     </div>
                                     <p class="text-[#041B44] font-neue-bold text-xl mt-2">Motesm Aggad</p>
                                     <div class="text-[#041B44] opacity-70 font-['Poppins'] text-sm">Director</div>
@@ -870,7 +870,7 @@
     <section class="home-track-record pt-[120px] pb-16 bg-[#041B44] text-white relative overflow-hidden">
         <!-- Background Pattern (optional) -->
         <div class="absolute inset-0 opacity-20">
-            <img src="{{ $homeData->track_record_background_image ? asset('storage/' . $homeData->track_record_background_image) : asset('design/images/record-bg.png') }}" alt="Pattern Background" class="w-full h-full object-cover"/>
+            <img loading="lazy" src="{{ $homeData->track_record_background_image ? asset('storage/' . $homeData->track_record_background_image) : asset('design/images/record-bg.png') }}" alt="Pattern Background" class="w-full h-full object-cover"/>
         </div>
 
         <div class="w-full xl:max-w-[1300px] md:max-w-[1000px] mx-auto px-4 relative">
@@ -902,7 +902,7 @@
                                             @php $metric = $metrics[$metricIndex]; @endphp
                                             <div class="flex flex-col items-center w-[7.5rem] max-w-[7.5rem] transition-opacity duration-300 ">
                                                 <div class="relative w-[6.25rem] h-[6.25rem] mb-2">
-                                                    <img src="{{ $homeData->track_record_icon ? asset('storage/' . $homeData->track_record_icon) : asset('design/images/record.svg') }}" alt="Record Icon" class="w-full h-full"/>
+                                                    <img loading="lazy" src="{{ $homeData->track_record_icon ? asset('storage/' . $homeData->track_record_icon) : asset('design/images/record.svg') }}" alt="Record Icon" class="w-full h-full"/>
                                                     <div class="absolute inset-0 flex items-center justify-center px-2">
                                                         <span class="text-[0.8125rem] leading-tight text-center break-words text-[#041B44] font-['Poppins'] font-bold">{{ $metric['number'] ?? '' }}</span>
                                                     </div>
@@ -970,7 +970,7 @@
                                             @php $metric = $metrics[$metricIndex]; @endphp
                                             <div class="w-full sm:w-1/2 md:w-1/4 px-4 flex flex-col items-center mb-8 ">
                                                 <div class="relative w-[9.375rem] h-[9.375rem] mb-4">
-                                                    <img src="{{ $homeData->track_record_icon ? asset('storage/' . $homeData->track_record_icon) : asset('design/images/record.svg') }}" alt="Record Icon" class="w-full h-full"/>
+                                                    <img loading="lazy" src="{{ $homeData->track_record_icon ? asset('storage/' . $homeData->track_record_icon) : asset('design/images/record.svg') }}" alt="Record Icon" class="w-full h-full"/>
                                                     <div class="absolute inset-0 flex items-center justify-center">
                                                         <span class="text-[1.25rem] text-[#041B44] font-['Poppins'] font-bold">{{ $metric['number'] ?? '' }}</span>
                                                     </div>
@@ -989,7 +989,7 @@
                             <div class="min-w-full flex-shrink-0 flex flex-wrap justify-center">
                                 <div class="w-full sm:w-1/2 md:w-1/4 px-4 flex flex-col items-center mb-8">
                                     <div class="relative w-[9.375rem] h-[9.375rem] mb-4">
-                                        <img src="{{ asset("design/images/record.svg") }}" alt="Record Icon" class="w-full h-full"/>
+                                        <img loading="lazy" src="{{ asset("design/images/record.svg") }}" alt="Record Icon" class="w-full h-full"/>
                                         <div class="absolute inset-0 flex items-center justify-center">
                                             <span class="text-[1.25rem] text-[#041B44] font-['Poppins'] font-bold">650.0 M$</span>
                                         </div>
@@ -998,7 +998,7 @@
                                 </div>
                                 <div class="w-full sm:w-1/2 md:w-1/4 px-4 flex flex-col items-center mb-8">
                                     <div class="relative w-[9.375rem] h-[9.375rem] mb-4">
-                                        <img src="{{ asset("design/images/record.svg") }}" alt="Record Icon" class="w-full h-full"/>
+                                        <img loading="lazy" src="{{ asset("design/images/record.svg") }}" alt="Record Icon" class="w-full h-full"/>
                                         <div class="absolute inset-0 flex items-center justify-center">
                                             <span class="text-[1.25rem] text-[#041B44] font-['Poppins'] font-bold">1,300.0</span>
                                         </div>
@@ -1007,7 +1007,7 @@
                                 </div>
                                 <div class="w-full sm:w-1/2 md:w-1/4 px-4 flex flex-col items-center mb-8">
                                     <div class="relative w-[9.375rem] h-[9.375rem] mb-4">
-                                        <img src="{{ asset("design/images/record.svg") }}" alt="Record Icon" class="w-full h-full"/>
+                                        <img loading="lazy" src="{{ asset("design/images/record.svg") }}" alt="Record Icon" class="w-full h-full"/>
                                         <div class="absolute inset-0 flex items-center justify-center">
                                             <span class="text-[1.25rem] text-[#041B44] font-['Poppins'] font-bold">8.0</span>
                                         </div>
@@ -1016,7 +1016,7 @@
                                 </div>
                                 <div class="w-full sm:w-1/2 md:w-1/4 px-4 flex flex-col items-center mb-8">
                                     <div class="relative w-[9.375rem] h-[9.375rem] mb-4">
-                                        <img src="{{ asset("design/images/record.svg") }}" alt="Record Icon" class="w-full h-full"/>
+                                        <img loading="lazy" src="{{ asset("design/images/record.svg") }}" alt="Record Icon" class="w-full h-full"/>
                                         <div class="absolute inset-0 flex items-center justify-center">
                                             <span class="text-[1.25rem] text-[#041B44] font-['Poppins'] font-bold">10.2%</span>
                                         </div>
@@ -1065,7 +1065,7 @@
               <div class="flex flex-col items-center">
                 <div class="rounded-full w-32 mb-4 overflow-hidden">
                   @if(isset($step['icon']) && $step['icon'])
-                    <img src="{{ asset('storage/' . $step['icon']) }}" alt="{{ app()->getLocale() == 'ar' ? ($step['step_ar'] ?? 'Step') : ($step['step_en'] ?? 'Step') }}" class="w-full h-full " />
+                    <img loading="lazy" src="{{ asset('storage/' . $step['icon']) }}" alt="{{ app()->getLocale() == 'ar' ? ($step['step_ar'] ?? 'Step') : ($step['step_en'] ?? 'Step') }}" class="w-full h-full " />
                   @else
                     <div class="bg-blue-900 text-white rounded-full w-full h-full flex items-center justify-center">
                       <i class="fas fa-circle text-white text-4xl"></i>
@@ -1082,7 +1082,7 @@
             <!-- Fallback to default steps if no data -->
             <div class="flex flex-col items-center">
               <div class="rounded-full w-32  mb-4 overflow-hidden">
-                <img src="{{ asset("design/images/journey-logo1.svg") }}" alt="icon" class="w-full h-full " />
+                <img loading="lazy" src="{{ asset("design/images/journey-logo1.svg") }}" alt="icon" class="w-full h-full " />
               </div>
               <div class="h-[4.5625rem] w-[2px] bg-[#041B44] mb-2"></div>
               <div class="text-[1.5625rem] text-gray-800 text-center font-['Poppins'] font-medium leading-[2.125rem] whitespace-wrap">Strategic <br/> Decision</div>
@@ -1090,7 +1090,7 @@
 
             <div class="flex flex-col items-center">
               <div class="rounded-full w-32  mb-4 overflow-hidden">
-                <img src="{{ asset("design/images/journey-logo2.svg") }}" alt="icon" class="w-full h-full " />
+                <img loading="lazy" src="{{ asset("design/images/journey-logo2.svg") }}" alt="icon" class="w-full h-full " />
               </div>
               <div class="h-[11.4375rem] w-[2px] bg-[#041B44] mb-2"></div>
               <div class="text-[1.5625rem] text-[#041B44] text-center font-['Poppins'] font-medium leading-[2.125rem] whitespace-wrap">Governance</div>
@@ -1098,7 +1098,7 @@
 
             <div class="flex flex-col items-center">
               <div class="rounded-full w-32  mb-4 overflow-hidden">
-                <img src="{{ asset("design/images/journey-logo3.svg") }}" alt="icon" class="w-full h-full " />
+                <img loading="lazy" src="{{ asset("design/images/journey-logo3.svg") }}" alt="icon" class="w-full h-full " />
               </div>
               <div class="h-[4.5625rem] w-[2px] bg-[#041B44] mb-2"></div>
               <div class="text-[1.5625rem] text-[#041B44] text-center font-['Poppins'] font-medium leading-[2.125rem] whitespace-wrap">Current portfolio<br/>analysis</div>
@@ -1106,7 +1106,7 @@
 
             <div class="flex flex-col items-center">
               <div class="rounded-full w-32  mb-4 overflow-hidden">
-                <img src="{{ asset("design/images/journey-logo4.svg") }}" alt="icon" class="w-full h-full " />
+                <img loading="lazy" src="{{ asset("design/images/journey-logo4.svg") }}" alt="icon" class="w-full h-full " />
               </div>
               <div class="h-[11.4375rem] w-[2px] bg-[#041B44] mb-2"></div>
               <div class="text-[1.5625rem] text-[#041B44] text-center font-['Poppins'] font-medium leading-[2.125rem] whitespace-wrap">Investment Policy<br/> Statement</div>
@@ -1114,7 +1114,7 @@
 
             <div class="flex flex-col items-center">
               <div class="rounded-full w-32  mb-4 overflow-hidden">
-                <img src="{{ asset("design/images/journey-logo5.svg") }}" alt="icon" class="w-full h-full " />
+                <img loading="lazy" src="{{ asset("design/images/journey-logo5.svg") }}" alt="icon" class="w-full h-full " />
               </div>
               <div class="h-[4.5625rem] w-[2px] bg-[#041B44] mb-2"></div>
               <div class="text-[1.5625rem] text-[#041B44] text-center font-['Poppins'] font-medium leading-[2.125rem] whitespace-wrap">Investment<br/>Implementation</div>
@@ -1122,7 +1122,7 @@
 
             <div class="flex flex-col items-center">
               <div class="rounded-full w-32  mb-4 overflow-hidden">
-                <img src="{{ asset("design/images/journey-logo6.svg") }}" alt="icon" class="w-full h-full " />
+                <img loading="lazy" src="{{ asset("design/images/journey-logo6.svg") }}" alt="icon" class="w-full h-full " />
               </div>
               <div class="h-[11.4375rem] w-[2px] bg-[#041B44] mb-2"></div>
               <div class="text-[1.5625rem] text-[#041B44] text-center font-['Poppins'] font-medium leading-[2.125rem] whitespace-wrap">Investment<br/>Structure</div>
@@ -1130,7 +1130,7 @@
 
             <div class="flex flex-col items-center">
               <div class="rounded-full w-32  mb-4 overflow-hidden">
-                <img src="{{ asset("design/images/journey-logo7.svg") }}" alt="icon" class="w-full h-full " />
+                <img loading="lazy" src="{{ asset("design/images/journey-logo7.svg") }}" alt="icon" class="w-full h-full " />
               </div>
               <div class="h-[4.5625rem] w-[2px] bg-[#041B44] mb-2"></div>
               <div class="text-[1.5625rem] text-[#041B44] text-center font-['Poppins'] font-medium leading-[2.125rem] whitespace-wrap">Mangers Search<br/>& Selection</div>
@@ -1138,7 +1138,7 @@
 
             <div class="flex flex-col items-center">
               <div class="rounded-full w-32  mb-4 overflow-hidden">
-                <img src="{{ asset("design/images/journey-logo8.svg") }}" alt="icon" class="w-full h-full" />
+                <img loading="lazy" src="{{ asset("design/images/journey-logo8.svg") }}" alt="icon" class="w-full h-full" />
               </div>
               <div class="h-[11.4375rem] w-[2px] bg-[#041B44] mb-2"></div>
               <div class="text-[1.5625rem] text-[#041B44] text-center font-['Poppins'] font-medium leading-[2.125rem] whitespace-wrap">Monitoring<br/>Performance</div>
@@ -1149,9 +1149,9 @@
             <!-- Mobile version - only shows image -->
             <div class="md:hidden mx-auto mb-8">
               @if(isset($homeData->roadmap_mobile_image) && $homeData->roadmap_mobile_image)
-                <img src="{{ asset('storage/' . $homeData->roadmap_mobile_image) }}" alt="Journey Map" class="w-full mx-auto" />
+                <img loading="lazy" src="{{ asset('storage/' . $homeData->roadmap_mobile_image) }}" alt="Journey Map" class="w-full mx-auto" />
               @else
-                <img src="{{ asset("design/images/mobile.map.jpg") }}" alt="Journey Map" class="w-full mx-auto" />
+                <img loading="lazy" src="{{ asset("design/images/mobile.map.jpg") }}" alt="Journey Map" class="w-full mx-auto" />
               @endif
             </div>
 
@@ -1291,7 +1291,7 @@
         <section class="home-cta relative md:h-[100vh] md:max-h-[557px] text-white overflow-hidden z-0 flex items-end">
             <!-- Background Image -->
             <div class="absolute inset-0 z-0">
-                <img src="{{ asset("design/images/meeting-bg.png") }}" alt="NYC Skyline" class="w-full h-full object-cover object-center"/>
+                <img loading="lazy" src="{{ asset("design/images/meeting-bg.png") }}" alt="NYC Skyline" class="w-full h-full object-cover object-center"/>
             </div>
 
             <!-- Content Container -->

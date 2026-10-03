@@ -92,17 +92,17 @@
                     <!-- Desktop background -->
                     <div class="absolute inset-0 hidden md:block">
                         @if(isset($serviceData['hero_background_image']) && $serviceData['hero_background_image'])
-                            <img src="{{ asset('storage/' . $serviceData['hero_background_image']) }}" alt="Wealth Management" class="w-full h-full object-cover"/>
+                            <img loading="eager" src="{{ asset('storage/' . $serviceData['hero_background_image']) }}" alt="Wealth Management" class="w-full h-full object-cover"/>
                         @else
-                            <img src="{{ asset('design/images/services-hero.png') }}" alt="Wealth Management" class="w-full h-full object-cover"/>
+                            <img loading="eager" src="{{ asset('design/images/services-hero.png') }}" alt="Wealth Management" class="w-full h-full object-cover"/>
                         @endif
                     </div>
                     <!-- Mobile background -->
                     <div class="absolute inset-0 block md:hidden">
                         @if(isset($serviceData['hero_mobile_background_image']) && $serviceData['hero_mobile_background_image'])
-                            <img src="{{ asset('storage/' . $serviceData['hero_mobile_background_image']) }}" alt="Wealth Management Mobile" class="w-full h-full object-cover"/>
+                            <img loading="eager" src="{{ asset('storage/' . $serviceData['hero_mobile_background_image']) }}" alt="Wealth Management Mobile" class="w-full h-full object-cover"/>
                         @else
-                            <img src="{{ asset('design/images/mobile-services-hero.png') }}" alt="Wealth Management Mobile" class="w-full h-full object-cover"/>
+                            <img loading="eager" src="{{ asset('design/images/mobile-services-hero.png') }}" alt="Wealth Management Mobile" class="w-full h-full object-cover"/>
                         @endif
                     </div>
                     <div class="absolute inset-0"></div>
@@ -214,15 +214,15 @@
     <div class="absolute inset-0">
         <!-- Desktop background -->
         @if(isset($serviceData['governance_background']) && $serviceData['governance_background'])
-            <img src="{{ asset('storage/' . $serviceData['governance_background']) }}" alt="Governance Advisory Background" class="hidden md:block w-full h-full object-cover">
+            <img loading="lazy" src="{{ asset('storage/' . $serviceData['governance_background']) }}" alt="Governance Advisory Background" class="hidden md:block w-full h-full object-cover">
         @else
-            <img src="{{ asset('design/images/governance-bg.png') }}" alt="Governance Advisory Background" class="hidden md:block w-full h-full object-cover">
+            <img loading="lazy" src="{{ asset('design/images/governance-bg.png') }}" alt="Governance Advisory Background" class="hidden md:block w-full h-full object-cover">
         @endif
         <!-- Mobile background -->
         @if(isset($serviceData['governance_mobile_background']) && $serviceData['governance_mobile_background'])
-            <img src="{{ asset('storage/' . $serviceData['governance_mobile_background']) }}" alt="Governance Advisory Background Mobile" class="block md:hidden w-full h-full object-cover">
+            <img loading="lazy" src="{{ asset('storage/' . $serviceData['governance_mobile_background']) }}" alt="Governance Advisory Background Mobile" class="block md:hidden w-full h-full object-cover">
         @else
-            <img src="{{ asset('design/images/governance-bg.png') }}" alt="Governance Advisory Background Mobile" class="block md:hidden w-full h-full object-cover">
+            <img loading="lazy" src="{{ asset('design/images/governance-bg.png') }}" alt="Governance Advisory Background Mobile" class="block md:hidden w-full h-full object-cover">
         @endif
     </div>
     <div class="w-full xl:max-w-[1300px] md:max-w-[950px] mx-auto md:px-4 relative flex flex-col {{ $flexDirectionClass }} items-center gap-8">
@@ -240,11 +240,11 @@
             <!-- Mobile image placeholder moved under the paragraph -->
             <div class="block px-4 md:hidden mt-4">
                 @if(isset($serviceData['governance_mobile_image']) && $serviceData['governance_mobile_image'])
-                    <img src="{{ asset('storage/' . $serviceData['governance_mobile_image']) }}" alt="Governance Advisory Mobile" class="w-full h-auto rounded-lg" />
+                    <img loading="lazy" src="{{ asset('storage/' . $serviceData['governance_mobile_image']) }}" alt="Governance Advisory Mobile" class="w-full h-auto rounded-lg" />
                 @elseif(isset($serviceData['governance_image']) && $serviceData['governance_image'])
-                    <img src="{{ asset('storage/' . $serviceData['governance_image']) }}" alt="Governance Advisory Mobile" class="w-full h-auto rounded-lg" />
+                    <img loading="lazy" src="{{ asset('storage/' . $serviceData['governance_image']) }}" alt="Governance Advisory Mobile" class="w-full h-auto rounded-lg" />
                 @else
-                    <img src="{{ asset('design/images/governance.png') }}" alt="Governance Advisory Mobile" class="w-full h-auto rounded-lg" />
+                    <img loading="lazy" src="{{ asset('design/images/governance.png') }}" alt="Governance Advisory Mobile" class="w-full h-auto rounded-lg" />
                 @endif
             </div>
             <div class="hidden md:block {{ $textAlignment }}">
@@ -257,9 +257,9 @@
         <!-- Right side - Image -->
         <div class="w-full md:w-1/2 flex justify-center {{ $imageJustifyClass }} hidden md:block">
             @if(isset($serviceData['governance_image']) && $serviceData['governance_image'])
-                <img src="{{ asset('storage/' . $serviceData['governance_image']) }}" alt="Governance Advisory" class="w-full max-w-md">
+                <img loading="lazy" src="{{ asset('storage/' . $serviceData['governance_image']) }}" alt="Governance Advisory" class="w-full max-w-md">
             @else
-                <img src="{{ asset('design/images/governance.png') }}" alt="Governance Advisory" class="w-full max-w-md">
+                <img loading="lazy" src="{{ asset('design/images/governance.png') }}" alt="Governance Advisory" class="w-full max-w-md">
             @endif
         </div>
     </div>
@@ -280,15 +280,15 @@
     <div class="absolute inset-0">
         <!-- Desktop background -->
         @if(isset($serviceData['wealth_background']) && $serviceData['wealth_background'])
-            <img src="{{ asset('storage/' . $serviceData['wealth_background']) }}" alt="Wealth Planning Background" class="hidden md:block w-full h-full object-cover">
+            <img loading="lazy" src="{{ asset('storage/' . $serviceData['wealth_background']) }}" alt="Wealth Planning Background" class="hidden md:block w-full h-full object-cover">
         @else
-            <img src="{{ asset('design/images/wealth-bg.png') }}" alt="Wealth Planning Background" class="hidden md:block w-full h-full object-cover">
+            <img loading="lazy" src="{{ asset('design/images/wealth-bg.png') }}" alt="Wealth Planning Background" class="hidden md:block w-full h-full object-cover">
         @endif
         <!-- Mobile background -->
         @if(isset($serviceData['wealth_background_mobile']) && $serviceData['wealth_background_mobile'])
-            <img src="{{ asset('storage/' . $serviceData['wealth_background_mobile']) }}" alt="Wealth Planning Background Mobile" class="block md:hidden w-full h-full object-cover">
+            <img loading="lazy" src="{{ asset('storage/' . $serviceData['wealth_background_mobile']) }}" alt="Wealth Planning Background Mobile" class="block md:hidden w-full h-full object-cover">
         @else
-            <img src="{{ asset('design/images/mobile-wealth-bg.png') }}" alt="Wealth Planning Background Mobile" class="block md:hidden w-full h-full object-cover">
+            <img loading="lazy" src="{{ asset('design/images/mobile-wealth-bg.png') }}" alt="Wealth Planning Background Mobile" class="block md:hidden w-full h-full object-cover">
         @endif
     </div>
     <div class="w-full xl:max-w-[1300px] md:max-w-[950px] mx-auto md:px-4 relative flex flex-col {{ $flexDirectionClass }} items-center gap-8">
@@ -296,9 +296,9 @@
             <!-- Desktop image placeholder -->
             <div class="hidden md:block">
                 @if(isset($serviceData['wealth_image']) && $serviceData['wealth_image'])
-                    <img src="{{ asset('storage/' . $serviceData['wealth_image']) }}" alt="Wealth Planning" class="w-[350px] max-w-full h-auto rounded-lg" />
+                    <img loading="lazy" src="{{ asset('storage/' . $serviceData['wealth_image']) }}" alt="Wealth Planning" class="w-[350px] max-w-full h-auto rounded-lg" />
                 @else
-                    <img src="{{ asset('design/images/wealth-planning.png') }}" alt="Wealth Planning" class="w-[350px] max-w-full h-auto rounded-lg" />
+                    <img loading="lazy" src="{{ asset('design/images/wealth-planning.png') }}" alt="Wealth Planning" class="w-[350px] max-w-full h-auto rounded-lg" />
                 @endif
             </div>
         </div>
@@ -316,11 +316,11 @@
             <!-- Mobile image placeholder moved under the paragraph -->
             <div class="block px-4 md:hidden mt-4">
                 @if(isset($serviceData['wealth_mobile_image']) && $serviceData['wealth_mobile_image'])
-                    <img src="{{ asset('storage/' . $serviceData['wealth_mobile_image']) }}" alt="Wealth Planning Mobile" class="w-full h-auto rounded-lg" />
+                    <img loading="lazy" src="{{ asset('storage/' . $serviceData['wealth_mobile_image']) }}" alt="Wealth Planning Mobile" class="w-full h-auto rounded-lg" />
                 @elseif(isset($serviceData['wealth_image']) && $serviceData['wealth_image'])
-                    <img src="{{ asset('storage/' . $serviceData['wealth_image']) }}" alt="Wealth Planning Mobile" class="w-full h-auto rounded-lg" />
+                    <img loading="lazy" src="{{ asset('storage/' . $serviceData['wealth_image']) }}" alt="Wealth Planning Mobile" class="w-full h-auto rounded-lg" />
                 @else
-                    <img src="{{ asset('design/images/wealth-planning.png') }}" alt="Wealth Planning Mobile" class="w-full h-auto rounded-lg" />
+                    <img loading="lazy" src="{{ asset('design/images/wealth-planning.png') }}" alt="Wealth Planning Mobile" class="w-full h-auto rounded-lg" />
                 @endif
             </div>
             <div class="hidden md:block {{ $textAlignment }}">
@@ -346,15 +346,15 @@
     <div class="absolute inset-0">
         <!-- Desktop background -->
         @if(isset($serviceData['investment_background']) && $serviceData['investment_background'])
-            <img src="{{ asset('storage/' . $serviceData['investment_background']) }}" alt="Investment Advisory Background" class="hidden md:block w-full h-full object-cover">
+            <img loading="lazy" src="{{ asset('storage/' . $serviceData['investment_background']) }}" alt="Investment Advisory Background" class="hidden md:block w-full h-full object-cover">
         @else
-            <img src="{{ asset('design/images/investment-bg.png') }}" alt="Investment Advisory Background" class="hidden md:block w-full h-full object-cover">
+            <img loading="lazy" src="{{ asset('design/images/investment-bg.png') }}" alt="Investment Advisory Background" class="hidden md:block w-full h-full object-cover">
         @endif
         <!-- Mobile background -->
         @if(isset($serviceData['investment_mobile_background']) && $serviceData['investment_mobile_background'])
-            <img src="{{ asset('storage/' . $serviceData['investment_mobile_background']) }}" alt="Investment Advisory Background Mobile" class="block md:hidden w-full h-full object-cover">
+            <img loading="lazy" src="{{ asset('storage/' . $serviceData['investment_mobile_background']) }}" alt="Investment Advisory Background Mobile" class="block md:hidden w-full h-full object-cover">
         @else
-            <img src="{{ asset('design/images/investment-bg.png') }}" alt="Investment Advisory Background Mobile" class="block md:hidden w-full h-full object-cover">
+            <img loading="lazy" src="{{ asset('design/images/investment-bg.png') }}" alt="Investment Advisory Background Mobile" class="block md:hidden w-full h-full object-cover">
         @endif
     </div>
     <div class="w-full xl:max-w-[1300px] md:max-w-[950px] mx-auto md:px-4 relative flex flex-col {{ $flexDirectionClass }} items-center gap-8">
@@ -372,11 +372,11 @@
             <!-- Mobile image placeholder moved under the paragraph -->
             <div class="block px-4 md:hidden mt-4">
                 @if(isset($serviceData['investment_mobile_image']) && $serviceData['investment_mobile_image'])
-                    <img src="{{ asset('storage/' . $serviceData['investment_mobile_image']) }}" alt="Investment Advisory Mobile" class="w-full h-auto rounded-lg" />
+                    <img loading="lazy" src="{{ asset('storage/' . $serviceData['investment_mobile_image']) }}" alt="Investment Advisory Mobile" class="w-full h-auto rounded-lg" />
                 @elseif(isset($serviceData['investment_image']) && $serviceData['investment_image'])
-                    <img src="{{ asset('storage/' . $serviceData['investment_image']) }}" alt="Investment Advisory Mobile" class="w-full h-auto rounded-lg" />
+                    <img loading="lazy" src="{{ asset('storage/' . $serviceData['investment_image']) }}" alt="Investment Advisory Mobile" class="w-full h-auto rounded-lg" />
                 @else
-                    <img src="{{ asset('design/images/stratigic.png') }}" alt="Investment Advisory Mobile" class="w-full h-auto rounded-lg" />
+                    <img loading="lazy" src="{{ asset('design/images/stratigic.png') }}" alt="Investment Advisory Mobile" class="w-full h-auto rounded-lg" />
                 @endif
             </div>
             <div class="hidden md:block {{ $textAlignment }}">
@@ -389,9 +389,9 @@
         <!-- Right side - Image -->
         <div class="w-full md:w-1/2 flex justify-center {{ $imageJustifyClass }} hidden md:block">
             @if(isset($serviceData['investment_image']) && $serviceData['investment_image'])
-                <img src="{{ asset('storage/' . $serviceData['investment_image']) }}" alt="Investment Advisory" class="w-full max-w-md">
+                <img loading="lazy" src="{{ asset('storage/' . $serviceData['investment_image']) }}" alt="Investment Advisory" class="w-full max-w-md">
             @else
-                <img src="{{ asset('design/images/stratigic.png') }}" alt="Investment Advisory" class="w-full max-w-md">
+                <img loading="lazy" src="{{ asset('design/images/stratigic.png') }}" alt="Investment Advisory" class="w-full max-w-md">
             @endif
         </div>
     </div>
@@ -412,15 +412,15 @@
     <div class="absolute inset-0">
         <!-- Desktop background -->
         @if(isset($serviceData['cio_background']) && $serviceData['cio_background'])
-            <img src="{{ asset('storage/' . $serviceData['cio_background']) }}" alt="Governance Advisory Background" class="hidden md:block w-full h-full object-cover">
+            <img loading="lazy" src="{{ asset('storage/' . $serviceData['cio_background']) }}" alt="Governance Advisory Background" class="hidden md:block w-full h-full object-cover">
         @else
-            <img src="{{ asset('design/images/wealth-bg.png') }}" alt="Governance Advisory Background" class="hidden md:block w-full h-full object-cover">
+            <img loading="lazy" src="{{ asset('design/images/wealth-bg.png') }}" alt="Governance Advisory Background" class="hidden md:block w-full h-full object-cover">
         @endif
         <!-- Mobile background -->
         @if(isset($serviceData['cio_mobile_background']) && $serviceData['cio_mobile_background'])
-            <img src="{{ asset('storage/' . $serviceData['cio_mobile_background']) }}" alt="Governance Advisory Background Mobile" class="block md:hidden w-full h-full object-cover">
+            <img loading="lazy" src="{{ asset('storage/' . $serviceData['cio_mobile_background']) }}" alt="Governance Advisory Background Mobile" class="block md:hidden w-full h-full object-cover">
         @else
-            <img src="{{ asset('design/images/mobile-wealth-bg.png') }}" alt="Governance Advisory Background Mobile" class="block md:hidden w-full h-full object-cover">
+            <img loading="lazy" src="{{ asset('design/images/mobile-wealth-bg.png') }}" alt="Governance Advisory Background Mobile" class="block md:hidden w-full h-full object-cover">
         @endif
     </div>
     <div class="w-full xl:max-w-[1300px] md:max-w-[950px] mx-auto md:px-4 relative flex flex-col {{ $flexDirectionClass }} items-center gap-8">
@@ -428,9 +428,9 @@
             <!-- Desktop image placeholder -->
             <div class="hidden md:block">
                 @if(isset($serviceData['cio_image']) && $serviceData['cio_image'])
-                    <img src="{{ asset('storage/' . $serviceData['cio_image']) }}" alt="Senior Advisor" class="w-[350px] max-w-full h-auto rounded-lg" />
+                    <img loading="lazy" src="{{ asset('storage/' . $serviceData['cio_image']) }}" alt="Senior Advisor" class="w-[350px] max-w-full h-auto rounded-lg" />
                 @else
-                    <img src="{{ asset('design/images/cio.png') }}" alt="Senior Advisor" class="w-[350px] max-w-full h-auto rounded-lg" />
+                    <img loading="lazy" src="{{ asset('design/images/cio.png') }}" alt="Senior Advisor" class="w-[350px] max-w-full h-auto rounded-lg" />
                 @endif
             </div>
         </div>
@@ -448,11 +448,11 @@
             <!-- Mobile image placeholder moved under the paragraph -->
             <div class="block px-4 md:hidden mt-4">
                 @if(isset($serviceData['cio_mobile_image']) && $serviceData['cio_mobile_image'])
-                    <img src="{{ asset('storage/' . $serviceData['cio_mobile_image']) }}" alt="Senior Advisor Mobile" class="w-full h-auto rounded-lg" />
+                    <img loading="lazy" src="{{ asset('storage/' . $serviceData['cio_mobile_image']) }}" alt="Senior Advisor Mobile" class="w-full h-auto rounded-lg" />
                 @elseif(isset($serviceData['cio_image']) && $serviceData['cio_image'])
-                    <img src="{{ asset('storage/' . $serviceData['cio_image']) }}" alt="Senior Advisor Mobile" class="w-full h-auto rounded-lg" />
+                    <img loading="lazy" src="{{ asset('storage/' . $serviceData['cio_image']) }}" alt="Senior Advisor Mobile" class="w-full h-auto rounded-lg" />
                 @else
-                    <img src="{{ asset('design/images/cio.png') }}" alt="Senior Advisor Mobile" class="w-full h-auto rounded-lg" />
+                    <img loading="lazy" src="{{ asset('design/images/cio.png') }}" alt="Senior Advisor Mobile" class="w-full h-auto rounded-lg" />
                 @endif
             </div>
             <div class="hidden md:block {{ $textAlignment }}">
@@ -485,9 +485,9 @@
                 <div class="flex flex-col items-center">
                     <div class="bg-blue-900 text-white rounded-full w-32 h-[110px] flex items-center justify-center mb-4">
                         @if(isset($step['icon']) && $step['icon'])
-                            <img src="{{ asset('storage/' . $step['icon']) }}" alt="icon" class="" />
+                            <img loading="lazy" src="{{ asset('storage/' . $step['icon']) }}" alt="icon" class="" />
                         @else
-                            <img src="{{ asset('design/images/journey-logo' . ($index + 1) . '.svg') }}" alt="icon" class="" />
+                            <img loading="lazy" src="{{ asset('design/images/journey-logo' . ($index + 1) . '.svg') }}" alt="icon" class="" />
                         @endif
                     </div>
                     <div class="h-[{{ $index % 2 == 0 ? '73' : '183' }}px] w-[2px] bg-[#041B44] mb-2"></div>
@@ -500,7 +500,7 @@
             <!-- Fallback steps with exact styling from your code -->
             <div class="flex flex-col items-center">
                 <div class="bg-blue-900 text-white rounded-full w-32 h-[110px] flex items-center justify-center mb-4">
-                    <img src="{{ asset('design/images/journey-logo1.svg') }}" alt="icon" class="" />
+                    <img loading="lazy" src="{{ asset('design/images/journey-logo1.svg') }}" alt="icon" class="" />
                 </div>
                 <div class="h-[73px] w-[2px] bg-[#041B44] mb-2"></div>
                 <p class="text-[25px] text-gray-800 text-center font-['Poppins'] font-medium leading-[34px] whitespace-wrap">Strategic <br/> Decision</p>
@@ -508,7 +508,7 @@
         
             <div class="flex flex-col items-center">
                 <div class="bg-blue-900 text-white rounded-full w-32 h-[110px] flex items-center justify-center mb-4">
-                    <img src="{{ asset('design/images/journey-logo2.svg') }}" alt="icon" class="" />
+                    <img loading="lazy" src="{{ asset('design/images/journey-logo2.svg') }}" alt="icon" class="" />
                 </div>
                 <div class="h-[183px] w-[2px] bg-[#041B44] mb-2"></div>
                 <p class="text-[25px] text-[#041B44] text-center font-['Poppins'] font-medium leading-[34px] whitespace-wrap">Governance</p>
@@ -516,7 +516,7 @@
         
             <div class="flex flex-col items-center">
                 <div class="bg-blue-900 text-white rounded-full w-32 h-[110px] flex items-center justify-center mb-4">
-                    <img src="{{ asset('design/images/journey-logo3.svg') }}" alt="icon" class="" />
+                    <img loading="lazy" src="{{ asset('design/images/journey-logo3.svg') }}" alt="icon" class="" />
                 </div>
                 <div class="h-[73px] w-[2px] bg-[#041B44] mb-2"></div>
                 <p class="text-[25px] text-[#041B44] text-center font-['Poppins'] font-medium leading-[34px] whitespace-wrap">Current portfolio<br/>analysis</p>
@@ -524,7 +524,7 @@
         
             <div class="flex flex-col items-center">
                 <div class="bg-blue-900 text-white rounded-full w-32 h-[110px] flex items-center justify-center mb-4">
-                    <img src="{{ asset('design/images/journey-logo4.svg') }}" alt="icon" class="" />
+                    <img loading="lazy" src="{{ asset('design/images/journey-logo4.svg') }}" alt="icon" class="" />
                 </div>
                 <div class="h-[183px] w-[2px] bg-[#041B44] mb-2"></div>
                 <p class="text-[25px] text-[#041B44] text-center font-['Poppins'] font-medium leading-[34px] whitespace-wrap">Investment Policy<br/> Statement</p>
@@ -532,7 +532,7 @@
         
             <div class="flex flex-col items-center">
                 <div class="bg-blue-900 text-white rounded-full w-32 h-[110px] flex items-center justify-center mb-4">
-                    <img src="{{ asset('design/images/journey-logo5.svg') }}" alt="icon" class="" />
+                    <img loading="lazy" src="{{ asset('design/images/journey-logo5.svg') }}" alt="icon" class="" />
                 </div>
                 <div class="h-[73px] w-[2px] bg-[#041B44] mb-2"></div>
                 <p class="text-[25px] text-[#041B44] text-center font-['Poppins'] font-medium leading-[34px] whitespace-wrap">Investment<br/>Implementation</p>
@@ -540,7 +540,7 @@
         
             <div class="flex flex-col items-center">
                 <div class="bg-blue-900 text-white rounded-full w-32 h-[110px] flex items-center justify-center mb-4">
-                    <img src="{{ asset('design/images/journey-logo6.svg') }}" alt="icon" class="" />
+                    <img loading="lazy" src="{{ asset('design/images/journey-logo6.svg') }}" alt="icon" class="" />
                 </div>
                 <div class="h-[183px] w-[2px] bg-[#041B44] mb-2"></div>
                 <p class="text-[25px] text-[#041B44] text-center font-['Poppins'] font-medium leading-[34px] whitespace-wrap">Investment<br/>Structure</p>
@@ -548,7 +548,7 @@
         
             <div class="flex flex-col items-center">
                 <div class="bg-blue-900 text-white rounded-full w-32 h-[110px] flex items-center justify-center mb-4">
-                    <img src="{{ asset('design/images/journey-logo7.svg') }}" alt="icon" class="" />
+                    <img loading="lazy" src="{{ asset('design/images/journey-logo7.svg') }}" alt="icon" class="" />
                 </div>
                 <div class="h-[73px] w-[2px] bg-[#041B44] mb-2"></div>
                 <p class="text-[25px] text-[#041B44] text-center font-['Poppins'] font-medium leading-[34px] whitespace-wrap">Mangers Search<br/>& Selection</p>
@@ -556,7 +556,7 @@
         
             <div class="flex flex-col items-center">
                 <div class="bg-blue-900 text-white rounded-full w-32 h-[110px] flex items-center justify-center mb-4">
-                    <img src="{{ asset('design/images/journey-logo8.svg') }}" alt="icon" class="" />
+                    <img loading="lazy" src="{{ asset('design/images/journey-logo8.svg') }}" alt="icon" class="" />
                 </div>
                 <div class="h-[183px] w-[2px] bg-[#041B44] mb-2"></div>
                 <p class="text-[25px] text-[#041B44] text-center font-['Poppins'] font-medium leading-[34px] whitespace-wrap">Monitoring<br/>Performance</p>
@@ -567,9 +567,9 @@
     <!-- Mobile version - only shows image -->
     <div class="md:hidden mx-auto mb-8">
         @if(isset($serviceData['roadmap_mobile_image']) && $serviceData['roadmap_mobile_image'])
-            <img src="{{ asset('storage/' . $serviceData['roadmap_mobile_image']) }}" alt="Journey Map" class="w-full mx-auto" />
+            <img loading="lazy" src="{{ asset('storage/' . $serviceData['roadmap_mobile_image']) }}" alt="Journey Map" class="w-full mx-auto" />
         @else
-            <img src="{{ asset('design/images/mobile.map.jpg') }}" alt="Journey Map" class="w-full mx-auto" />
+            <img loading="lazy" src="{{ asset('design/images/mobile.map.jpg') }}" alt="Journey Map" class="w-full mx-auto" />
         @endif
     </div>
 </section>

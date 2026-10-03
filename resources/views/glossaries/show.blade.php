@@ -68,7 +68,7 @@
 <!-- Main Content Area -->
 <section class="container mx-auto bg-white pt-8" dir="{{ $pageDirection }}">
     <div class="px-4">
-        <img src="{{ $glossary['main_image_glossary']->first() ?? asset('images/default.jpg') }}" alt="{{ $glossaryTitle }}" class="rounded lg:w-[75%] h-[500px] object-cover mb-6">
+        <img loading="lazy" src="{{ $glossary['main_image_glossary']->first() ?? asset('images/default.jpg') }}" alt="{{ $glossaryTitle }}" class="rounded lg:w-[75%] h-[500px] object-cover mb-6">
     </div>
 
     <div class="container mx-auto px-4 flex flex-col lg:flex-row gap-8 {{ $reverseFlexClass }}">
@@ -87,13 +87,13 @@
                 <span class="text-[#D4AF37] font-semibold lg:mx-12 mb-2 {{ $alignmentClass }}">{{ $shareLabel }}</span>
                 <div class="flex gap-4 {{ $reverseFlexClass }}">
                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ $currentUrl }}" target="_blank" rel="noopener noreferrer" class="text-[#041B44] hover:text-[#D4AF37] transition-colors" title="{{ $isArabic ? 'شارك على فيسبوك' : 'Share on Facebook' }}">
-                        <img src="{{ asset('design/images/blue-fb.svg') }}" class="w-8 h-8 inline" alt="Facebook icon">
+                        <img loading="lazy" src="{{ asset('design/images/blue-fb.svg') }}" class="w-8 h-8 inline" alt="Facebook icon">
                     </a>
                     <a href="https://twitter.com/intent/tweet?url={{ $currentUrl }}&text={{ $encodedTitle }}" target="_blank" rel="noopener noreferrer" class="text-[#041B44] hover:text-[#D4AF37] transition-colors" title="{{ $isArabic ? 'شارك على إكس (تويتر)' : 'Share on X (Twitter)' }}">
-                        <img src="{{ asset('design/images/blue-x.svg') }}" class="w-8 h-8 inline" alt="X (Twitter) icon">
+                        <img loading="lazy" src="{{ asset('design/images/blue-x.svg') }}" class="w-8 h-8 inline" alt="X (Twitter) icon">
                     </a>
                     <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ $currentUrl }}" target="_blank" rel="noopener noreferrer" class="text-[#041B44] hover:text-[#D4AF37] transition-colors" title="{{ $isArabic ? 'شارك على لينكدإن' : 'Share on LinkedIn' }}">
-                        <img src="{{ asset('design/images/blue-in.svg') }}" class="w-8 h-8 inline" alt="LinkedIn icon">
+                        <img loading="lazy" src="{{ asset('design/images/blue-in.svg') }}" class="w-8 h-8 inline" alt="LinkedIn icon">
                     </a>
                 </div>
             </div>
@@ -171,7 +171,7 @@
                     $latestDescription = $localize($latestGlossary['description_en'] ?? null, $latestGlossary['description_ar'] ?? null);
                 @endphp
                 <div class="bg-white rounded-lg shadow p-4 flex flex-col overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <img src="{{ $latestGlossary['main_image_glossary']->first() ?? asset('design/images/blog.png') }}" alt="{{ $latestTitle }}" class="w-full h-48 sm:h-56 md:h-64 object-cover">
+                    <img loading="lazy" src="{{ $latestGlossary['main_image_glossary']->first() ?? asset('design/images/blog.png') }}" alt="{{ $latestTitle }}" class="w-full h-48 sm:h-56 md:h-64 object-cover">
                     <div class="lg:pt-4">
                         <div class="text-[14px] sm:text-[15px] font-['Poppins'] text-[#041B44] mb-3 sm:mb-4 {{ $alignmentClass }}">
                             <p>{{ \Illuminate\Support\Str::limit(strip_tags($latestDescription), 100) }}</p>

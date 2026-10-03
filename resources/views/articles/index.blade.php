@@ -44,10 +44,10 @@
             <div class="flex transition-transform duration-500 ease-in-out h-full">
                 <div class="w-full flex-shrink-0 relative">
                     <div class="absolute inset-0 hidden md:block">
-                        <img src="{{ $heroDesktop }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
+                        <img loading="lazy" src="{{ $heroDesktop }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
                     </div>
                     <div class="absolute inset-0 block md:hidden">
-                        <img src="{{ $heroMobile }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
+                        <img loading="lazy" src="{{ $heroMobile }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
                     </div>
                     <div class="relative h-[120vh] md:h-[90vh] flex items-center justify-center">
                         <div class="container mx-auto text-center">
@@ -82,7 +82,7 @@
                 @endphp
                 <div class="article-card-articles" data-category="{{ $article['category_id'] }}">
                     <div class="overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 rounded-lg">
-                        <img src="{{ $article['main_image_article']->first() ?? asset('images/default.jpg') }}" alt="{{ $articleTitle }}" class="w-full h-48 sm:h-56 md:h-64 object-cover">
+                        <img loading="lazy" src="{{ $article['main_image_article']->first() ?? asset('images/default.jpg') }}" alt="{{ $articleTitle }}" class="w-full h-48 sm:h-56 md:h-64 object-cover">
                         <div class="pt-5">
                             @if($category)
                                 <p class="text-[#D4AF37] text-sm mb-2">{{ $localize($category->name_en ?? null, $category->name_ar ?? null) }}</p>

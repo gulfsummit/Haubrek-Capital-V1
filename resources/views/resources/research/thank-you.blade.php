@@ -38,7 +38,7 @@
 
             {{-- Cover Image --}}
             <div class="w-40 mx-auto mb-8 rounded-lg overflow-hidden shadow">
-                <img src="{{ $image }}" alt="{{ $imageAlt }}" class="w-full h-auto"/>
+                <img loading="lazy" src="{{ $image }}" alt="{{ $imageAlt }}" class="w-full h-auto"/>
             </div>
 
             {{-- Download Button --}}

@@ -58,11 +58,11 @@
                     <div class="w-full flex-shrink-0 relative">
                         <!-- Desktop background -->
                         <div class="absolute inset-0 hidden md:block">
-                            <img src="{{ $heroDesktop }}" alt="{{ $heroDesktopAlt }}" class="w-full h-full object-cover"/>
+                            <img loading="lazy" src="{{ $heroDesktop }}" alt="{{ $heroDesktopAlt }}" class="w-full h-full object-cover"/>
                         </div>
                         <!-- Mobile background -->
                         <div class="absolute inset-0 block md:hidden">
-                            <img src="{{ $heroMobile }}" alt="{{ $heroMobileAlt }}" class="w-full h-full object-cover"/>
+                            <img loading="lazy" src="{{ $heroMobile }}" alt="{{ $heroMobileAlt }}" class="w-full h-full object-cover"/>
                         </div>
                         <div class="absolute inset-0 "></div>
                         <div class="relative h-[120vh] md:h-[90vh] flex items-center justify-center">
@@ -169,7 +169,7 @@
                     <div class="article-card-articles" data-category="{{ \Illuminate\Support\Str::slug($blog->category ?? 'uncategorized') }}" dir="{{ $pageDirection }}">
                         <div class="overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 rounded-lg group">
                             <a href="{{ route('blog.show', $blog->slug) }}" class="block overflow-hidden">
-                                <img
+                                <img loading="lazy"
                                     src="{{ $cardImage }}"
                                     alt="{{ $cardImageAlt }}"
                                     class="w-full h-48 sm:h-56 md:h-64 object-cover group-hover:scale-105 transition-transform duration-300"

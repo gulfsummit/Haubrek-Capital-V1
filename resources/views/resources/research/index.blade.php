@@ -38,10 +38,10 @@
         <div class="flex flex-col h-full">
             <div class="w-full flex-shrink-0 relative h-full">
                 <div class="absolute inset-0 hidden md:block">
-                    <img src="{{ $heroDesktop }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
+                    <img loading="lazy" src="{{ $heroDesktop }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
                 </div>
                 <div class="absolute inset-0 block md:hidden">
-                    <img src="{{ $heroMobile }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
+                    <img loading="lazy" src="{{ $heroMobile }}" alt="{{ $heroTitle }}" class="w-full h-full object-cover"/>
                 </div>
                 <div class="absolute inset-0 bg-navy-900/40"></div>
                 <div class="relative h-full flex items-center justify-center">
@@ -104,7 +104,7 @@
                 <article class="rounded-lg overflow-hidden hover:opacity-90 transition-opacity group flex flex-col">
                     <a href="{{ route('research.show', $item->slug) }}" class="block">
                         <div class="h-52 overflow-hidden relative">
-                            <img src="{{ $rImage }}" alt="{{ $rAlt }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                            <img loading="lazy" src="{{ $rImage }}" alt="{{ $rAlt }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
                             @if($item->form_required)
                                 <div class="absolute top-3 {{ $isArabic ? 'left-3' : 'right-3' }} bg-navy-900/80 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
                                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 00-8 0v4h8z"/></svg>
@@ -154,7 +154,7 @@
 {{-- CTA --}}
 <section class="relative py-20 text-white overflow-hidden">
     <div class="absolute inset-0">
-        <img src="{{ $ctaBackground }}" alt="" class="w-full h-full object-cover" aria-hidden="true"/>
+        <img loading="lazy" src="{{ $ctaBackground }}" alt="" class="w-full h-full object-cover" aria-hidden="true"/>
         <div class="absolute inset-0 bg-navy-900/70"></div>
     </div>
     <div class="relative container mx-auto px-4 text-center">

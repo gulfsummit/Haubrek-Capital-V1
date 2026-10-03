@@ -39,10 +39,10 @@
         <div class="flex flex-col h-full">
             <div class="w-full flex-shrink-0 relative h-full">
                 <div class="absolute inset-0 hidden md:block">
-                    <img src="{{ $heroDesktop }}" alt="{{ $heroDesktopAlt }}" class="w-full h-full object-cover"/>
+                    <img loading="lazy" src="{{ $heroDesktop }}" alt="{{ $heroDesktopAlt }}" class="w-full h-full object-cover"/>
                 </div>
                 <div class="absolute inset-0 block md:hidden">
-                    <img src="{{ $heroMobile }}" alt="{{ $heroMobileAlt }}" class="w-full h-full object-cover"/>
+                    <img loading="lazy" src="{{ $heroMobile }}" alt="{{ $heroMobileAlt }}" class="w-full h-full object-cover"/>
                 </div>
                 <div class="absolute inset-0 bg-navy-900/40"></div>
                 <div class="relative h-full flex items-center justify-center">
@@ -103,7 +103,7 @@
                 <article class="rounded-lg overflow-hidden hover:opacity-90 transition-opacity group">
                     <a href="{{ route('white-papers.show', $paper->slug) }}" class="block">
                         <div class="h-52 overflow-hidden">
-                            <img src="{{ $image }}" alt="{{ $imageAlt }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                            <img loading="lazy" src="{{ $image }}" alt="{{ $imageAlt }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
                         </div>
                     </a>
                     <div class="pt-6" dir="{{ $pageDirection }}">
@@ -152,7 +152,7 @@
 {{-- CTA --}}
 <section class="relative py-20 text-white overflow-hidden">
     <div class="absolute inset-0">
-        <img src="{{ $ctaBackground }}" alt="" class="w-full h-full object-cover" aria-hidden="true"/>
+        <img loading="lazy" src="{{ $ctaBackground }}" alt="" class="w-full h-full object-cover" aria-hidden="true"/>
         <div class="absolute inset-0 bg-navy-900/70"></div>
     </div>
     <div class="relative container mx-auto px-4 text-center">

@@ -41,11 +41,11 @@
                     <div class="w-full flex-shrink-0 relative">
                         <!-- Desktop background -->
                         <div class="absolute inset-0 hidden md:block">
-                            <img src="{{ $careers && $careers->hero_desktop_image ? asset('storage/' . $careers->hero_desktop_image) : asset('design/images/careers-hero.png') }}" alt="{{ $heroDesktopAlt }}" class="w-full h-full object-cover"/>
+                            <img loading="lazy" src="{{ $careers && $careers->hero_desktop_image ? asset('storage/' . $careers->hero_desktop_image) : asset('design/images/careers-hero.png') }}" alt="{{ $heroDesktopAlt }}" class="w-full h-full object-cover"/>
                         </div>
                         <!-- Mobile background -->
                         <div class="absolute inset-0 block md:hidden">
-                            <img src="{{ $careers && $careers->hero_mobile_image ? asset('storage/' . $careers->hero_mobile_image) : asset('design/images/careers-hero-mob.png') }}" alt="{{ $heroMobileAlt }}" class="w-full h-full object-cover"/>
+                            <img loading="lazy" src="{{ $careers && $careers->hero_mobile_image ? asset('storage/' . $careers->hero_mobile_image) : asset('design/images/careers-hero-mob.png') }}" alt="{{ $heroMobileAlt }}" class="w-full h-full object-cover"/>
                         </div>
                         <div class="absolute inset-0 "></div>
                         <div class="relative h-[120vh] md:h-[90vh] flex items-center justify-center">
@@ -67,7 +67,7 @@
     <section class="relative z-0 bg-[#0B1633] py-16 md:py-32 overflow-hidden">
         <!-- Patterned Background -->
         <div class="absolute inset-0 z-0">
-            <img src="{{ $careers && $careers->why_work_bg_image ? asset('storage/' . $careers->why_work_bg_image) : asset('design/images/team-bg.png') }}" alt="{{ $whyWorkBackgroundAlt }}" class="w-full h-full object-cover"/>
+            <img loading="lazy" src="{{ $careers && $careers->why_work_bg_image ? asset('storage/' . $careers->why_work_bg_image) : asset('design/images/team-bg.png') }}" alt="{{ $whyWorkBackgroundAlt }}" class="w-full h-full object-cover"/>
         </div>
         <div class="container mx-auto px-4 relative z-10">
             <h2 class="text-center text-[28px] md:text-[36px] font-neue-extrabold uppercase mb-2 text-white tracking-wide">{{ $careers ? (app()->getLocale() === 'ar' ? $careers->why_work_title_ar : $careers->why_work_title_en) : 'WHY WORK AT HAUBERK CAPITAL?' }}</h2>
