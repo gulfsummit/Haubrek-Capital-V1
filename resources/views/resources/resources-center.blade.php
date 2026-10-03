@@ -274,7 +274,7 @@
         'backgroundAlt' => $localize($resourceCenter?->cta_background_image_alt_en, $resourceCenter?->cta_background_image_alt_ar)
             ?: strip_tags($resourceCenter ? (app()->getLocale() === 'ar' ? $resourceCenter->cta_title_ar : $resourceCenter->cta_title_en) : 'READY TO START GROWING?!'),
         'titleHtml' => $resourceCenter ? nl2br(e(app()->getLocale() === 'ar' ? $resourceCenter->cta_title_ar : $resourceCenter->cta_title_en)) : 'READY TO<br/>START GROWING?!',
-        'descriptionHtml' => '<p>' . e($resourceCenter ? (app()->getLocale() === 'ar' ? $resourceCenter->cta_subtitle_ar : $resourceCenter->cta_subtitle_en) : 'Unlock the full potential of your wealth') . '</p>',
+        'descriptionHtml' => $resourceCenter ? (app()->getLocale() === 'ar' ? $resourceCenter->cta_subtitle_ar : $resourceCenter->cta_subtitle_en) : 'Unlock the full potential of your wealth',
         'buttonOneText' => $resourceCenter ? (app()->getLocale() === 'ar' ? $resourceCenter->cta_button_1_text_ar : $resourceCenter->cta_button_1_text_en) : 'JOIN OUR MAILING LIST',
         'buttonOneUrl' => $ctaButton1Url,
         'buttonTwoText' => $resourceCenter ? (app()->getLocale() === 'ar' ? $resourceCenter->cta_button_2_text_ar : $resourceCenter->cta_button_2_text_en) : 'REQUEST A MEETING',
