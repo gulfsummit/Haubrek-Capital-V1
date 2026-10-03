@@ -297,8 +297,17 @@
                             </div>
                             @endif
 
+                            {{-- Request a Meeting button - Desktop --}}
+                            <li class="nav-header-flex desktop-text-ltr">
+                                <a href="{{ app()->getLocale() == 'ar' ? route('ar.request-meeting') : route('request-meeting') }}"
+                                   class="bg-[#D4AF37] hover:bg-[#b8962e] text-white px-4 py-2 text-[0.8rem] xl:text-[0.973rem] hidden lg:block rounded-[10px] font-neue-extrabold inline-block transition-colors duration-200">
+                                    {{ app()->getLocale() == 'ar' ? 'طلب اجتماع' : 'REQUEST A MEETING' }}
+                                </a>
+                            </li>
 
                         </ul>
+                    </div>
+                </div>
                     </div>
                 </div>
 
@@ -412,6 +421,13 @@
                         </div>
                         @endif
 
+                        {{-- Request a Meeting button - Mobile --}}
+                        <li>
+                            <a href="{{ app()->getLocale() == 'ar' ? route('ar.request-meeting') : route('request-meeting') }}"
+                               class="bg-[#D4AF37] hover:bg-[#b8962e] text-white px-4 py-3 rounded-[10px] w-full font-neue-extrabold text-center block transition-colors duration-200">
+                                {{ app()->getLocale() == 'ar' ? 'طلب اجتماع' : 'REQUEST A MEETING' }}
+                            </a>
+                        </li>
 
                     </ul>
                 </div>
