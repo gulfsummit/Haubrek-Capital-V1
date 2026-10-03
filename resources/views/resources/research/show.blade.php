@@ -556,4 +556,19 @@
 </script>
 @endif
 
+
+<style>
+h1.article-title {
+    font-size: 1.25rem !important;
+    line-height: 1.4 !important;
+    font-weight: 700 !important;
+}
+@media (min-width: 768px) {
+    h1.article-title { font-size: 1.5rem !important; }
+}
+@media (min-width: 1024px) {
+    h1.article-title { font-size: 1.75rem !important; }
+}
+</style>
+
 @endsection
