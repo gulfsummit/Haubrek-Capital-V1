@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Arial, Tahoma, sans-serif;
+  background: #0f1117;
+  color: #e2e8f0;
+  direction: rtl;
+  font-size: 11pt;
+}
+
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 12mm 14mm 10mm 14mm;
+  page-break-after: always;
+  background: #0f1117;
+  position: relative;
+}
+.page:last-child { page-break-after: auto; }
+
+/* ── COVER ── */
+.cover-top-bar {
+  height: 7px;
+  background: #D4AF37;
+  margin: -12mm -14mm 0 -14mm;
+  width: calc(100% + 28mm);
+}
+.cover-bottom-bar {
+  height: 7px;
+  background: #D4AF37;
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+}
+.cover-inner {
+  margin-top: 30mm;
+  text-align: center;
+}
+.cover-title-box {
+  background: #1a1f2e;
+  border: 1px solid #2d3748;
+  border-radius: 10px;
+  padding: 28px;
+  margin-bottom: 28px;
+}
+.cover-title {
+  font-size: 22pt;
+  font-weight: bold;
+  color: #D4AF37;
+  margin-bottom: 8px;
+}
+.cover-subtitle {
+  font-size: 13pt;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+.cover-date {
+  font-size: 9pt;
+  color: #64748b;
+}
+
+.summary-boxes {
+  display: table;
+  width: 100%;
+  margin-bottom: 28px;
+}
+.summary-box {
+  display: table-cell;
+  width: 33%;
+  padding: 18px 10px;
+  text-align: center;
+  border-radius: 8px;
+}
+.summary-box-done   { background: rgba(16,185,129,0.1); border: 2px solid rgba(16,185,129,0.4); }
+.summary-box-partial{ background: rgba(245,158,11,0.1);  border: 2px solid rgba(245,158,11,0.4); }
+.summary-box-missing{ background: rgba(239,68,68,0.1);   border: 2px solid rgba(239,68,68,0.4); }
+.summary-count { font-size: 34pt; font-weight: bold; display: block; }
+.done-color    { color: #10b981; }
+.partial-color { color: #f59e0b; }
+.missing-color { color: #ef4444; }
+.summary-label { font-size: 9pt; color: #94a3b8; margin-top: 4px; display: block; }
+
+.cover-scope {
+  background: #1a1f2e;
+  border-right: 4px solid #D4AF37;
+  border-radius: 6px;
+  padding: 18px 20px;
+  text-align: right;
+  margin-bottom: 20px;
+}
+.cover-scope h3 { color: #D4AF37; font-size: 11pt; margin-bottom: 10px; }
+.cover-scope p  { color: #94a3b8; font-size: 9.5pt; line-height: 1.7; }
+
+.cover-meta {
+  display: table;
+  width: 100%;
+  margin-top: 16px;
+}
+.cover-meta-cell {
+  display: table-cell;
+  width: 50%;
+  background: #1a1f2e;
+  border: 1px solid #2d3748;
+  border-radius: 6px;
+  padding: 12px 16px;
+  vertical-align: top;
+}
+.cover-meta-cell:first-child { margin-left: 8px; }
+.meta-label { font-size: 8pt; color: #64748b; margin-bottom: 4px; }
+.meta-value { font-size: 10pt; color: #e2e8f0; }
+
+/* ── PAGE HEADER (non-cover) ── */
+.page-header {
+  background: #1a1f2e;
+  margin: -12mm -14mm 14px -14mm;
+  padding: 6px 14mm;
+  border-bottom: 1px solid #2d3748;
+  display: table;
+  width: calc(100% + 28mm);
+}
+.page-header-left  { display: table-cell; color: #94a3b8; font-size: 8pt; }
+.page-header-right { display: table-cell; text-align: left; color: #64748b; font-size: 8pt; }
+
+.page-top-bar {
+  height: 5px;
+  background: #D4AF37;
+  margin: -12mm -14mm 0 -14mm;
+  width: calc(100% + 28mm);
+}
+
+/* ── SECTION TITLE ── */
+.section-title {
+  background: #1a1f2e;
+  border-right: 5px solid #D4AF37;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 16px 0 14px 0;
+  font-size: 13pt;
+  font-weight: bold;
+  color: #D4AF37;
+}
+
+/* ── OVERVIEW TABLE ── */
+.overview-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+.overview-table th {
+  background: #0f1117;
+  color: #64748b;
+  font-size: 8.5pt;
+  padding: 7px 10px;
+  text-align: right;
+  border-bottom: 1px solid #2d3748;
+}
+.overview-table td {
+  padding: 8px 10px;
+  font-size: 8.5pt;
+  border-bottom: 1px solid #1e2535;
+  color: #e2e8f0;
+  vertical-align: middle;
+}
+.overview-table tr:nth-child(odd) td { background: #141820; }
+.overview-table tr:nth-child(even) td { background: #0f1117; }
+
+/* ── BADGES ── */
+.badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 12px;
+  font-size: 7.5pt;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.badge-done    { background: rgba(16,185,129,0.2);  color: #10b981; border: 1px solid rgba(16,185,129,0.4); }
+.badge-partial { background: rgba(245,158,11,0.2);  color: #f59e0b; border: 1px solid rgba(245,158,11,0.4); }
+.badge-missing { background: rgba(239,68,68,0.2);   color: #ef4444; border: 1px solid rgba(239,68,68,0.4); }
+.badge-high    { background: rgba(239,68,68,0.15);  color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+.badge-med     { background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); }
+.badge-low     { background: rgba(16,185,129,0.15); color: #10b981; border: 1px solid rgba(16,185,129,0.3); }
+
+/* ── ITEM CARDS ── */
+.item-card {
+  background: #1a1f2e;
+  border: 1px solid #2d3748;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.item-card-header {
+  padding: 10px 14px 8px 14px;
+  display: table;
+  width: 100%;
+}
+.item-header-num {
+  display: table-cell;
+  width: 32px;
+  vertical-align: middle;
+}
+.num-circle {
+  display: inline-block;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: #2d3748;
+  color: #94a3b8;
+  font-size: 8pt;
+  font-weight: bold;
+  text-align: center;
+  line-height: 26px;
+}
+.item-header-main {
+  display: table-cell;
+  vertical-align: middle;
+}
+.item-title { font-size: 10pt; font-weight: bold; color: #e2e8f0; margin-bottom: 5px; }
+.item-badges { }
+.item-body {
+  background: #0f1117;
+  border-top: 1px solid #2d3748;
+  padding: 10px 14px;
+}
+.detail-row {
+  display: table;
+  width: 100%;
+  margin-bottom: 5px;
+}
+.detail-bullet {
+  display: table-cell;
+  width: 16px;
+  vertical-align: top;
+  font-size: 9pt;
+  padding-top: 1px;
+}
+.detail-text {
+  display: table-cell;
+  font-size: 8.5pt;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+.detail-text.text-found   { color: #10b981; }
+.detail-text.text-missing { color: #ef4444; }
+.detail-text.text-note    { color: #f59e0b; }
+
+.bullet-done    { color: #10b981; }
+.bullet-missing { color: #ef4444; }
+.bullet-note    { color: #f59e0b; }
+
+/* ── DIVIDER ── */
+hr.divider {
+  border: none;
+  border-top: 1px solid #2d3748;
+  margin: 16px 0;
+}
+
+/* ── PRIORITY PLAN ── */
+.priority-group {
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.priority-header-red    { background: rgba(239,68,68,0.2);  border: 1px solid rgba(239,68,68,0.4);  padding: 9px 14px; color: #ef4444; font-size: 10pt; font-weight: bold; border-radius: 6px 6px 0 0; }
+.priority-header-yellow { background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.4); padding: 9px 14px; color: #f59e0b; font-size: 10pt; font-weight: bold; border-radius: 6px 6px 0 0; }
+.priority-header-green  { background: rgba(16,185,129,0.2); border: 1px solid rgba(16,185,129,0.4); padding: 9px 14px; color: #10b981; font-size: 10pt; font-weight: bold; border-radius: 6px 6px 0 0; }
+.priority-body { background: #1a1f2e; border: 1px solid #2d3748; border-top: none; padding: 10px 14px; border-radius: 0 0 6px 6px; }
+.priority-item {
+  display: table;
+  width: 100%;
+  padding: 5px 0;
+  border-bottom: 1px solid #242b3a;
+}
+.priority-item:last-child { border-bottom: none; }
+.p-bullet { display: table-cell; width: 18px; vertical-align: top; font-size: 9pt; padding-top: 2px; }
+.p-text   { display: table-cell; font-size: 8.5pt; color: #e2e8f0; line-height: 1.6; }
+
+/* ── FOOTER ── */
+.page-footer {
+  position: absolute;
+  bottom: 6mm;
+  left: 14mm;
+  right: 14mm;
+  border-top: 1px solid #2d3748;
+  padding-top: 5px;
+  display: table;
+  width: calc(100% - 28mm);
+}
+.footer-left  { display: table-cell; color: #64748b; font-size: 7.5pt; }
+.footer-right { display: table-cell; text-align: left; color: #64748b; font-size: 7.5pt; }
+
+@page {
+  margin: 0;
+  size: A4;
+}
+@media print {
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ PAGE 1: COVER ═══ -->
+<div class="page">
+  <div class="cover-top-bar"></div>
+
+  <div style="margin-top: 28mm; text-align: center;">
+
+    <div class="cover-title-box">
+      <div class="cover-title">📊 تقرير مقارنة المتطلبات مقابل التنفيذ</div>
+      <div class="cover-subtitle">Hauberk Capital &nbsp;|&nbsp; Laravel / Filament</div>
+      <div class="cover-date">تاريخ التقرير: أكتوبر 2026 &nbsp;|&nbsp; نطاق الفحص: 34 نقطة من وثيقة المتطلبات</div>
+    </div>
+
+    <table class="summary-boxes" style="border-spacing: 10px 0;">
+      <tr>
+        <td class="summary-box summary-box-done">
+          <span class="summary-count done-color">8</span>
+          <span class="summary-label">✅ مطبّق بالكامل</span>
+        </td>
+        <td class="summary-box summary-box-partial" style="margin: 0 10px;">
+          <span class="summary-count partial-color">8</span>
+          <span class="summary-label">⚠️ مطبّق جزئياً</span>
+        </td>
+        <td class="summary-box summary-box-missing">
+          <span class="summary-count missing-color">18</span>
+          <span class="summary-label">❌ غير مطبّق</span>
+        </td>
+      </tr>
+    </table>
+
+    <div class="cover-scope">
+      <h3>🔍 نطاق التحليل</h3>
+      <p>
+        يقارن هذا التقرير وثيقة المتطلبات الكاملة للمشروع مع الكود المطبّق فعلياً في موقع Hauberk Capital.
+        يشمل التحليل 34 نقطة متطلبات تغطي: تحسينات Technical SEO، بنية الروابط واللغات، لوحة التحكم،
+        نظام الصور، إعادة التوجيه، الأداء، البيانات الهيكلية، وتطوير مركز الموارد الكامل
+        (White Papers, CIO Flash, Blogs, Monday Window, Research).
+      </p>
+    </div>
+
+    <table style="width:100%; border-collapse: separate; border-spacing: 8px 0;">
+      <tr>
+        <td class="cover-meta-cell">
+          <div class="meta-label">المشروع</div>
+          <div class="meta-value">Hauberk Capital</div>
+        </td>
+        <td class="cover-meta-cell">
+          <div class="meta-label">التقنية</div>
+          <div class="meta-value">Laravel 10 / Filament 3 / PHP 8.3</div>
+        </td>
+      </tr>
+      <tr style="height: 8px;"></tr>
+      <tr>
+        <td class="cover-meta-cell">
+          <div class="meta-label">طريقة التحليل</div>
+          <div class="meta-value">فحص مباشر للكود — بدون افتراضات</div>
+        </td>
+        <td class="cover-meta-cell">
+          <div class="meta-label">المُعِدّ</div>
+          <div class="meta-value">Kiro AI — Code Analysis Agent</div>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+  <div class="cover-bottom-bar"></div>
+</div>
+
+<!-- ═══════════════════════════════ PAGE 2: OVERVIEW TABLE ═══ -->
+<div class="page">
+  <div class="page-top-bar"></div>
+  <div class="page-header">
+    <span class="page-header-left">Hauberk Capital — تقرير مقارنة المتطلبات مقابل التنفيذ</span>
+    <span class="page-header-right">صفحة 2</span>
+  </div>
+
+  <div class="section-title">الجدول الإجمالي — نظرة شاملة على جميع المتطلبات</div>
+
+  <table class="overview-table">
+    <thead>
+      <tr>
+        <th style="width:32px;">#</th>
+        <th>المتطلب</th>
+        <th style="width:110px;">الحالة</th>
+        <th style="width:72px;">الأولوية</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>روابط /ar/ prefix وhreflang للغة العربية</td><td><span class="badge badge-missing">❌ غير موجود</span></td><td><span class="badge badge-high">عالية</span></td></tr>
+      <tr><td>2</td><td>تحسين حجم عنوان المقال</td><td><span class="badge badge-partial">⚠️ جزئي</span></td><td><span class="badge badge-low">منخفضة</span></td></tr>
+      <tr><td>3</td><td>بطاقات المقالات (صورة + عنوان + مقتطف + زر)</td><td><span class="badge badge-done">✅ مكتمل</span></td><td>—</td></tr>
+      <tr><td>4</td><td>التحكم اليدوي في تاريخ ووقت النشر</td><td><span class="badge badge-partial">⚠️ جزئي</span></td><td><span class="badge badge-med">متوسطة</span></td></tr>
+      <tr><td>5</td><td>إنشاء Canonical تلقائياً من الـ Slug</td><td><span class="badge badge-done">✅ مكتمل</span></td><td>—</td></tr>
+      <tr><td>6</td><td>نظام الصور (Featured Image موحدة + srcset)</td><td><span class="badge badge-partial">⚠️ جزئي</span></td><td><span class="badge badge-high">عالية</span></td></tr>
+      <tr><td>7</td><td>نظام إدارة Redirects من لوحة التحكم</td><td><span class="badge badge-missing">❌ غير موجود</span></td><td><span class="badge badge-high">عالية</span></td></tr>
+      <tr><td>8</td><td>بنية العناوين H1/H2 في الصفحة الرئيسية</td><td><span class="badge badge-partial">⚠️ جزئي</span></td><td><span class="badge badge-med">متوسطة</span></td></tr>
+      <tr><td>9</td><td>دعم HTML Tags في حقول المحتوى</td><td><span class="badge badge-done">✅ مكتمل</span></td><td>—</td></tr>
+      <tr><td>10</td><td>إصلاح مشاكل النسخة العربية</td><td><span class="badge badge-partial">⚠️ جزئي</span></td><td><span class="badge badge-med">متوسطة</span></td></tr>
+      <tr><td>11</td><td>تحسين ALT وTitle للصور</td><td><span class="badge badge-partial">⚠️ جزئي</span></td><td><span class="badge badge-med">متوسطة</span></td></tr>
+      <tr><td>12</td><td>تحسين الأداء (Lazy Loading, srcset, WebP)</td><td><span class="badge badge-missing">❌ غير موجود</span></td><td><span class="badge badge-high">عالية</span></td></tr>
+      <tr><td>13</td><td>Dynamic Automated Schema (جميع أنواع المحتوى)</td><td><span class="badge badge-partial">⚠️ جزئي</span></td><td><span class="badge badge-med">متوسطة</span></td></tr>
+      <tr><td>14</td><td>SEO Title وMeta Description لجميع الصفحات</td><td><span class="badge badge-partial">⚠️ جزئي</span></td><td><span class="badge badge-med">متوسطة</span></td></tr>
+      <tr><td>15</td><td>Resources Center Architecture الكاملة</td><td><span class="badge badge-done">✅ مكتمل</span></td><td>—</td></tr>
+      <tr><td>16–19</td><td>نظام White Papers الكامل + Supporting Article</td><td><span class="badge badge-partial">⚠️ جزئي</span></td><td><span class="badge badge-high">عالية</span></td></tr>
+      <tr><td>20–23</td><td>نظام CIO Flash + Transcript</td><td><span class="badge badge-partial">⚠️ جزئي</span></td><td><span class="badge badge-high">عالية</span></td></tr>
+      <tr><td>24–25</td><td>نظام Blogs + حقول Related Content</td><td><span class="badge badge-partial">⚠️ جزئي</span></td><td><span class="badge badge-med">متوسطة</span></td></tr>
+      <tr><td>26–29</td><td>Monday Window كـ Weekly Intelligence Dashboard</td><td><span class="badge badge-missing">❌ غير موجود</span></td><td><span class="badge badge-high">عالية</span></td></tr>
+      <tr><td>30–34</td><td>Research مع نظام التحميل المحمي بالنموذج</td><td><span class="badge badge-partial">⚠️ جزئي</span></td><td><span class="badge badge-high">عالية</span></td></tr>
+      <tr><td>35</td><td>Custom Post Types Architecture</td><td><span class="badge badge-done">✅ مكتمل</span></td><td>—</td></tr>
+      <tr><td>QA</td><td>خطة الاختبار وضمان الجودة</td><td><span class="badge badge-missing">❌ غير موجود</span></td><td><span class="badge badge-high">عالية</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════ PAGE 3: TECHNICAL SEO (1–7) ═══ -->
+<div class="page">
+  <div class="page-top-bar"></div>
+  <div class="page-header">
+    <span class="page-header-left">Hauberk Capital — تقرير مقارنة المتطلبات مقابل التنفيذ</span>
+    <span class="page-header-right">صفحة 3</span>
+  </div>
+
+  <div class="section-title">أولاً: التحسينات التقنية والـ Technical SEO (1–7)</div>
+
+  <!-- Item 1 -->
+  <div class="item-card" style="border-color: #ef4444;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle">1</span></div>
+      <div class="item-header-main">
+        <div class="item-title">تطوير روابط النسخة العربية (/ar/ prefix) وربط اللغات بـ hreflang</div>
+        <div class="item-badges">
+          <span class="badge badge-missing">❌ غير موجود</span>&nbsp;
+          <span class="badge badge-high">أولوية عالية</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">اللغة محفوظة في Session فقط — لا يوجد /ar/ في الروابط مطلقاً</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد Route Group بـ prefix('ar') في ملف routes/web.php</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا توجد hreflang tags في &lt;head&gt; لربط النسختين العربية والإنجليزية</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">رابط البلوج بالعربية: /blog — يجب أن يكون: /ar/resources-center/blogs/</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-note">→</span><span class="detail-text text-note">الكود الحالي: Route::get('lang/{locale}', fn($l) => Session::put('locale', $l))</span></div>
+    </div>
+  </div>
+
+  <!-- Item 2 -->
+  <div class="item-card" style="border-color: #f59e0b;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle">2</span></div>
+      <div class="item-header-main">
+        <div class="item-title">تحسين حجم عنوان المقال</div>
+        <div class="item-badges">
+          <span class="badge badge-partial">⚠️ جزئي</span>&nbsp;
+          <span class="badge badge-low">أولوية منخفضة</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-note">⚠</span><span class="detail-text text-note">العناوين موجودة في القوالب لكن التعديل البصري يحتاج مراجعة في المتصفح</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-note">→</span><span class="detail-text">يحتاج تحديد حجم الخط المطلوب من صاحب المشروع ثم تطبيقه في CSS</span></div>
+    </div>
+  </div>
+
+  <!-- Item 3 -->
+  <div class="item-card" style="border-color: #10b981;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle">3</span></div>
+      <div class="item-header-main">
+        <div class="item-title">تطوير بطاقات المقالات (Article Cards)</div>
+        <div class="item-badges">
+          <span class="badge badge-done">✅ مكتمل بالكامل</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">الصورة قابلة للنقر — مغلّفة بـ &lt;a href="route('blog.show', $slug)"&gt;</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">العنوان قابل للنقر ويؤدي إلى صفحة المقال</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">الوصف المختصر يظهر أسفل العنوان ($trimmedDescription)</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">زر "اقرأ المزيد" فعلي ومخصص من لوحة التحكم ($postButtonLabel)</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">الزر يؤدي إلى صفحة المقال الصحيحة</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-note">⚠</span><span class="detail-text text-note">توحيد المسافات بين البطاقات يحتاج مراجعة بصرية على Desktop/Tablet/Mobile</span></div>
+    </div>
+  </div>
+
+  <!-- Item 4 -->
+  <div class="item-card" style="border-color: #f59e0b;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle">4</span></div>
+      <div class="item-header-main">
+        <div class="item-title">التحكم اليدوي في تاريخ ووقت النشر</div>
+        <div class="item-badges">
+          <span class="badge badge-partial">⚠️ جزئي — تاريخ فقط</span>&nbsp;
+          <span class="badge badge-med">أولوية متوسطة</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">حقل publication_date (DatePicker) موجود في: Blog, WhitePaper, CioFlash, MondayWindow, Research</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد حقل publish_time في أي نموذج أو migration</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد TimePicker component في أي مورد Filament</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد منع لاستبدال التاريخ تلقائياً بعد تحديده</span></div>
+    </div>
+  </div>
+
+  <!-- Item 5 -->
+  <div class="item-card" style="border-color: #10b981;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle">5</span></div>
+      <div class="item-header-main">
+        <div class="item-title">إنشاء Canonical تلقائياً من الـ Slug</div>
+        <div class="item-badges">
+          <span class="badge badge-done">✅ مكتمل</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">يُعبأ تلقائياً من الـ slug عند الإنشاء في BlogResource</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">يمكن تعديله يدوياً إذا لزم الأمر</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">عند تركه فارغاً يرجع لـ url()->current() في app.blade.php</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-note">⚠</span><span class="detail-text text-note">التحديث التلقائي عند تغيير الـ Slug لاحقاً يحتاج تحقق إضافي</span></div>
+    </div>
+  </div>
+
+  <!-- Item 6 -->
+  <div class="item-card" style="border-color: #f59e0b;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle">6</span></div>
+      <div class="item-header-main">
+        <div class="item-title">تطوير نظام الصور (صورة Featured Image واحدة + Responsive)</div>
+        <div class="item-badges">
+          <span class="badge badge-partial">⚠️ جزئي</span>&nbsp;
+          <span class="badge badge-high">أولوية عالية</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">CioFlash وMondayWindow وResearch: صورة واحدة فقط ✅</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-note">⚠</span><span class="detail-text text-note">Blog: featured_image + thumbnail_image (حقلان — يجب توحيدهما)</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-note">⚠</span><span class="detail-text text-note">WhitePaper: featured_image + cover_image (حقلان — قد يكون مقبولاً)</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد srcset أو sizes في أي قالب blade</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد Image Optimisation pipeline</span></div>
+    </div>
+  </div>
+
+  <!-- Item 7 -->
+  <div class="item-card" style="border-color: #ef4444;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle">7</span></div>
+      <div class="item-header-main">
+        <div class="item-title">إنشاء نظام إدارة Redirects من لوحة التحكم (301/302)</div>
+        <div class="item-badges">
+          <span class="badge badge-missing">❌ غير موجود بالكامل</span>&nbsp;
+          <span class="badge badge-high">أولوية عالية</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد نموذج Redirect.php في app/Models/</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا توجد migration خاصة بالـ redirects</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد RedirectResource.php في app/Filament/Admin/Resources/</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد Middleware لتطبيق الـ redirects من قاعدة البيانات</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد Validation لمنع Redirect Loops أو التحويلات المكررة</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════ PAGE 4: TECHNICAL SEO (8–14) ═══ -->
+<div class="page">
+  <div class="page-top-bar"></div>
+  <div class="page-header">
+    <span class="page-header-left">Hauberk Capital — تقرير مقارنة المتطلبات مقابل التنفيذ</span>
+    <span class="page-header-right">صفحة 4</span>
+  </div>
+
+  <div class="section-title">أولاً: التحسينات التقنية والـ Technical SEO (8–14)</div>
+
+  <!-- Item 8 -->
+  <div class="item-card" style="border-color: #f59e0b;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle">8</span></div>
+      <div class="item-header-main">
+        <div class="item-title">تحسين بنية العناوين في الصفحة الرئيسية (H1 مستقل + Slider H2)</div>
+        <div class="item-badges">
+          <span class="badge badge-partial">⚠️ جزئي</span>&nbsp;
+          <span class="badge badge-med">أولوية متوسطة</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-note">⚠</span><span class="detail-text text-note">عنوان الـ Slider يستخدم &lt;h1&gt; حالياً — المطلوب تغييره إلى &lt;h2&gt;</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">HomeResource لا يحتوي على SeoTab — لا يوجد حقل Primary H1 مستقل في لوحة التحكم</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">قسم "How We Can Assist" يستخدم &lt;h2&gt; بشكل صحيح</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-note">→</span><span class="detail-text">الحل: إضافة SeoTab لـ HomeResource يتضمن حقل h1_en وh1_ar</span></div>
+    </div>
+  </div>
+
+  <!-- Item 9 -->
+  <div class="item-card" style="border-color: #10b981;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle">9</span></div>
+      <div class="item-header-main">
+        <div class="item-title">دعم HTML Tags داخل حقول المحتوى (Title/Subtitle/Description)</div>
+        <div class="item-badges">
+          <span class="badge badge-done">✅ مكتمل</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">جميع الحقول تُعرض بـ {!! !!} — تدعم HTML الخام بالكامل</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">CustomRichEditor يدعم التنسيق المتقدم بما في ذلك &lt;br&gt; و&lt;strong&gt; إلخ</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-note">⚠</span><span class="detail-text text-note">Sanitization مناسب للحفاظ على أمان الموقع يحتاج تحقق إضافي</span></div>
+    </div>
+  </div>
+
+  <!-- Item 10 -->
+  <div class="item-card" style="border-color: #f59e0b;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle">10</span></div>
+      <div class="item-header-main">
+        <div class="item-title">إصلاح مشاكل النسخة العربية</div>
+        <div class="item-badges">
+          <span class="badge badge-partial">⚠️ جزئي</span>&nbsp;
+          <span class="badge badge-med">أولوية متوسطة</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-note">⚠</span><span class="detail-text text-note">الصفحة الرئيسية — "How We Can Assist": ملف serviceSection.blade.php القديم يحتوي نصوصاً إنجليزية ثابتة (hardcoded)</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">Resources Center — CTA Section: إذا كان cta_title_ar فارغاً تظهر المنطقة فارغة بدلاً من fallback مناسب</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-note">⚠</span><span class="detail-text text-note">صفحة الخدمات — القسم الثاني: يعتمد على البيانات المدخلة، لا خلل في الكود نفسه</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">يحتاج مراجعة بصرية فعلية في المتصفح لتحديد جميع المشاكل المتبقية</span></div>
+    </div>
+  </div>
+
+  <!-- Item 11 -->
+  <div class="item-card" style="border-color: #f59e0b;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle">11</span></div>
+      <div class="item-header-main">
+        <div class="item-title">تحسين ALT وTitle للصور</div>
+        <div class="item-badges">
+          <span class="badge badge-partial">⚠️ جزئي — ALT فقط</span>&nbsp;
+          <span class="badge badge-med">أولوية متوسطة</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">حقول ALT موجودة: featured_image_alt_en/ar في Blog, WhitePaper, CioFlash, MondayWindow</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">ALT يُخرج صحيحاً في HTML — متاح لمحركات البحث والـ Accessibility</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد حقل image_title_en/ar في أي نموذج أو مورد Filament</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد title="..." على أي وسم &lt;img&gt; في قوالب blade</span></div>
+    </div>
+  </div>
+
+  <!-- Item 12 -->
+  <div class="item-card" style="border-color: #ef4444;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle">12</span></div>
+      <div class="item-header-main">
+        <div class="item-title">تحسين أداء الموقع وسرعة التحميل</div>
+        <div class="item-badges">
+          <span class="badge badge-missing">❌ غير موجود</span>&nbsp;
+          <span class="badge badge-high">أولوية عالية</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">loading="lazy" غائب عن الصور — موجود فقط على iframe خريطة Google Maps</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد srcset أو sizes في أي قالب blade</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد &lt;picture&gt; element أو WebP conversion</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد Image Optimisation pipeline (مثل spatie/laravel-image-optimizer)</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-note">⚠</span><span class="detail-text text-note">CSS/JS bundling موجود عبر Vite لكن Render-Blocking Resources لم تُعالج</span></div>
+    </div>
+  </div>
+
+  <!-- Item 13 -->
+  <div class="item-card" style="border-color: #f59e0b;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle">13</span></div>
+      <div class="item-header-main">
+        <div class="item-title">تطوير Automated Dynamic Schema (Structured Data)</div>
+        <div class="item-badges">
+          <span class="badge badge-partial">⚠️ جزئي — بعض الأنواع ناقصة</span>&nbsp;
+          <span class="badge badge-med">أولوية متوسطة</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">نظام Schema ديناميكي موجود في app.blade.php يستخدم spatie/schema-org</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">Organization, WebSite, WebPage, BreadcrumbList مطبقة ومربوطة بالبيانات الفعلية</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">BlogPosting للمقالات، Article لدراسات الحالة مطبّقان</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">WhitePaper: يحتاج schema من نوع Report</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">CioFlash: يحتاج Article + AudioObject schema</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">Research: يحتاج Report schema — MondayWindow: يحتاج Article schema</span></div>
+    </div>
+  </div>
+
+  <!-- Item 14 -->
+  <div class="item-card" style="border-color: #f59e0b;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle">14</span></div>
+      <div class="item-header-main">
+        <div class="item-title">إضافة SEO Title وMeta Description للصفحات الإضافية</div>
+        <div class="item-badges">
+          <span class="badge badge-partial">⚠️ جزئي — صفحتان ناقصتان</span>&nbsp;
+          <span class="badge badge-med">أولوية متوسطة</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">معظم الصفحات تمتلك HasSeoMeta trait وSeoTab في Filament (Blog, WhitePaper, CioFlash, Research...)</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">SeoTab يتضمن: meta_title, meta_description, h1, keywords, canonical, og_title, og_description, og_image</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">HomeResource: لا يحتوي SeoTab رغم أن Home Model يدعم HasSeoMeta</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">ServicesResource: لا يحتوي SeoTab</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════ PAGE 5: RESOURCES CENTER (15–19) ═══ -->
+<div class="page">
+  <div class="page-top-bar"></div>
+  <div class="page-header">
+    <span class="page-header-left">Hauberk Capital — تقرير مقارنة المتطلبات مقابل التنفيذ</span>
+    <span class="page-header-right">صفحة 5</span>
+  </div>
+
+  <div class="section-title">ثانياً: تطوير Resources Center (15–19)</div>
+
+  <!-- Item 15 -->
+  <div class="item-card" style="border-color: #10b981;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle">15</span></div>
+      <div class="item-header-main">
+        <div class="item-title">إعادة بناء Architecture الخاصة بـ Resources Center</div>
+        <div class="item-badges">
+          <span class="badge badge-done">✅ مكتمل</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">/resources-center/ موجود وعامل</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">/resources-center/white-papers/ — /resources-center/cio-flash/ — /resources-center/monday-window/ — /resources-center/research/ كلها موجودة</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">كل نوع محتوى له Model مستقل + Migration + Filament Resource + Archive/Individual Pages</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-note">⚠</span><span class="detail-text text-note">رابط البلوج هو /blog وليس /resources-center/blogs/ — يحتاج توحيد</span></div>
+    </div>
+  </div>
+
+  <!-- Items 16-19 White Papers -->
+  <div class="item-card" style="border-color: #f59e0b;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle" style="font-size:7pt;">16-19</span></div>
+      <div class="item-header-main">
+        <div class="item-title">إنشاء وتطوير نظام White Papers الكامل</div>
+        <div class="item-badges">
+          <span class="badge badge-partial">⚠️ جزئي</span>&nbsp;
+          <span class="badge badge-high">أولوية عالية</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">WhitePaper Model + Migration + WhitePaperResource في Filament: موجودة</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">صفحة Archive (/resources-center/white-papers/) + Individual page: موجودتان</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">الحقول الموجودة: Title, Slug, Featured Image, Cover Image, Short Description, Date, Author, PDF, Topics, Featured</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد حقل Executive Summary منفصل في Dashboard</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد نظام Supporting Article مرتبط بكل White Paper (Executive Summary / Editorial Introduction)</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد حقل Related Article ولا حقل Tags</span></div>
+    </div>
+  </div>
+
+  <!-- Items 20-23 CIO Flash -->
+  <div class="item-card" style="border-color: #f59e0b;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle" style="font-size:7pt;">20-23</span></div>
+      <div class="item-header-main">
+        <div class="item-title">إنشاء نظام CIO Flash (Monthly Audio Insight) + Transcript</div>
+        <div class="item-badges">
+          <span class="badge badge-partial">⚠️ جزئي</span>&nbsp;
+          <span class="badge badge-high">أولوية عالية</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">CioFlash Model + Migration + CioFlashResource + Archive/Individual pages: موجودة</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">الحقول الموجودة: Episode Title, Publication Date, Audio File, Description, Featured Image, Featured</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">الحقول الناقصة: Episode Number, Duration, Speaker Position, Key Topics</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">Transcript: غائب تماماً (مهم جداً للـ SEO والـ Accessibility وفهرسة المحتوى الصوتي)</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد حقل Related Articles لربط الحلقة بالمقالات ذات الصلة</span></div>
+    </div>
+  </div>
+
+  <!-- Items 24-25 Blogs -->
+  <div class="item-card" style="border-color: #f59e0b;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle" style="font-size:7pt;">24-25</span></div>
+      <div class="item-header-main">
+        <div class="item-title">تطوير نظام Blogs + حقول Related Content</div>
+        <div class="item-badges">
+          <span class="badge badge-partial">⚠️ جزئي</span>&nbsp;
+          <span class="badge badge-med">أولوية متوسطة</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">Blog Model + Migration + BlogResource + Archive/Individual pages: موجودة وعاملة</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">الحقول الموجودة: Title, Slug, Featured Image, Excerpt, Content, Author, Date, Category, Featured</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">الحقول الناقصة: Reading Time, External Sources</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">Related Content الناقص: Related White Paper, Related CIO Flash, Related Monday Window</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-note">⚠</span><span class="detail-text text-note">الرابط الحالي /blog يجب توحيده ليصبح /resources-center/blogs/</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════ PAGE 6: RESOURCES CENTER (26–35) ═══ -->
+<div class="page">
+  <div class="page-top-bar"></div>
+  <div class="page-header">
+    <span class="page-header-left">Hauberk Capital — تقرير مقارنة المتطلبات مقابل التنفيذ</span>
+    <span class="page-header-right">صفحة 6</span>
+  </div>
+
+  <div class="section-title">ثانياً: تطوير Resources Center (26–35)</div>
+
+  <!-- Items 26-29 Monday Window -->
+  <div class="item-card" style="border-color: #ef4444;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle" style="font-size:7pt;">26-29</span></div>
+      <div class="item-header-main">
+        <div class="item-title">إنشاء نظام Monday Window كـ Weekly Intelligence Dashboard</div>
+        <div class="item-badges">
+          <span class="badge badge-missing">❌ غير مكتمل</span>&nbsp;
+          <span class="badge badge-high">أولوية عالية</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">MondayWindow Model + Migration + Resource + Archive/Individual pages: موجودة (بشكل أساسي)</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">الصفحة ليست مطوّرة كـ "Weekly Intelligence Dashboard" — مجرد قائمة محتوى بسيطة</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">الأقسام الديناميكية غائبة: Global Markets, GCC Markets, Macroeconomy, Geopolitical Developments, What Investors Should Watch</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">الحقول الناقصة: Week Date, Short Summary, Market Topics (repeater), External Sources, Related Articles</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">إدارة الأقسام من CMS غير موجودة — النظام يحتاج إعادة بناء كاملة</span></div>
+    </div>
+  </div>
+
+  <!-- Items 30-34 Research -->
+  <div class="item-card" style="border-color: #f59e0b;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle" style="font-size:7pt;">30-34</span></div>
+      <div class="item-header-main">
+        <div class="item-title">إنشاء نظام Research مع التحميل المحمي بالنموذج</div>
+        <div class="item-badges">
+          <span class="badge badge-partial">⚠️ جزئي</span>&nbsp;
+          <span class="badge badge-high">أولوية عالية</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">Research Model + Migration + ResearchResource + Archive/Individual pages: موجودة</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">الحقول الموجودة: Title, Slug, Cover Image, Short Description, Research Type, Date, PDF, Author, Topics, Featured</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">ResearchDownload Model موجود لتسجيل التحميلات</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا يوجد حقل Form Required (toggle لتفعيل/تعطيل بوابة النموذج)</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">نموذج التحميل غير مكتمل في الواجهة (First Name, Last Name, Business Email, Company, Job Title, Country, Phone)</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا توجد صفحة Thank You مع "Download Report" button</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">ملف PDF غير محمي — يمكن الوصول إليه مباشرة عبر الرابط بدون تسجيل</span></div>
+    </div>
+  </div>
+
+  <!-- Item 35 -->
+  <div class="item-card" style="border-color: #10b981;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle">35</span></div>
+      <div class="item-header-main">
+        <div class="item-title">إنشاء Custom Post Types Architecture</div>
+        <div class="item-badges">
+          <span class="badge badge-done">✅ مكتمل</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">كل نوع محتوى يمتلك: Model مستقل، Migration، Filament Resource، Archive/Individual Pages، URL Structure، SEO Data</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-done">✓</span><span class="detail-text text-found">البنية منطقية ومنظمة جيداً وقابلة للتوسع مستقبلاً</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-note">⚠</span><span class="detail-text text-note">Schema مخصص لكل نوع محتوى ناقص (WhitePaper, CioFlash, Research, MondayWindow) — راجع البند 13</span></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- QA -->
+  <div class="item-card" style="border-color: #ef4444;">
+    <div class="item-card-header">
+      <div class="item-header-num"><span class="num-circle" style="font-size:8pt;">QA</span></div>
+      <div class="item-header-main">
+        <div class="item-title">عاشراً: الاختبار وضمان الجودة</div>
+        <div class="item-badges">
+          <span class="badge badge-missing">❌ غير موجود</span>&nbsp;
+          <span class="badge badge-high">أولوية عالية</span>
+        </div>
+      </div>
+    </div>
+    <div class="item-body">
+      <div class="detail-row"><span class="detail-bullet bullet-missing">✗</span><span class="detail-text text-missing">لا توجد خطة اختبار رسمية أو Test Suite</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-note">→</span><span class="detail-text">معظم بنود الاختبار (hreflang, Canonical, Redirects, Audio Player, Transcript, Research Form) لا يمكن اختبارها قبل تطبيق الميزات الناقصة</span></div>
+      <div class="detail-row"><span class="detail-bullet bullet-note">→</span><span class="detail-text">التصميم المتجاوب على Desktop/Tablet/Mobile يحتاج اختباراً لكل نوع محتوى بعد اكتمال التطوير</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════ PAGE 7: PRIORITY PLAN ═══ -->
+<div class="page">
+  <div class="page-top-bar"></div>
+  <div class="page-header">
+    <span class="page-header-left">Hauberk Capital — تقرير مقارنة المتطلبات مقابل التنفيذ</span>
+    <span class="page-header-right">صفحة 7</span>
+  </div>
+
+  <div class="section-title">خطة التنفيذ المقترحة حسب الأولوية</div>
+
+  <!-- HIGH -->
+  <div class="priority-group">
+    <div class="priority-header-red">🔴 أولوية عالية — يجب البدء فوراً</div>
+    <div class="priority-body">
+      <div class="priority-item">
+        <span class="p-bullet" style="color:#ef4444;">1.</span>
+        <span class="p-text"><strong style="color:#ef4444;">نظام Redirects الكامل:</strong> إنشاء Redirect Model + migration + Filament Resource + Middleware يمر على الجدول ويطبّق 301/302 مع حماية من الـ Loops والتكرار</span>
+      </div>
+      <div class="priority-item">
+        <span class="p-bullet" style="color:#ef4444;">2.</span>
+        <span class="p-text"><strong style="color:#ef4444;">روابط /ar/ للغة العربية:</strong> إضافة Route Group مع prefix('ar') وLocale middleware، وإضافة hreflang tags في &lt;head&gt; لربط النسختين</span>
+      </div>
+      <div class="priority-item">
+        <span class="p-bullet" style="color:#ef4444;">3.</span>
+        <span class="p-text"><strong style="color:#ef4444;">Lazy Loading للصور:</strong> إضافة loading="lazy" على جميع &lt;img&gt; خارج الـ hero في كل قوالب blade</span>
+      </div>
+      <div class="priority-item">
+        <span class="p-bullet" style="color:#ef4444;">4.</span>
+        <span class="p-text"><strong style="color:#ef4444;">Monday Window كـ Weekly Dashboard:</strong> إعادة بناء الصفحة بأقسام ديناميكية من CMS (Global Markets, GCC Markets, Macroeconomy, Geopolitical, What Investors Should Watch)</span>
+      </div>
+      <div class="priority-item">
+        <span class="p-bullet" style="color:#ef4444;">5.</span>
+        <span class="p-text"><strong style="color:#ef4444;">Research Download المحمي:</strong> نموذج كامل مع validation، صفحة Thank You، وحماية ملف PDF من التحميل المباشر</span>
+      </div>
+      <div class="priority-item">
+        <span class="p-bullet" style="color:#ef4444;">6.</span>
+        <span class="p-text"><strong style="color:#ef4444;">srcset وsizes للصور:</strong> تطبيق الصور المتجاوبة عبر srcset لتحسين الأداء على جميع الأجهزة</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEDIUM -->
+  <div class="priority-group">
+    <div class="priority-header-yellow">🟡 أولوية متوسطة — Sprint التالي</div>
+    <div class="priority-body">
+      <div class="priority-item">
+        <span class="p-bullet" style="color:#f59e0b;">7.</span>
+        <span class="p-text">إضافة حقل <strong>publish_time</strong> (TimePicker) في جميع موارد Filament لأنواع المحتوى</span>
+      </div>
+      <div class="priority-item">
+        <span class="p-bullet" style="color:#f59e0b;">8.</span>
+        <span class="p-text">إضافة <strong>SeoTab</strong> لـ HomeResource وServicesResource في Filament</span>
+      </div>
+      <div class="priority-item">
+        <span class="p-bullet" style="color:#f59e0b;">9.</span>
+        <span class="p-text">إضافة حقول <strong>image_title_en/ar</strong> في النماذج والموارد وإخراج title="..." في وسوم img</span>
+      </div>
+      <div class="priority-item">
+        <span class="p-bullet" style="color:#f59e0b;">10.</span>
+        <span class="p-text">إصلاح <strong>serviceSection.blade.php</strong> القديم + إصلاح fallback في CTA section بمركز الموارد عند كون النص العربي فارغاً</span>
+      </div>
+      <div class="priority-item">
+        <span class="p-bullet" style="color:#f59e0b;">11.</span>
+        <span class="p-text">إكمال حقول <strong>CIO Flash الناقصة:</strong> Episode Number, Duration, Speaker Position, Key Topics, Transcript, Related Articles</span>
+      </div>
+      <div class="priority-item">
+        <span class="p-bullet" style="color:#f59e0b;">12.</span>
+        <span class="p-text">إكمال حقول <strong>Blogs الناقصة:</strong> Reading Time, External Sources, Related White Paper / CIO Flash / Monday Window</span>
+      </div>
+      <div class="priority-item">
+        <span class="p-bullet" style="color:#f59e0b;">13.</span>
+        <span class="p-text">إكمال <strong>White Papers:</strong> إضافة Executive Summary, Supporting Article (علاقة), Related Article, Tags</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOW -->
+  <div class="priority-group">
+    <div class="priority-header-green">🟢 تحسين إضافي — منخفضة الأولوية</div>
+    <div class="priority-body">
+      <div class="priority-item">
+        <span class="p-bullet" style="color:#10b981;">14.</span>
+        <span class="p-text">إضافة Schema مخصص: <strong>WhitePaper → Report</strong>, <strong>CioFlash → Article+AudioObject</strong>, <strong>Research → Report</strong>, <strong>MondayWindow → Article</strong></span>
+      </div>
+      <div class="priority-item">
+        <span class="p-bullet" style="color:#10b981;">15.</span>
+        <span class="p-text">توحيد رابط البلوج ليصبح <strong>/resources-center/blogs/</strong> بدلاً من /blog</span>
+      </div>
+      <div class="priority-item">
+        <span class="p-bullet" style="color:#10b981;">16.</span>
+        <span class="p-text">تطبيق <strong>WebP + Image Optimisation pipeline</strong> (مثل spatie/laravel-image-optimizer)</span>
+      </div>
+      <div class="priority-item">
+        <span class="p-bullet" style="color:#10b981;">17.</span>
+        <span class="p-text">إضافة <strong>HTML Sanitization</strong> صريح لحقول المحتوى لضمان أمان الموقع من XSS</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
