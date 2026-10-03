@@ -2,8 +2,8 @@
     $isArabic = app()->getLocale() === 'ar';
 @endphp
 
-<div style="background-color: #F5F5F0; border-top: 1px solid #e5e7eb;">
-    <div style="max-width: 1300px; margin: 0 auto; padding: 1.25rem 2rem;">
+<div style="background-color: #F5F5F0; border-top: 1px solid #e5e7eb; width: 100%; box-sizing: border-box;">
+    <div style="max-width: 1300px; margin: 0 auto; padding: 1.25rem 2rem; box-sizing: border-box;">
         <p style="
             font-family: 'Poppins', sans-serif !important;
             font-size: 0.8125rem !important;
