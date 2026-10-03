@@ -59,7 +59,7 @@
                     </span>
                 @endif
 
-                <h1 class="font-neue-extrabold text-gray-900 mb-4 {{ $alignmentClass }}" style="font-size: 18px; line-height: 1.3;">{{ $title }}</h1>
+                <h1 class="article-title font-neue-extrabold text-gray-900 mb-4 {{ $alignmentClass }}">{{ $title }}</h1>
 
                 {{-- Speaker --}}
                 @if($speaker)
