@@ -83,7 +83,7 @@
             <div class="text-[25px] text-[#041B44] leading-[74px] font-['Poppins'] {{ $alignmentClass }}">
                 {{ $blog->created_at->translatedFormat($isArabic ? 'j F Y' : 'F j, Y') }}
             </div>
-            <h1 class="text-base sm:text-xl md:text-2xl lg:text-3xl leading-[1.3] font-['Poppins'] font-bold text-[#041B44] mb-8 {{ $alignmentClass }}">{{ $pageH1 }}</h1>
+            <h1 class="text-sm sm:text-base md:text-lg lg:text-xl leading-[1.3] font-['Poppins'] font-bold text-[#041B44] mb-8 {{ $alignmentClass }}">{{ $pageH1 }}</h1>
             <div class="prose max-w-none text-gray-800 mb-8 {{ $alignmentClass }}" dir="{{ $pageDirection }}">
                 <div class="text-[#041B44] font-['Poppins'] text-[15px] leading-relaxed">{!! $localize($blog->content_en ?? null, $blog->content_ar ?? null) ?? $blog->content !!}</div>
             </div>

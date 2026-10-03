@@ -59,7 +59,7 @@
                     </span>
                 @endif
 
-                <h1 class="text-base sm:text-xl md:text-2xl lg:text-3xl leading-[1.3] font-neue-extrabold text-gray-900 mb-4 {{ $alignmentClass }}">{{ $title }}</h1>
+                <h1 class="text-sm sm:text-base md:text-lg lg:text-xl leading-[1.3] font-neue-extrabold text-gray-900 mb-4 {{ $alignmentClass }}">{{ $title }}</h1>
 
                 {{-- Speaker --}}
                 @if($speaker)
