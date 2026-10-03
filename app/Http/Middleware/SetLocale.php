@@ -11,20 +11,16 @@ use Symfony\Component\HttpFoundation\Response;
 class SetLocale
 {
     /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * Determine locale purely from the URL prefix.
+     * /ar/* → Arabic, everything else → English.
+     * No session involved — the URL is the single source of truth.
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // If the URL starts with /ar, the SetLocaleFromUrl middleware handles it.
-        // For all other URLs (English routes), force locale to 'en' and clear
-        // any stale Arabic session value so switching back to EN always works.
-        if (!$request->is('ar') && !$request->is('ar/*')) {
-            App::setLocale('en');
-            Session::put('locale', 'en');
+        if ($request->is('ar') || $request->is('ar/*')) {
+            App::setLocale('ar');
         } else {
-            App::setLocale(Session::get('locale', config('app.locale')));
+            App::setLocale('en');
         }
 
         return $next($request);
