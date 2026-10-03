@@ -69,12 +69,12 @@
         $heroImageAlt = $blog->featured_image ? $featuredAlt : $blog->title;
     @endphp
     <div class="px-4">
-        <div
-            class="rounded w-full h-[500px] bg-contain bg-center bg-no-repeat mb-6"
-            style="background-image: url('{{ $heroImage }}');"
-            role="img"
-            aria-label="{{ $heroImageAlt }}"
-        ></div>
+        <img
+            src="{{ $heroImage }}"
+            alt="{{ $heroImageAlt }}"
+            class="rounded w-full object-cover mb-6 max-h-[500px] h-auto"
+            loading="eager"
+        />
     </div>
     
     <div class="container mx-auto px-4 flex flex-col lg:flex-row gap-8 {{ $reverseFlexClass }}">
@@ -83,7 +83,7 @@
             <div class="text-[25px] text-[#041B44] leading-[74px] font-['Poppins'] {{ $alignmentClass }}">
                 {{ $blog->created_at->translatedFormat($isArabic ? 'j F Y' : 'F j, Y') }}
             </div>
-            <h1 class="text-[26px] md:text-[28px] lg:text-[30px] leading-[1.25] font-['Poppins'] font-bold text-[#041B44] mb-8 {{ $alignmentClass }}">{{ $pageH1 }}</h1>
+            <h1 class="text-xl sm:text-2xl md:text-3xl leading-[1.25] font-['Poppins'] font-bold text-[#041B44] mb-8 {{ $alignmentClass }}">{{ $pageH1 }}</h1>
             <div class="prose max-w-none text-gray-800 mb-8 {{ $alignmentClass }}" dir="{{ $pageDirection }}">
                 <div class="text-[#041B44] font-['Poppins'] text-[15px] leading-relaxed">{!! $localize($blog->content_en ?? null, $blog->content_ar ?? null) ?? $blog->content !!}</div>
             </div>

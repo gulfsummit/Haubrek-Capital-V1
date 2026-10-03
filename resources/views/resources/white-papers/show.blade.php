@@ -43,12 +43,12 @@
 {{-- Main Content --}}
 <section class="container mx-auto bg-white pt-8" dir="{{ $pageDirection }}">
     <div class="px-4">
-        <div
-            class="rounded w-full h-[500px] bg-contain bg-center bg-no-repeat mb-6"
-            style="background-image: url('{{ $heroImage }}');"
-            role="img"
-            aria-label="{{ $heroImageAlt }}"
-        ></div>
+        <img
+            src="{{ $heroImage }}"
+            alt="{{ $heroImageAlt }}"
+            class="rounded w-full object-cover mb-6 max-h-[500px] h-auto"
+            loading="eager"
+        />
     </div>
     <div class="container mx-auto px-4">
         <div class="flex flex-col lg:flex-row gap-10 {{ $isArabic ? 'lg:flex-row-reverse' : '' }}">
@@ -63,7 +63,7 @@
                     </div>
                 @endif
 
-                <h1 class="text-3xl md:text-4xl font-neue-extrabold text-gray-900 mb-4 {{ $alignmentClass }}">{{ $title }}</h1>
+                <h1 class="text-xl sm:text-2xl md:text-3xl font-neue-extrabold text-gray-900 mb-4 {{ $alignmentClass }}">{{ $title }}</h1>
 
                 {{-- Meta --}}
                 <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-6 {{ $alignmentClass }}">
