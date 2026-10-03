@@ -56,7 +56,7 @@
                     <span class="inline-block text-xs font-semibold text-[#b8962e] bg-[#D4AF37]/10 px-3 py-1 rounded mb-3">{{ $resType }}</span>
                 @endif
 
-                <h1 class="text-sm sm:text-base md:text-lg lg:text-xl leading-[1.3] font-neue-extrabold text-gray-900 mb-4 {{ $alignmentClass }}">{{ $title }}</h1>
+                <h1 class="font-neue-extrabold text-gray-900 mb-4 {{ $alignmentClass }}" style="font-size: clamp(1rem, 2.5vw, 1.4rem); line-height: 1.3;">{{ $title }}</h1>
 
                 <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-6">
                     @if($author)
