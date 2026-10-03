@@ -678,6 +678,12 @@
         'cio-flash.show',
         'monday-window.show',
         'research.show',
+        'ar.blog.show',
+        'ar.case-studies.show',
+        'ar.white-papers.show',
+        'ar.cio-flash.show',
+        'ar.monday-window.show',
+        'ar.research.show',
     ]);
 @endphp
 <body class="{{ $hasWhitePageBackground ? 'bg-white' : 'bg-[#041B44]' }}">

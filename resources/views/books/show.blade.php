@@ -66,7 +66,7 @@
 </section>
 
 <!-- Main Content Area -->
-<section class="container mx-auto bg-white pt-8" dir="{{ $pageDirection }}">
+<section class="w-full bg-white pt-8" dir="{{ $pageDirection }}"><div class="container mx-auto">
     <div class="px-4">
         <img loading="lazy" src="{{ $book['main_image_book']->first() ?? asset('images/default.jpg') }}" alt="{{ $bookTitle }}" class="rounded lg:w-[75%] h-[500px] object-cover mb-6">
     </div>

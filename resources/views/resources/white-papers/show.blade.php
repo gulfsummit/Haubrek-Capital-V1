@@ -41,7 +41,7 @@
 </section>
 
 {{-- Main Content --}}
-<section class="container mx-auto bg-white pt-8" dir="{{ $pageDirection }}">
+<section class="w-full bg-white pt-8" dir="{{ $pageDirection }}"><div class="container mx-auto">
     <div class="px-4">
         <img
             src="{{ $heroImage }}"

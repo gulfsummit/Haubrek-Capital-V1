@@ -61,7 +61,7 @@
 </section>
 
 <!-- Main Content Area -->
-<section class="container mx-auto bg-white pt-8" dir="{{ $pageDirection }}">
+<section class="w-full bg-white pt-8" dir="{{ $pageDirection }}"><div class="container mx-auto">
     @php
         $featuredAlt = $localize($caseStudy->featured_image_alt_en ?? null, $caseStudy->featured_image_alt_ar ?? null) ?? strip_tags($caseStudy->title);
         $pageH1 = isset($seoMeta) ? ($localize($seoMeta->h1_en ?? null, $seoMeta->h1_ar ?? null) ?? strip_tags($caseStudy->title)) : strip_tags($caseStudy->title);
