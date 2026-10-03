@@ -182,15 +182,15 @@
 
 <style>
 h1.article-title {
-    font-size: 1.25rem !important;
+    font-size: 1.5rem !important;
     line-height: 1.4 !important;
     font-weight: 700 !important;
 }
 @media (min-width: 768px) {
-    h1.article-title { font-size: 1.5rem !important; }
+    h1.article-title { font-size: 1.75rem !important; }
 }
 @media (min-width: 1024px) {
-    h1.article-title { font-size: 1.75rem !important; }
+    h1.article-title { font-size: 2rem !important; }
 }
 </style>
 
