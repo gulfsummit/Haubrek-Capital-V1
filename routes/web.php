@@ -30,6 +30,13 @@ Route::get('lang/{locale}', function ($locale) {
 Route::get('/sitemap.xml', [FrontendController::class, 'sitemap'])->name('sitemap');
 Route::get('/robots.txt', [FrontendController::class, 'robots'])->name('robots');
 
+Route::get('/sitemap.xml', function () {
+    SitemapGenerator::create('https://hauberkcapital.com')->writeToFile(public_path('sitemap-static.xml'));
+    return response()->file(public_path('sitemap-static.xml'), [
+        'Content-Type' => 'application/xml',
+    ]);
+});
+
 Route::get('/',[FrontendController::class,'home'])->name('home');
 Route::get('/board-of-directors',[FrontendController::class,'board_of_directors'])->name('board_of_directors');
 Route::get('/app',[FrontendController::class,'app'])->name('app');
