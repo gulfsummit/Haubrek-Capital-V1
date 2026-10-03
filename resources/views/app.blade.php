@@ -693,6 +693,22 @@
     <!-- Main Content -->
     @yield('content')
 
+    <!-- Disclaimer - Resource Center pages only -->
+    @if(request()->routeIs([
+        'blog', 'blog.show',
+        'white-papers', 'white-papers.show',
+        'cio-flash', 'cio-flash.show',
+        'monday-window', 'monday-window.show',
+        'research', 'research.show',
+        'ar.blog', 'ar.blog.show',
+        'ar.white-papers', 'ar.white-papers.show',
+        'ar.cio-flash', 'ar.cio-flash.show',
+        'ar.monday-window', 'ar.monday-window.show',
+        'ar.research', 'ar.research.show',
+    ]))
+        @include('partials.disclaimer')
+    @endif
+
     <!-- Footer -->
     @include('layouts.footer')
 
