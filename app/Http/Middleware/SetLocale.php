@@ -17,7 +17,16 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        App::setLocale(Session::get('locale', config('app.locale')));
-    return $next($request);
+        // If the URL starts with /ar, the SetLocaleFromUrl middleware handles it.
+        // For all other URLs (English routes), force locale to 'en' and clear
+        // any stale Arabic session value so switching back to EN always works.
+        if (!$request->is('ar') && !$request->is('ar/*')) {
+            App::setLocale('en');
+            Session::put('locale', 'en');
+        } else {
+            App::setLocale(Session::get('locale', config('app.locale')));
+        }
+
+        return $next($request);
     }
 }
