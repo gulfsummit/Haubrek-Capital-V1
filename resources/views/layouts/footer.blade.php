@@ -414,6 +414,23 @@
                     </div>
                 </div>
                 @endif
+
+                <!-- Client Hub - Mobile Only -->
+                @php
+                    $ctaUrl = (isset($websiteSettings) && $websiteSettings->header_cta_url) ? $websiteSettings->header_cta_url : 'https://hauberkcapital.moxo.com/web/910';
+                    $ctaText = (isset($websiteSettings) && $websiteSettings->header_cta_text)
+                        ? (app()->getLocale() == 'ar' ? ($websiteSettings->header_cta_text_ar ?? $websiteSettings->header_cta_text) : $websiteSettings->header_cta_text)
+                        : (app()->getLocale() == 'ar' ? 'مركز العملاء' : "CLIENT'S HUB");
+                    $ctaBg = (isset($websiteSettings) && $websiteSettings->header_cta_background_color) ? $websiteSettings->header_cta_background_color : '#D4AF37';
+                    $ctaColor = (isset($websiteSettings) && $websiteSettings->header_cta_text_color) ? $websiteSettings->header_cta_text_color : '#FFFFFF';
+                @endphp
+                <div class="border-b border-[#1A2F57] py-4">
+                    <a href="{{ $ctaUrl }}" target="_blank" rel="noopener noreferrer"
+                       class="inline-block px-6 py-3 rounded-[10px] font-neue-extrabold text-sm w-full text-center"
+                       style="background-color: {{ $ctaBg }}; color: {{ $ctaColor }};">
+                        {{ $ctaText }}
+                    </a>
+                </div>
             </div>
 
             <!-- Desktop footer -->
@@ -548,6 +565,26 @@
                         </div>
                     </div>
                     @endif
+
+                    <!-- Client Hub Section -->
+                    @php
+                        $ctaUrl = (isset($websiteSettings) && $websiteSettings->header_cta_url) ? $websiteSettings->header_cta_url : 'https://hauberkcapital.moxo.com/web/910';
+                        $ctaText = (isset($websiteSettings) && $websiteSettings->header_cta_text)
+                            ? (app()->getLocale() == 'ar' ? ($websiteSettings->header_cta_text_ar ?? $websiteSettings->header_cta_text) : $websiteSettings->header_cta_text)
+                            : (app()->getLocale() == 'ar' ? 'مركز العملاء' : "CLIENT'S HUB");
+                        $ctaBg = (isset($websiteSettings) && $websiteSettings->header_cta_background_color) ? $websiteSettings->header_cta_background_color : '#D4AF37';
+                        $ctaColor = (isset($websiteSettings) && $websiteSettings->header_cta_text_color) ? $websiteSettings->header_cta_text_color : '#FFFFFF';
+                    @endphp
+                    <div class="mt-4">
+                        <div class="text-base font-sf-pro-medium mb-2" style="color: {{ $footer['accent_color'] }};">
+                            {{ app()->getLocale() == 'ar' ? 'مركز العملاء' : "Client Hub" }}
+                        </div>
+                        <a href="{{ $ctaUrl }}" target="_blank" rel="noopener noreferrer"
+                           class="inline-block px-6 py-3 rounded-[10px] font-neue-extrabold text-sm"
+                           style="background-color: {{ $ctaBg }}; color: {{ $ctaColor }};">
+                            {{ $ctaText }}
+                        </a>
+                    </div>
                 </div>
                 @endif
             </div>

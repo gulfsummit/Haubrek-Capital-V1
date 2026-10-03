@@ -297,17 +297,7 @@
                             </div>
                             @endif
 
-                            @if(isset($websiteSettings) && $websiteSettings->header_cta_text && $websiteSettings->header_cta_url)
-                            <li class="nav-header-flex desktop-text-ltr">
-                                <a href="{{ $websiteSettings->header_cta_url }}" target="_blank" rel="noopener noreferrer"
-                                   class="px-4 py-2 text-[0.8rem] sm:text-[0.875rem] xl:text-[0.973rem] hidden lg:block rounded-[10px] font-neue-extrabold inline-block nav-header-flex desktop-text-ltr"
-                                   style="background-color: {{ $websiteSettings->header_cta_background_color }}; color: {{ $websiteSettings->header_cta_text_color }};">
-                                    {{ app()->getLocale() == 'ar' ? ($websiteSettings->header_cta_text_ar ?? $websiteSettings->header_cta_text) : $websiteSettings->header_cta_text }}
-                                </a>
-                            </li>
-                            @else
-                            <li class="nav-header-flex desktop-text-ltr"><a href="https://hauberkcapital.moxo.com/web/910" target="_blank" rel="noopener noreferrer" class="bg-[#D4AF37] text-white px-4 py-2 text-[0.8rem] sm:text-[0.875rem] xl:text-[0.973rem] hidden lg:block rounded-[10px] font-neue-extrabold inline-block nav-header-flex desktop-text-ltr">{{ app()->getLocale() == 'ar' ? 'مركز العملاء' : 'CLIENT\'S HUB' }}</a></li>
-                            @endif
+
                         </ul>
                     </div>
                 </div>
@@ -422,17 +412,7 @@
                         </div>
                         @endif
 
-                        @if(isset($websiteSettings) && $websiteSettings->header_cta_text && $websiteSettings->header_cta_url)
-                        <li>
-                            <a href="{{ $websiteSettings->header_cta_url }}" target="_blank" rel="noopener noreferrer"
-                               class="px-4 py-2 rounded-[10px] w-full font-neue-extrabold text-center block"
-                               style="background-color: {{ $websiteSettings->header_cta_background_color }}; color: {{ $websiteSettings->header_cta_text_color }};">
-                                {{ app()->getLocale() == 'ar' ? ($websiteSettings->header_cta_text_ar ?? $websiteSettings->header_cta_text) : $websiteSettings->header_cta_text }}
-                            </a>
-                        </li>
-                        @else
-                        <li><a href="https://hauberkcapital.moxo.com/web/910" target="_blank" rel="noopener" class="bg-[#D4AF37] text-white px-4 py-2 rounded-[10px] w-full font-neue-extrabold text-center block">{{ app()->getLocale() == 'ar' ? 'مركز العملاء' : 'CLIENT\'S HUB' }}</a></li>
-                        @endif
+
                     </ul>
                 </div>
             </div>
